@@ -20,7 +20,7 @@ export const colors = {
   // Hormigas (verde)
   hormigas: "#7BC441",
   hormigasLight: "#F0FAF0",
-  homigasS: "#4A7A1E",
+  hormigasS: "#4A7A1E",
 
   // Lobos (rosa)
   lobos: "#E5297E",
