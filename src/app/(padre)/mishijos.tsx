@@ -95,8 +95,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "comida_notif":
       return (
         <Svg
-          width={15}
-          height={15}
+          width={20}
+          height={20}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -109,8 +109,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "comida":
       return (
         <Svg
-          width={15}
-          height={15}
+          width={20}
+          height={20}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -123,8 +123,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "colegiatura":
       return (
         <Svg
-          width={15}
-          height={15}
+          width={20}
+          height={20}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -137,8 +137,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "calendario":
       return (
         <Svg
-          width={15}
-          height={15}
+          width={20}
+          height={20}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -152,8 +152,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "galeria":
       return (
         <Svg
-          width={15}
-          height={15}
+          width={20}
+          height={20}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -173,7 +173,7 @@ function AnimalIcon({ salon }: { salon: string }) {
   switch (salon) {
     case "abejas":
       return (
-        <Svg width={26} height={26} viewBox="0 0 48 48" fill="none">
+        <Svg width={35} height={35} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="34" rx="9" ry="12" fill="#F5C800" />
           <Rect x="15" y="29" width="18" height="4" rx="1" fill="#2D2D2D" />
           <Ellipse cx="24" cy="22" rx="8" ry="7" fill="#2D2D2D" />
@@ -198,7 +198,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "halcones":
       return (
-        <Svg width={26} height={26} viewBox="0 0 48 48" fill="none">
+        <Svg width={35} height={35} viewBox="0 0 48 48" fill="none">
           <Path d="M6 20 Q18 8 40 7 Q31 17 24 21Z" fill="#00AECC" />
           <Ellipse cx="24" cy="32" rx="10" ry="12" fill="#00AECC" />
           <Ellipse cx="7" cy="21" rx="6" ry="4" fill="#007A8F" />
@@ -206,7 +206,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "hormigas":
       return (
-        <Svg width={26} height={26} viewBox="0 0 48 48" fill="none">
+        <Svg width={35} height={35} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="36" rx="9" ry="8" fill="#7BC441" />
           <Ellipse cx="24" cy="24" rx="6" ry="6" fill="#5A9A2A" />
           <Circle cx="24" cy="13" r="7" fill="#7BC441" />
@@ -214,7 +214,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "lobos":
       return (
-        <Svg width={26} height={26} viewBox="0 0 48 48" fill="none">
+        <Svg width={35} height={35} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="32" rx="12" ry="9" fill="#E5297E" />
           <Ellipse cx="24" cy="17" rx="11" ry="10" fill="#E5297E" />
           <Path d="M14 11 L10 3 L19 9Z" fill="#A01D59" />
@@ -289,7 +289,7 @@ export default function MisHijos() {
             </Svg>
             <Text style={styles.perfilTel}>{PADRE.telefono}</Text>
           </View>
-          <View style={styles.perfilBadges}>
+          {/* <View style={styles.perfilBadges}>
             <View style={styles.badgeEscuela}>
               <Svg
                 width={10}
@@ -306,7 +306,7 @@ export default function MisHijos() {
             <View style={styles.badgeCiclo}>
               <Text style={styles.badgeCicloTxt}>{PADRE.ciclo}</Text>
             </View>
-          </View>
+          </View> */}
         </View>
 
         <Text style={styles.sep}>Mis hijos</Text>
@@ -411,8 +411,8 @@ export default function MisHijos() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={14}
-                height={14}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -424,8 +424,8 @@ export default function MisHijos() {
             </View>
             <Text style={styles.cuentaLbl}>Editar datos personales</Text>
             <Svg
-              width={14}
-              height={14}
+              width={20}
+              height={20}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -438,8 +438,8 @@ export default function MisHijos() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={14}
-                height={14}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -451,8 +451,8 @@ export default function MisHijos() {
             </View>
             <Text style={styles.cuentaLbl}>Cambiar contraseña</Text>
             <Svg
-              width={14}
-              height={14}
+              width={20}
+              height={20}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -465,8 +465,8 @@ export default function MisHijos() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={14}
-                height={14}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -478,8 +478,8 @@ export default function MisHijos() {
             </View>
             <Text style={styles.cuentaLbl}>Soporte y ayuda</Text>
             <Svg
-              width={14}
-              height={14}
+              width={20}
+              height={20}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -492,8 +492,8 @@ export default function MisHijos() {
           <TouchableOpacity style={[styles.cuentaItem, styles.cuentaItemLast]}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#FFF0F0" }]}>
               <Svg
-                width={14}
-                height={14}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.rojo}
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
   },
   titulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18,
+    fontSize: 22,
     color: colors.texto
   },
   editBtn: {
@@ -547,7 +547,7 @@ const styles = StyleSheet.create({
   },
   editTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 13,
     color: colors.halcones
   },
   scroll: { flex: 1 },
@@ -571,8 +571,8 @@ const styles = StyleSheet.create({
     marginBottom: 4
   },
   avatarCircle: {
-    width: 64,
-    height: 64,
+    width: 80,
+    height: 80,
     borderRadius: 999,
     backgroundColor: colors.lightAmarillo,
     borderWidth: 3,
@@ -587,12 +587,12 @@ const styles = StyleSheet.create({
   },
   avatarLetra: {
     fontFamily: fonts.fontBlack,
-    fontSize: 26,
+    fontSize: 29,
     color: "#7A6200"
   },
   avatarEdit: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     borderRadius: 999,
     backgroundColor: "#2D2D2D",
     borderWidth: 2,
@@ -605,13 +605,13 @@ const styles = StyleSheet.create({
   },
   perfilNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18,
+    fontSize: 22,
     color: colors.texto,
     textAlign: "center"
   },
   perfilCorreo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#AAA",
     textAlign: "center"
   },
@@ -622,45 +622,45 @@ const styles = StyleSheet.create({
   },
   perfilTel: {
     fontFamily: fonts.fontBold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#888"
   },
-  perfilBadges: {
-    flexDirection: "row",
-    gap: 6,
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginTop: 4
-  },
-  badgeEscuela: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    backgroundColor: "#F0FAF0",
-    paddingVertical: 4,
-    paddingHorizontal: 11,
-    borderRadius: radii.pill
-  },
-  badgeEscuelaTxt: {
-    fontFamily: fonts.fontExtra,
-    fontSize: 10,
-    color: "#3A7A18"
-  },
-  badgeCiclo: {
-    backgroundColor: colors.halconesLight,
-    paddingVertical: 4,
-    paddingHorizontal: 11,
-    borderRadius: radii.pill
-  },
-  badgeCicloTxt: {
-    fontFamily: fonts.fontExtra,
-    fontSize: 10,
-    color: colors.halconesS
-  },
+  // perfilBadges: {
+  //   flexDirection: "row",
+  //   gap: 6,
+  //   flexWrap: "wrap",
+  //   justifyContent: "center",
+  //   marginTop: 4
+  // },
+  // badgeEscuela: {
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   gap: 4,
+  //   backgroundColor: "#F0FAF0",
+  //   paddingVertical: 4,
+  //   paddingHorizontal: 11,
+  //   borderRadius: radii.pill
+  // },
+  // badgeEscuelaTxt: {
+  //   fontFamily: fonts.fontExtra,
+  //   fontSize: 10,
+  //   color: "#3A7A18"
+  // },
+  // badgeCiclo: {
+  //   backgroundColor: colors.halconesLight,
+  //   paddingVertical: 4,
+  //   paddingHorizontal: 11,
+  //   borderRadius: radii.pill
+  // },
+  // badgeCicloTxt: {
+  //   fontFamily: fonts.fontExtra,
+  //   fontSize: 10,
+  //   color: colors.halconesS
+  // },
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -688,8 +688,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0
   },
   hijoIcon: {
-    width: 42,
-    height: 42,
+    width: 62,
+    height: 62,
     borderRadius: 13,
     borderWidth: 2,
     alignItems: "center",
@@ -703,12 +703,12 @@ const styles = StyleSheet.create({
   hijoDatos: { flex: 1 },
   hijoNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.texto
   },
   hijoNivel: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 13,
     color: "#AAA",
     marginTop: 2
   },
@@ -723,7 +723,7 @@ const styles = StyleSheet.create({
   },
   hijoTagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 15
   },
 
   notifRow: {
@@ -744,8 +744,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   notifIcono: {
-    width: 32,
-    height: 32,
+    width: 42,
+    height: 42,
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
@@ -753,12 +753,12 @@ const styles = StyleSheet.create({
   },
   notifLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto
   },
   notifSub: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 10,
+    fontSize: 11,
     color: "#AAA",
     marginTop: 1
   },
@@ -782,8 +782,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0
   },
   cuentaIcono: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
@@ -791,7 +791,7 @@ const styles = StyleSheet.create({
   },
   cuentaLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto,
     flex: 1
   },
