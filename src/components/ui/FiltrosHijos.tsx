@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   },
   fiNombre: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#999"
   },
   fiNombreActivo: {

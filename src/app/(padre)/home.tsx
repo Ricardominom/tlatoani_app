@@ -7,7 +7,7 @@ import TabBar from "../../components/ui/TabBar";
 import { fonts } from "../../styles/global";
 
 const HIJOS = [
-  { id: "sofia", nombre: "Sofía", salon: "abejas" },
+  { id: "victoria", nombre: "Victoria", salon: "abejas" },
   { id: "diego", nombre: "Diego", salon: "halcones" }
 ];
 
@@ -81,7 +81,7 @@ export default function Home() {
   const cardsFiltradas = CARDS.filter((card) => {
     if (filtroActivo === "todos") return true;
     if (filtroActivo === "escuela") return card.tag.tipo === "general";
-    if (filtroActivo === "sofia") return card.tag.tipo === "abejas";
+    if (filtroActivo === "victoria") return card.tag.tipo === "abejas";
     if (filtroActivo === "diego") return card.tag.tipo === "halcones";
     return true;
   });
