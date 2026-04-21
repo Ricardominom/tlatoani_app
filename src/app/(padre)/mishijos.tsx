@@ -27,8 +27,8 @@ import {
 
 const PADRE = {
   inicial: "R",
-  nombre: "Familia Ramírez",
-  correo: "carlos.ramirez@gmail.com",
+  nombre: "Familia Mino",
+  correo: "rdmm.291191@gmail.com",
   telefono: "222 345 6789",
   escuela: "Tlatoani Montessori",
   ciclo: "Ciclo 2025–2026"
@@ -37,14 +37,14 @@ const PADRE = {
 const HIJOS = [
   {
     id: "victoria",
-    nombre: "Victoria Ramírez",
+    nombre: "Victoria Mino",
     salon: "abejas",
     nivel: "Casa de niños",
     edad: "4 años"
   },
   {
     id: "diego",
-    nombre: "Diego Ramírez",
+    nombre: "Diego Mino",
     salon: "halcones",
     nivel: "Taller 1",
     edad: "7 años"
