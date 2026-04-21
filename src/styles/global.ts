@@ -68,11 +68,36 @@ export const spacing = {
 
 // Color por grupo para cualquier componente que use el salón
 export const grupoColors = {
-  pollitos: { base: "#F5C800", light: "#FFFBE6", dark: "#B89600" },
-  abejas: { base: "#F5C800", light: "#FFFBE6", dark: "#B89600" },
-  hormigas: { base: "#7BC441", light: "#F0FAF0", dark: "#4A7A1E" },
-  halcones: { base: "#00AECC", light: "#E8F8FC", dark: "#007A8F" },
-  lobos: { base: "#E5297E", light: "#FDF0F8", dark: "#A01D59" }
+  pollitos: {
+    base: "#F5C800",
+    light: "#FFFBE6",
+    dark: "#B89600",
+    textColor: "#5A4800"
+  },
+  abejas: {
+    base: "#F5C800",
+    light: "#FFFBE6",
+    dark: "#B89600",
+    textColor: "#5A4800"
+  },
+  hormigas: {
+    base: "#7BC441",
+    light: "#F0FAF0",
+    dark: "#4A7A1E",
+    textColor: "#fff"
+  },
+  halcones: {
+    base: "#00AECC",
+    light: "#E8F8FC",
+    dark: "#007A8F",
+    textColor: "#fff"
+  },
+  lobos: {
+    base: "#E5297E",
+    light: "#FDF0F8",
+    dark: "#A01D59",
+    textColor: "#fff"
+  }
 };
 
 export const styles = StyleSheet.create({

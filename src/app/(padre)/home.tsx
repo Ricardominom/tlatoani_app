@@ -77,7 +77,6 @@ const CARDS = [
 
 export default function Home() {
   const [filtroActivo, setFiltroActivo] = useState("todos");
-  const [tabActivo, setTabActivo] = useState("inicio");
 
   const cardsFiltradas = CARDS.filter((card) => {
     if (filtroActivo === "todos") return true;
@@ -152,7 +151,7 @@ export default function Home() {
         ))}
       </ScrollView>
 
-      <TabBar tabActivo={tabActivo} onTabPress={setTabActivo} />
+      <TabBar />
     </View>
   );
 }

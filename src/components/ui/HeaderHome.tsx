@@ -17,7 +17,7 @@ export default function HeaderHome({
     <View style={styles.contenedor}>
       <View style={styles.filaSuperior}>
         <View style={styles.logoRow}>
-          <Svg width={30} height={30} viewBox="0 0 100 100">
+          <Svg width={45} height={45} viewBox="0 0 100 100">
             <Circle
               cx="50"
               cy="50"
@@ -55,8 +55,8 @@ export default function HeaderHome({
           activeOpacity={0.7}
         >
           <Svg
-            width={16}
-            height={16}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.card,
     paddingHorizontal: spacing.lg,
     paddingTop: 52,
-    paddingBottom: 0,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#F0F0F0"
+    paddingBottom: 0
+    // borderBottomWidth: 0.5,
+    // borderBottomColor: "#F0F0F0"
   },
   filaSuperior: {
     flexDirection: "row",
@@ -97,19 +97,19 @@ const styles = StyleSheet.create({
   },
   logoColegio: {
     fontFamily: fonts.fontBold,
-    fontSize: 7,
+    fontSize: 9,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase"
   },
   logoTlatoani: {
     fontFamily: fonts.fontExtra,
-    fontSize: 14,
+    fontSize: 16,
     color: colors.texto
   },
   notifBtn: {
-    width: 33,
-    height: 33,
+    width: 45,
+    height: 45,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -131,15 +131,15 @@ const styles = StyleSheet.create({
   },
   saludoHi: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#B0B0B0",
     marginBottom: 1
   },
   saludoNombre: {
     fontFamily: fonts.fontExtra,
-    fontSize: 19,
+    fontSize: 23,
     color: colors.texto,
-    marginBottom: 12,
-    lineHeight: 22
+    marginBottom: 5,
+    lineHeight: 30
   }
 });

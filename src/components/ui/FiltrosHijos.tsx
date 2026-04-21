@@ -1,10 +1,10 @@
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    ViewStyle
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle
 } from "react-native";
 import Svg, { Circle, Ellipse, Path, Polyline, Rect } from "react-native-svg";
 import { colors, fonts, radii } from "../../styles/global";
@@ -184,20 +184,20 @@ export default function FiltrosHijos({
             <Text style={[styles.fiNombre, activo && styles.fiNombreActivo]}>
               {hijo.nombre}
             </Text>
-            <Text style={styles.fiSub}>{hijo.salon}</Text>
+            {/* <Text style={styles.fiSub}>{hijo.salon}</Text> */}
           </TouchableOpacity>
         );
       })}
 
       <TouchableOpacity
         style={styles.filtro}
-        onPress={() => onFiltroPress("escuela")}
+        onPress={() => onFiltroPress("generales")}
         activeOpacity={0.8}
       >
         <View
           style={[
             styles.fiBox,
-            filtroActivo === "escuela" && styles.fiBoxActivo
+            filtroActivo === "generales" && styles.fiBoxActivo
           ]}
         >
           <Svg
@@ -206,7 +206,7 @@ export default function FiltrosHijos({
             viewBox="0 0 24 24"
             fill="none"
             stroke={
-              filtroActivo === "escuela" ? colors.primarioAmarillo : "#999"
+              filtroActivo === "generales" ? colors.primarioAmarillo : "#999"
             }
             strokeWidth="2"
           >
@@ -216,10 +216,10 @@ export default function FiltrosHijos({
         <Text
           style={[
             styles.fiNombre,
-            filtroActivo === "escuela" && styles.fiNombreActivo
+            filtroActivo === "generales" && styles.fiNombreActivo
           ]}
         >
-          Escuela
+          Generales
         </Text>
         <Text style={styles.fiSub}>General</Text>
       </TouchableOpacity>
@@ -277,8 +277,8 @@ const styles = StyleSheet.create({
     flexShrink: 0
   },
   fiBox: {
-    width: 52,
-    height: 52,
+    width: 72,
+    height: 72,
     borderRadius: radii.md,
     alignItems: "center",
     justifyContent: "center",

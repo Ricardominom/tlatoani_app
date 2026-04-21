@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg, { Line, Rect } from "react-native-svg";
-import { colors, fonts, radii } from "../../styles/global";
+import { colors, fonts, grupoColors, radii } from "../../styles/global";
 
 export type TipoCard =
   | "aviso"
@@ -69,6 +69,21 @@ function getColorAcento(acento: ColorAcento) {
   }
 }
 
+function getColoresSalon(tipoTag: Tag["tipo"]) {
+  switch (tipoTag) {
+    case "abejas":
+      return grupoColors.abejas;
+    case "hormigas":
+      return grupoColors.hormigas;
+    case "halcones":
+      return grupoColors.halcones;
+    case "lobos":
+      return grupoColors.lobos;
+    default:
+      return grupoColors.abejas;
+  }
+}
+
 export default function FeedCard({
   tipo,
   tag,
@@ -85,6 +100,7 @@ export default function FeedCard({
 }: FeedCardProps) {
   const tagEstilo = getTagEstilo(tag.tipo);
   const colorAcento = getColorAcento(acento);
+  const coloresSalon = getColoresSalon(tag.tipo);
 
   return (
     <TouchableOpacity
@@ -121,20 +137,45 @@ export default function FeedCard({
       <Text style={styles.cuerpo}>{cuerpo}</Text>
 
       {comidaInfo && (
-        <View style={styles.comidaBlock}>
-          <Text style={styles.comidaTxt}>{comidaInfo.texto}</Text>
-          <View style={styles.comidaBadge}>
-            <Text style={styles.comidaBadgeTxt}>{comidaInfo.fecha}</Text>
+        <View
+          style={[
+            styles.comidaBlock,
+            {
+              backgroundColor: coloresSalon.light,
+              borderColor: coloresSalon.base
+            }
+          ]}
+        >
+          <Text style={[styles.comidaBadgeTxt, { color: coloresSalon.dark }]}>
+            {comidaInfo.texto}
+          </Text>
+          <View
+            style={[
+              styles.comidaBadge,
+              {
+                backgroundColor: coloresSalon.base,
+                shadowColor: coloresSalon.dark
+              }
+            ]}
+          >
+            <Text
+              style={[
+                styles.comidaBadgeTxt,
+                { color: tag.tipo === "halcones" ? "#FFF" : "#5A4800" }
+              ]}
+            >
+              {comidaInfo.fecha}
+            </Text>
           </View>
         </View>
       )}
 
       <View style={styles.cardFooter}>
-        {!leido && tipo === "aviso" && onConfirmar && (
+        {/* {!leido && tipo === "aviso" && onConfirmar && (
           <TouchableOpacity style={styles.btnConfirmar} onPress={onConfirmar}>
             <Text style={styles.btnConfirmarTxt}>Confirmar lectura</Text>
           </TouchableOpacity>
-        )}
+        )} */}
 
         {tipo === "colegiatura" && onVerCuenta && (
           <TouchableOpacity style={styles.btnPago} onPress={onVerCuenta}>
@@ -149,13 +190,28 @@ export default function FeedCard({
         )}
 
         {onAgenda && (
-          <TouchableOpacity style={styles.btnAgenda} onPress={onAgenda}>
+          <TouchableOpacity
+            style={[
+              styles.btnConfirmar,
+              {
+                backgroundColor: coloresSalon.base,
+                shadowColor: coloresSalon.dark
+              }
+            ]}
+            onPress={onAgenda}
+          >
             <Svg
-              width={10}
-              height={10}
+              width={14}
+              height={14}
               viewBox="0 0 24 24"
               fill="none"
-              stroke={colors.halcones}
+              stroke={
+                tag.tipo === "halcones" ||
+                tag.tipo === "lobos" ||
+                tag.tipo === "hormigas"
+                  ? "#fff"
+                  : "#5A4800"
+              }
               strokeWidth="2.2"
             >
               <Rect x="3" y="4" width="18" height="18" rx="2" />
@@ -163,7 +219,21 @@ export default function FeedCard({
               <Line x1="8" y1="2" x2="8" y2="6" />
               <Line x1="3" y1="10" x2="21" y2="10" />
             </Svg>
-            <Text style={styles.btnAgendaTxt}>Agregar a agenda</Text>
+            <Text
+              style={[
+                styles.btnConfirmarTxt,
+                {
+                  color:
+                    tag.tipo === "halcones" ||
+                    tag.tipo === "lobos" ||
+                    tag.tipo === "hormigas"
+                      ? "#fff"
+                      : "#5A4800"
+                }
+              ]}
+            >
+              Agregar a agenda
+            </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -177,7 +247,8 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     padding: 12,
     borderWidth: 0.5,
-    borderColor: "#EBEBEB"
+    borderColor: "#EBEBEB",
+    marginBottom: 5
   },
   cardTop: {
     flexDirection: "row",
@@ -196,22 +267,22 @@ const styles = StyleSheet.create({
   },
   tagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 16
   },
   tiempo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 12,
     color: "#C0C0C0"
   },
   titulo: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto,
     marginBottom: 3
   },
   cuerpo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 13,
     color: colors.texto2,
     lineHeight: 16
   },
@@ -253,9 +324,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 8,
-    paddingTop: 7,
-    borderTopWidth: 0.5,
-    borderTopColor: "#F5F5F5"
+    paddingTop: 7
+    // borderTopWidth: 0.5,
+    // borderTopColor: "#F5F5F5"
   },
   btnConfirmar: {
     backgroundColor: colors.primarioAmarillo,
@@ -266,11 +337,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
+    marginLeft: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5
   },
   btnConfirmarTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 12,
     color: "#5A4800"
   },
   btnPago: {
@@ -282,21 +357,23 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
+    marginLeft: "auto"
   },
   btnPagoTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 12,
     color: "#fff"
   },
   btnAgenda: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 3
+    gap: 3,
+    marginLeft: "auto"
   },
   btnAgendaTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 14,
     color: colors.halcones
   },
   leidoOk: {
