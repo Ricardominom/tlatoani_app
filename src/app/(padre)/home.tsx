@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import FeedCard from "../../components/ui/FeedCard";
 import FiltrosHijos from "../../components/ui/FiltrosHijos";
 import HeaderHome from "../../components/ui/HeaderHome";
-import TabBar from "../../components/ui/TabBar";
+import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { fonts } from "../../styles/global";
 
 const HIJOS = [

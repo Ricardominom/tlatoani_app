@@ -118,7 +118,7 @@ export default function TabBar() {
           <TouchableOpacity
             key={tab.id}
             style={styles.tab}
-            onPress={() => router.push(tab.ruta as any)}
+            onPress={() => router.replace(tab.ruta as any)}
             activeOpacity={0.7}
           >
             {tab.icon(activo)}
