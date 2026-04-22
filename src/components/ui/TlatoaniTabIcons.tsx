@@ -1,10 +1,5 @@
 import { usePathname, useRouter } from "expo-router";
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg, { Circle, Ellipse, Line, Path, Rect } from "react-native-svg";
 import { fonts } from "../../styles/global";
 
@@ -232,7 +227,7 @@ export default function TabBar() {
       {TABS.map((tab) => {
         const activo =
           pathname === tab.ruta ||
-          pathname.startsWith(tab.ruta.replace("/(padre)", ""));
+          pathname === tab.ruta.replace("/(padre)", "");
 
         return (
           <TouchableOpacity
