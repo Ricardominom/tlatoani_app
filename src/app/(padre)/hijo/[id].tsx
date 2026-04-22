@@ -23,7 +23,6 @@ import {
   spacing
 } from "../../../styles/global";
 
-// ── Mock data de hijos ──
 const HIJOS_DATA: Record<string, any> = {
   victoria: {
     nombre: "Victoria Mino",

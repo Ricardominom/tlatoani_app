@@ -38,7 +38,7 @@ function AnimalIcon({ salon }: { salon: string }) {
   switch (salon) {
     case "abejas":
       return (
-        <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="34" rx="9" ry="12" fill="#F5C800" />
           <Rect x="15" y="29" width="18" height="4" rx="1" fill="#2D2D2D" />
           <Ellipse cx="24" cy="22" rx="8" ry="7" fill="#2D2D2D" />
@@ -63,7 +63,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "halcones":
       return (
-        <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
           <Path d="M6 20 Q18 8 40 7 Q31 17 24 21Z" fill="#00AECC" />
           <Ellipse cx="24" cy="32" rx="10" ry="12" fill="#00AECC" />
           <Ellipse cx="7" cy="21" rx="6" ry="4" fill="#007A8F" />
@@ -71,7 +71,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "hormigas":
       return (
-        <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="36" rx="9" ry="8" fill="#7BC441" />
           <Ellipse cx="24" cy="24" rx="6" ry="6" fill="#5A9A2A" />
           <Circle cx="24" cy="13" r="7" fill="#7BC441" />
@@ -79,7 +79,7 @@ function AnimalIcon({ salon }: { salon: string }) {
       );
     case "lobos":
       return (
-        <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
           <Ellipse cx="24" cy="32" rx="12" ry="9" fill="#E5297E" />
           <Ellipse cx="24" cy="17" rx="11" ry="10" fill="#E5297E" />
           <Path d="M14 11 L10 3 L19 9Z" fill="#A01D59" />
@@ -162,8 +162,8 @@ export default function MisHijos() {
                 </View>
               </View>
               <Svg
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.texto3}
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.card,
-    paddingTop: 60,
+    paddingTop: 65,
     paddingBottom: 16,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
   subtitulo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto3,
     marginTop: 2
   },
@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
     elevation: 3
   },
   avatar: {
-    width: 64,
-    height: 64,
+    width: 84,
+    height: 84,
     borderRadius: 18,
     borderWidth: 2.5,
     alignItems: "center",
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   nombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 20,
     color: colors.texto
   },
   metaRow: {
@@ -258,11 +258,11 @@ const styles = StyleSheet.create({
   },
   salonTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 16
   },
   metaTxt: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 10,
     color: colors.texto2
   }
 });

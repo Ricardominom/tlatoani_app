@@ -1,11 +1,11 @@
 import { useState } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Switch,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -63,8 +63,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "avisos":
       return (
         <Svg
-          width={18}
-          height={18}
+          width={24}
+          height={24}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -77,8 +77,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "comida":
       return (
         <Svg
-          width={18}
-          height={18}
+          width={24}
+          height={24}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -91,8 +91,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "colegiatura":
       return (
         <Svg
-          width={18}
-          height={18}
+          width={24}
+          height={24}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -105,8 +105,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "calendario":
       return (
         <Svg
-          width={18}
-          height={18}
+          width={24}
+          height={24}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -120,8 +120,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
     case "galeria":
       return (
         <Svg
-          width={18}
-          height={18}
+          width={24}
+          height={24}
           viewBox="0 0 24 24"
           fill="none"
           stroke={color}
@@ -171,8 +171,8 @@ export default function MiPerfil() {
             </View>
             <View style={styles.avatarEdit}>
               <Svg
-                width={10}
-                height={10}
+                width={16}
+                height={16}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#fff"
@@ -255,8 +255,8 @@ export default function MiPerfil() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -268,8 +268,8 @@ export default function MiPerfil() {
             </View>
             <Text style={styles.cuentaLbl}>Editar datos personales</Text>
             <Svg
-              width={14}
-              height={14}
+              width={24}
+              height={24}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -282,8 +282,8 @@ export default function MiPerfil() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -295,8 +295,8 @@ export default function MiPerfil() {
             </View>
             <Text style={styles.cuentaLbl}>Cambiar contraseña</Text>
             <Svg
-              width={14}
-              height={14}
+              width={24}
+              height={24}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -309,8 +309,8 @@ export default function MiPerfil() {
           <TouchableOpacity style={styles.cuentaItem}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -322,8 +322,8 @@ export default function MiPerfil() {
             </View>
             <Text style={styles.cuentaLbl}>Soporte y ayuda</Text>
             <Svg
-              width={14}
-              height={14}
+              width={24}
+              height={24}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#D0D0D0"
@@ -336,8 +336,8 @@ export default function MiPerfil() {
           <TouchableOpacity style={[styles.cuentaItem, styles.cuentaItemLast]}>
             <View style={[styles.cuentaIcono, { backgroundColor: "#FFF0F0" }]}>
               <Svg
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.rojo}
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.fondo },
   header: {
     backgroundColor: colors.card,
-    paddingTop: 60,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
-  titulo: { fontFamily: fonts.fontBlack, fontSize: 18, color: colors.texto },
+  titulo: { fontFamily: fonts.fontBlack, fontSize: 20, color: colors.texto },
   editBtn: {
     backgroundColor: colors.halconesLight,
     paddingVertical: 5,
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
   },
   editTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 14,
     color: colors.halcones
   },
   scroll: { flex: 1 },
@@ -401,8 +401,8 @@ const styles = StyleSheet.create({
   },
   avatarWrap: { position: "relative", marginBottom: 4 },
   avatarCircle: {
-    width: 72,
-    height: 72,
+    width: 92,
+    height: 92,
     borderRadius: 999,
     backgroundColor: colors.lightAmarillo,
     borderWidth: 3,
@@ -415,10 +415,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  avatarLetra: { fontFamily: fonts.fontBlack, fontSize: 28, color: "#7A6200" },
+  avatarLetra: { fontFamily: fonts.fontBlack, fontSize: 38, color: "#7A6200" },
   avatarEdit: {
-    width: 22,
-    height: 22,
+    width: 32,
+    height: 32,
     borderRadius: 999,
     backgroundColor: "#2D2D2D",
     borderWidth: 2,
@@ -431,18 +431,18 @@ const styles = StyleSheet.create({
   },
   perfilNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18,
+    fontSize: 28,
     color: colors.texto,
     textAlign: "center"
   },
   perfilCorreo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#AAA",
     textAlign: "center"
   },
   perfilTelRow: { flexDirection: "row", alignItems: "center", gap: 4 },
-  perfilTel: { fontFamily: fonts.fontBold, fontSize: 11, color: "#888" },
+  perfilTel: { fontFamily: fonts.fontBold, fontSize: 14, color: "#888" },
   perfilBadges: {
     flexDirection: "row",
     gap: 6,
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -505,17 +505,17 @@ const styles = StyleSheet.create({
   notifRowLast: { borderBottomWidth: 0 },
   notifLeft: { flexDirection: "row", alignItems: "center", gap: 10, flex: 1 },
   notifIcono: {
-    width: 34,
-    height: 34,
+    width: 54,
+    height: 54,
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0
   },
-  notifLbl: { fontFamily: fonts.fontExtra, fontSize: 12, color: colors.texto },
+  notifLbl: { fontFamily: fonts.fontExtra, fontSize: 16, color: colors.texto },
   notifSub: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 10,
+    fontSize: 12,
     color: "#AAA",
     marginTop: 1
   },
@@ -537,8 +537,8 @@ const styles = StyleSheet.create({
   },
   cuentaItemLast: { borderBottomWidth: 0 },
   cuentaIcono: {
-    width: 32,
-    height: 32,
+    width: 52,
+    height: 52,
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
@@ -546,7 +546,7 @@ const styles = StyleSheet.create({
   },
   cuentaLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 16,
     color: colors.texto,
     flex: 1
   },
