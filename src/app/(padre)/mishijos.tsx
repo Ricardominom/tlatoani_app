@@ -525,7 +525,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.card,
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,

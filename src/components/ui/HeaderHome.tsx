@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   contenedor: {
     backgroundColor: colors.card,
     paddingHorizontal: spacing.lg,
-    paddingTop: 52,
+    paddingTop: 55,
     paddingBottom: 0
     // borderBottomWidth: 0.5,
     // borderBottomColor: "#F0F0F0"
