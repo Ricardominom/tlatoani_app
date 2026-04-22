@@ -1,6 +1,13 @@
 import { usePathname, useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Svg, { Circle, Ellipse, Line, Path, Rect } from "react-native-svg";
+import Svg, {
+  Circle,
+  Ellipse,
+  Line,
+  Path,
+  Polygon,
+  Rect
+} from "react-native-svg";
 import { fonts } from "../../styles/global";
 
 const IconoInicio = ({ color = "#2D2D2D", size = 24 }) => (
@@ -39,6 +46,25 @@ const IconoInicio = ({ color = "#2D2D2D", size = 24 }) => (
       rx="1.75"
       stroke={color}
       strokeWidth="2"
+    />
+  </Svg>
+);
+
+const IconoAvisos = ({ color = "#2D2D2D", size = 24 }) => (
+  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <Path
+      d="M16 4 C10 4 8 10 8 14 L8 21 L6 23 L26 23 L24 21 L24 14 C24 10 22 4 16 4Z"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    />
+    <Circle cx="16" cy="4" r="2" stroke={color} strokeWidth="2.5" />
+    <Path
+      d="M13 23 Q13 27 16 27 Q19 27 19 23"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
     />
   </Svg>
 );
@@ -132,40 +158,52 @@ const IconoCalendario = ({ color = "#2D2D2D", size = 24 }) => (
 
 const IconoMisHijos = ({ color = "#2D2D2D", size = 24 }) => (
   <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-    <Circle cx="11" cy="10" r="5.5" stroke={color} strokeWidth="3" />
     <Path
-      d="M3 28 C3 21 6 18 11 18 C16 18 19 21 19 28"
+      d="M16 8 C16 8 14.2 5.5 12.8 6.2 C11.4 6.9 11.4 8.8 12.8 9.8 L16 12 L19.2 9.8 C20.6 8.8 20.6 6.9 19.2 6.2 C17.8 5.5 16 8 16 8Z"
       stroke={color}
-      strokeWidth="3"
+      strokeWidth="2"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    />
+    <Circle cx="9" cy="17" r="4.5" stroke={color} strokeWidth="2.8" />
+    <Circle cx="23" cy="17" r="4.5" stroke={color} strokeWidth="2.8" />
+    <Path
+      d="M4 30 C4 25 6 23 9 23 C11 23 12.5 24 13.5 25.5"
+      stroke={color}
+      strokeWidth="2.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <Circle cx="22" cy="13" r="4" stroke={color} strokeWidth="2.5" />
     <Path
-      d="M17 28 C17 23 19 20 22 20 C25 20 27 23 27 28"
+      d="M28 30 C28 25 26 23 23 23 C21 23 19.5 24 18.5 25.5"
       stroke={color}
-      strokeWidth="2.5"
+      strokeWidth="2.8"
       strokeLinecap="round"
       strokeLinejoin="round"
+    />
+    <Path
+      d="M13.5 25.5 Q16 27 18.5 25.5"
+      stroke={color}
+      strokeWidth="2.8"
+      strokeLinecap="round"
     />
   </Svg>
 );
 
-const IconoAvisos = ({ color = "#2D2D2D", size = 24 }) => (
+const IconoMiPerfil = ({ color = "#2D2D2D", size = 24 }) => (
   <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <Circle cx="16" cy="11" r="6" stroke={color} strokeWidth="3" />
     <Path
-      d="M16 4 C10 4 8 10 8 14 L8 21 L6 23 L26 23 L24 21 L24 14 C24 10 22 4 16 4Z"
+      d="M5 29 C5 22 9 19 16 19 C23 19 27 22 27 29"
       stroke={color}
       strokeWidth="3"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      strokeLinecap="round"
     />
-    <Circle cx="16" cy="4" r="2" stroke={color} strokeWidth="2.5" />
-    <Path
-      d="M13 23 Q13 27 16 27 Q19 27 19 23"
-      stroke={color}
-      strokeWidth="2.5"
-      strokeLinecap="round"
+    <Circle cx="24" cy="6" r="5" stroke={color} strokeWidth="2.5" />
+    <Polygon
+      points="24,3.2 24.8,5.4 27.2,5.4 25.4,6.8 26.1,9 24,7.7 21.9,9 22.6,6.8 20.8,5.4 23.2,5.4"
+      fill={color}
     />
   </Svg>
 );
@@ -180,6 +218,15 @@ const TABS = [
     light: "#E8E8E8",
     Icon: IconoInicio
   },
+  // {
+  //   id: "avisos",
+  //   label: "Avisos",
+  //   ruta: "/(padre)/avisos",
+  //   color: "#E5297E",
+  //   shadow: "#A0005A",
+  //   light: "#FCE4EF",
+  //   Icon: IconoAvisos
+  // },
   {
     id: "comida",
     label: "Comida",
@@ -208,13 +255,13 @@ const TABS = [
     Icon: IconoMisHijos
   },
   {
-    id: "avisos",
-    label: "Avisos",
-    ruta: "/(padre)/avisos",
-    color: "#E5297E",
-    shadow: "#A0005A",
-    light: "#FCE4EF",
-    Icon: IconoAvisos
+    id: "miperfil",
+    label: "Mi perfil",
+    ruta: "/(padre)/miperfil",
+    color: "#00AECC",
+    shadow: "#007A8F",
+    light: "#E0F7FC",
+    Icon: IconoMiPerfil
   }
 ];
 
@@ -267,7 +314,6 @@ export default function TabBar() {
                 size={activo ? 26 : 22}
               />
             </View>
-
             <Text
               style={[
                 styles.tabLabel,
