@@ -220,7 +220,7 @@ export default function Comida() {
             <View
               style={[styles.turnoIcono, { backgroundColor: colores.light }]}
             >
-              <Svg width={34} height={34} viewBox="0 0 64 64" fill="none">
+              <Svg width={65} height={65} viewBox="0 0 64 64" fill="none">
                 <Circle
                   cx="32"
                   cy="38"
@@ -276,8 +276,8 @@ export default function Comida() {
               activeOpacity={0.85}
             >
               <Svg
-                width={12}
-                height={12}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colores.textColor}
@@ -299,8 +299,8 @@ export default function Comida() {
               onPress={() => router.push("/(padre)/receta" as any)}
             >
               <Svg
-                width={12}
-                height={12}
+                width={20}
+                height={20}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.texto}
@@ -325,8 +325,8 @@ export default function Comida() {
               ]}
             >
               <Svg
-                width={20}
-                height={20}
+                width={35}
+                height={35}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.halcones}
@@ -350,8 +350,8 @@ export default function Comida() {
               ]}
             >
               <Svg
-                width={20}
-                height={20}
+                width={35}
+                height={35}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.verde}
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18,
+    fontSize: 20,
     color: colors.texto
   },
   hijosTabs: {
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 5,
     paddingVertical: 6,
-    paddingHorizontal: 13,
+    paddingHorizontal: 14,
     borderRadius: radii.pill
   },
   hijoTabOff: {
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   },
   hijoTabTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 16
   },
 
   scroll: { flex: 1 },
@@ -482,19 +482,19 @@ const styles = StyleSheet.create({
   },
   turnoBadgeTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 14
   },
   turnoCountdown: {
     alignItems: "flex-end"
   },
   turnoNum: {
     fontFamily: fonts.fontBlack,
-    fontSize: 22,
-    lineHeight: 24
+    fontSize: 26,
+    lineHeight: 32
   },
   turnoLbl: {
     fontFamily: fonts.fontBold,
-    fontSize: 9,
+    fontSize: 13,
     color: "#C0C0C0"
   },
   turnoPlato: {
@@ -503,8 +503,8 @@ const styles = StyleSheet.create({
     gap: 14
   },
   turnoIcono: {
-    width: 56,
-    height: 56,
+    width: 76,
+    height: 76,
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
@@ -513,18 +513,18 @@ const styles = StyleSheet.create({
   turnoInfo: { flex: 1 },
   turnoPlatillo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 22,
     color: colors.texto,
-    lineHeight: 20,
+    lineHeight: 30,
     marginBottom: 3
   },
   turnoFecha: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11
+    fontSize: 18
   },
   turnoNinos: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 10,
+    fontSize: 14,
     color: "#888",
     marginTop: 2
   },
@@ -547,7 +547,7 @@ const styles = StyleSheet.create({
   },
   btnAgendaTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12
+    fontSize: 18
   },
   btnReceta: {
     flex: 1,
@@ -568,13 +568,14 @@ const styles = StyleSheet.create({
   },
   btnRecetaTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12,
+    fontSize: 18,
     color: colors.texto
   },
 
   accesosRow: {
     flexDirection: "row",
-    gap: 8
+    gap: 8,
+    marginTop: 12
   },
   accesoCard: {
     flex: 1,
@@ -587,28 +588,28 @@ const styles = StyleSheet.create({
     gap: 6
   },
   accesoIcono: {
-    width: 38,
-    height: 38,
+    width: 58,
+    height: 58,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center"
   },
   accesoLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 14,
     color: colors.texto,
     textAlign: "center"
   },
   accesoSub: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#AAA",
     textAlign: "center"
   },
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -635,12 +636,12 @@ const styles = StyleSheet.create({
   proximoLeft: { gap: 2 },
   proximoQuien: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto
   },
   proximoPlatillo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 10,
+    fontSize: 12,
     color: "#888"
   },
   proximoFechaBadge: {
@@ -654,7 +655,7 @@ const styles = StyleSheet.create({
   },
   proximoFechaTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10,
+    fontSize: 12,
     color: colors.halcones
   },
   proximoFechaTxtPropio: {
