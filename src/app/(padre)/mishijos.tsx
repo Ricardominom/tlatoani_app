@@ -20,14 +20,14 @@ import {
 const HIJOS = [
   {
     id: "victoria",
-    nombre: "Victoria Miño",
+    nombre: "Victoria Mino",
     salon: "abejas",
     nivel: "Casa de niños",
-    edad: "4 años"
+    edad: "5 años"
   },
   {
     id: "diego",
-    nombre: "Diego Miño",
+    nombre: "Diego Mino",
     salon: "halcones",
     nivel: "Taller 1",
     edad: "7 años"

@@ -13,7 +13,7 @@ import { colors, fonts, radii, spacing } from "../../styles/global";
 
 const PADRE = {
   inicial: "R",
-  nombre: "Familia Miño",
+  nombre: "Familia Mino",
   correo: "rdmm.291191@gmail.com",
   telefono: "222 345 6789",
   escuela: "Tlatoani Montessori",
@@ -164,7 +164,6 @@ export default function MiPerfil() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* ── Hero del padre ── */}
         <View style={styles.perfilHero}>
           <View style={styles.avatarWrap}>
             <View style={styles.avatarCircle}>
@@ -219,7 +218,6 @@ export default function MiPerfil() {
           </View>
         </View>
 
-        {/* ── Notificaciones ── */}
         <Text style={styles.sep}>Notificaciones</Text>
         <View style={styles.card}>
           {NOTIFICACIONES.map((notif, index) => (
@@ -252,7 +250,6 @@ export default function MiPerfil() {
           ))}
         </View>
 
-        {/* ── Cuenta ── */}
         <Text style={styles.sep}>Cuenta</Text>
         <View style={styles.cuentaCard}>
           <TouchableOpacity style={styles.cuentaItem}>
@@ -380,7 +377,7 @@ const styles = StyleSheet.create({
   },
   titulo: { fontFamily: fonts.fontBlack, fontSize: 18, color: colors.texto },
   editBtn: {
-    backgroundColor: colors.turquesaLight,
+    backgroundColor: colors.halconesLight,
     paddingVertical: 5,
     paddingHorizontal: 14,
     borderRadius: radii.pill
@@ -388,7 +385,7 @@ const styles = StyleSheet.create({
   editTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 11,
-    color: colors.turquesa
+    color: colors.halcones
   },
   scroll: { flex: 1 },
   scrollContent: { padding: spacing.md, gap: 8, paddingBottom: 30 },
@@ -468,7 +465,7 @@ const styles = StyleSheet.create({
     color: "#3A7A18"
   },
   badgeCiclo: {
-    backgroundColor: colors.turquesaLight,
+    backgroundColor: colors.halconesLight,
     paddingVertical: 4,
     paddingHorizontal: 11,
     borderRadius: radii.pill
@@ -476,7 +473,7 @@ const styles = StyleSheet.create({
   badgeCicloTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 10,
-    color: colors.turquesaS
+    color: colors.halconesS
   },
 
   sep: {
