@@ -1,19 +1,19 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, {
-    Circle,
-    Ellipse,
-    Line,
-    Path,
-    Polyline,
-    Rect
+  Circle,
+  Ellipse,
+  Line,
+  Path,
+  Polyline,
+  Rect
 } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
@@ -99,8 +99,8 @@ export default function Receta() {
           activeOpacity={0.7}
         >
           <Svg
-            width={14}
-            height={14}
+            width={40}
+            height={40}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -112,8 +112,8 @@ export default function Receta() {
         <Text style={styles.headerTitulo}>Receta del día</Text>
         <TouchableOpacity style={styles.shareBtn} activeOpacity={0.7}>
           <Svg
-            width={14}
-            height={14}
+            width={30}
+            height={30}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -135,7 +135,7 @@ export default function Receta() {
       >
         <View style={styles.platoHero}>
           <View style={styles.platoIcono}>
-            <Svg width={42} height={42} viewBox="0 0 64 64" fill="none">
+            <Svg width={72} height={72} viewBox="0 0 64 64" fill="none">
               <Circle
                 cx="32"
                 cy="40"
@@ -295,8 +295,8 @@ export default function Receta() {
         <View style={styles.alergenosCard}>
           <View style={styles.alergenosTitulo}>
             <Svg
-              width={12}
-              height={12}
+              width={18}
+              height={18}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#C62828"
@@ -316,8 +316,8 @@ export default function Receta() {
         <View style={styles.notaCard}>
           <View style={styles.notaTitulo}>
             <Svg
-              width={11}
-              height={11}
+              width={18}
+              height={18}
               viewBox="0 0 24 24"
               fill="none"
               stroke={colors.halconesS}
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.card,
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -354,8 +354,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -365,12 +365,12 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 20,
     color: colors.texto
   },
   shareBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -401,8 +401,8 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   platoIcono: {
-    width: 70,
-    height: 70,
+    width: 90,
+    height: 90,
     borderRadius: 20,
     backgroundColor: colors.lightAmarillo,
     alignItems: "center",
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
   },
   platoNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 20,
+    fontSize: 24,
     color: colors.texto,
     textAlign: "center"
   },
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
   },
   platoChipTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 12,
     color: "#666"
   },
 
@@ -444,11 +444,12 @@ const styles = StyleSheet.create({
     padding: 14,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 10
   },
   porcionesLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 18,
     color: colors.texto
   },
   porcionesCtrl: {
@@ -457,8 +458,8 @@ const styles = StyleSheet.create({
     gap: 10
   },
   porcBtn: {
-    width: 28,
-    height: 28,
+    width: 38,
+    height: 38,
     borderRadius: 999,
     backgroundColor: colors.primarioAmarillo,
     alignItems: "center",
@@ -471,13 +472,13 @@ const styles = StyleSheet.create({
   },
   porcBtnTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 18,
     color: "#5A4800",
-    lineHeight: 20
+    lineHeight: 24
   },
   porcNum: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 18,
     color: colors.texto,
     minWidth: 24,
     textAlign: "center"
@@ -485,7 +486,7 @@ const styles = StyleSheet.create({
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -528,7 +529,7 @@ const styles = StyleSheet.create({
   },
   ingrNombre: {
     fontFamily: fonts.fontBold,
-    fontSize: 12,
+    fontSize: 16,
     color: colors.texto
   },
   ingrNombreDest: {
@@ -536,7 +537,7 @@ const styles = StyleSheet.create({
   },
   ingrCantidad: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto
   },
 
@@ -549,8 +550,8 @@ const styles = StyleSheet.create({
   },
   pasoItemLast: { borderBottomWidth: 0 },
   pasoNum: {
-    width: 20,
-    height: 20,
+    width: 35,
+    height: 35,
     borderRadius: 999,
     backgroundColor: colors.primarioAmarillo,
     alignItems: "center",
@@ -564,14 +565,14 @@ const styles = StyleSheet.create({
   },
   pasoNumTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10,
+    fontSize: 16,
     color: "#5A4800"
   },
   pasoTxt: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 16,
     color: "#555",
-    lineHeight: 16,
+    lineHeight: 24,
     flex: 1,
     paddingTop: 2
   },
@@ -591,12 +592,12 @@ const styles = StyleSheet.create({
   },
   alergenosTituloTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 18,
     color: "#C62828"
   },
   alergenosLista: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#555",
     lineHeight: 18
   },
@@ -616,12 +617,12 @@ const styles = StyleSheet.create({
   },
   notaTituloTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 18,
     color: colors.halconesS
   },
   notaTxt: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#444",
     lineHeight: 18
   }
