@@ -128,7 +128,7 @@ const HIJOS_DATA: Record<string, any> = {
   }
 };
 
-function AnimalIcon({ salon, size = 42 }: { salon: string; size?: number }) {
+function AnimalIcon({ salon, size = 100 }: { salon: string; size?: number }) {
   switch (salon) {
     case "abejas":
       return (
@@ -220,8 +220,8 @@ export default function DetalleHijo() {
           activeOpacity={0.7}
         >
           <Svg
-            width={14}
-            height={14}
+            width={40}
+            height={40}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -313,8 +313,8 @@ export default function DetalleHijo() {
           <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
             <View style={[styles.accesoIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
-                width={18}
-                height={18}
+                width={28}
+                height={28}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#555"
@@ -335,8 +335,8 @@ export default function DetalleHijo() {
               ]}
             >
               <Svg
-                width={18}
-                height={18}
+                width={28}
+                height={28}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#B89600"
@@ -356,8 +356,8 @@ export default function DetalleHijo() {
               ]}
             >
               <Svg
-                width={18}
-                height={18}
+                width={28}
+                height={28}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#C62828"
@@ -385,8 +385,8 @@ export default function DetalleHijo() {
           </View>
           <TouchableOpacity style={styles.btnMsg} activeOpacity={0.7}>
             <Svg
-              width={16}
-              height={16}
+              width={22}
+              height={22}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#007A8F"
@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
 
   header: {
     backgroundColor: colors.card,
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -508,8 +508,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 20,
     color: colors.texto
   },
   editBtn: {
@@ -530,7 +530,7 @@ const styles = StyleSheet.create({
   },
   editTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 14,
     color: colors.halcones
   },
 
@@ -554,8 +554,8 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   hijoAvatar: {
-    width: 72,
-    height: 72,
+    width: 110,
+    height: 110,
     borderRadius: 22,
     borderWidth: 3,
     alignItems: "center",
@@ -567,7 +567,7 @@ const styles = StyleSheet.create({
   },
   hijoNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 20,
+    fontSize: 24,
     color: colors.texto
   },
   metaRow: {
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
   },
   metaTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 12,
     color: "#666"
   },
   nivelTag: {
@@ -601,12 +601,13 @@ const styles = StyleSheet.create({
   },
   nivelTagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 11
+    fontSize: 14
   },
 
   accesosRow: {
     flexDirection: "row",
-    gap: 8
+    gap: 8,
+    marginTop: 10
   },
   accesoCard: {
     flex: 1,
@@ -619,22 +620,22 @@ const styles = StyleSheet.create({
     gap: 6
   },
   accesoIcono: {
-    width: 36,
-    height: 36,
+    width: 56,
+    height: 56,
     borderRadius: 11,
     alignItems: "center",
     justifyContent: "center"
   },
   accesoLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 12,
     color: colors.texto,
     textAlign: "center"
   },
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -653,8 +654,8 @@ const styles = StyleSheet.create({
     gap: 12
   },
   maestraAvatar: {
-    width: 46,
-    height: 46,
+    width: 66,
+    height: 66,
     borderRadius: 14,
     backgroundColor: colors.halconesLight,
     borderWidth: 2,
@@ -670,29 +671,29 @@ const styles = StyleSheet.create({
   },
   maestraAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18,
+    fontSize: 24,
     color: colors.halconesS
   },
   maestraInfo: { flex: 1 },
   maestraRol: {
     fontFamily: fonts.fontBold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#AAA",
     letterSpacing: 0.8
   },
   maestraNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14,
+    fontSize: 20,
     color: colors.texto
   },
   maestraGrupo: {
     fontFamily: fonts.fontBold,
-    fontSize: 11,
+    fontSize: 12,
     color: "#888"
   },
   btnMsg: {
-    width: 36,
-    height: 36,
+    width: 46,
+    height: 46,
     borderRadius: 12,
     backgroundColor: colors.halconesLight,
     borderWidth: 1.5,
@@ -724,12 +725,12 @@ const styles = StyleSheet.create({
   datosRowLast: { borderBottomWidth: 0 },
   datosLbl: {
     fontFamily: fonts.fontBold,
-    fontSize: 11,
+    fontSize: 14,
     color: "#AAA"
   },
   datosVal: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto
   },
   datosValVerde: { color: "#3A7A18" },
@@ -751,8 +752,8 @@ const styles = StyleSheet.create({
   },
   personaItemLast: { borderBottomWidth: 0 },
   personaAvatar: {
-    width: 36,
-    height: 36,
+    width: 70,
+    height: 70,
     borderRadius: 12,
     borderWidth: 1.5,
     alignItems: "center",
@@ -761,22 +762,22 @@ const styles = StyleSheet.create({
   },
   personaAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14
+    fontSize: 20
   },
   personaDatos: { flex: 1 },
   personaNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12,
+    fontSize: 18,
     color: colors.texto
   },
   personaRel: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 14,
     color: "#AAA"
   },
   personaTel: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 14,
     color: "#888",
     marginTop: 1
   },
@@ -788,7 +789,7 @@ const styles = StyleSheet.create({
   },
   principalTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9,
+    fontSize: 11,
     color: colors.secundarioAmarillo
   },
   btnAgregar: {
@@ -805,7 +806,7 @@ const styles = StyleSheet.create({
   },
   btnAgregarTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 12,
+    fontSize: 14,
     color: "#AAA"
   }
 });
