@@ -16,7 +16,7 @@ import Svg, {
   Polyline,
   Rect
 } from "react-native-svg";
-import TabBar from "../../components/ui/TabBar";
+import TabBar from "../../components/ui/TlatoaniTabIcons";
 import {
   colors,
   fonts,

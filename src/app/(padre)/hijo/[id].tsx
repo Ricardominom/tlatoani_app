@@ -1,26 +1,26 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, {
-    Circle,
-    Ellipse,
-    Line,
-    Path,
-    Polyline,
-    Rect
+  Circle,
+  Ellipse,
+  Line,
+  Path,
+  Polyline,
+  Rect
 } from "react-native-svg";
-import TabBar from "../../../components/ui/TabBar";
+import TabBar from "../../../components/ui/TlatoaniTabIcons";
 import {
-    colors,
-    fonts,
-    grupoColors,
-    radii,
-    spacing
+  colors,
+  fonts,
+  grupoColors,
+  radii,
+  spacing
 } from "../../../styles/global";
 
 // ── Mock data de hijos ──

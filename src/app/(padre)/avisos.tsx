@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import TabBar from "../../components/ui/TabBar";
+import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts } from "../../styles/global";
 
 export default function Avisos() {
