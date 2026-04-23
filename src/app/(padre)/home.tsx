@@ -165,8 +165,8 @@ export default function Home() {
           activeOpacity={0.85}
         >
           <Svg
-            width={16}
-            height={16}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -177,8 +177,8 @@ export default function Home() {
           </Svg>
           <Text style={styles.btnMasAvisosTxt}>Ver todos los avisos</Text>
           <Svg
-            width={14}
-            height={14}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto2}
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   },
   btnMasAvisosTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 13,
+    fontSize: 15,
     color: colors.texto,
     flex: 1
   }

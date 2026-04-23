@@ -200,7 +200,7 @@ export default function Avisos() {
                   style={[
                     styles.filtroTxt,
                     activo && colores && { color: colores.textColor },
-                    activo && !colores && { color: colors.texto },
+                    activo && !colores && { color: colors.primarioAmarillo },
                     !activo && { color: "#AAA" }
                   ]}
                 >
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.card,
-    paddingTop: 60,
+    paddingTop: 65,
     paddingBottom: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   },
   subtitulo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.rojo,
     marginTop: 2
   },
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   },
   filtroTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12
+    fontSize: 15
   },
 
   scroll: { flex: 1 },
@@ -369,27 +369,27 @@ const styles = StyleSheet.create({
   },
   tagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10
+    fontSize: 14
   },
   tiempo: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0"
   },
   puntoPendiente: {
-    width: 8,
-    height: 8,
+    width: 12,
+    height: 12,
     borderRadius: 999,
     backgroundColor: colors.rojo
   },
   avisoTitulo: {
     fontFamily: fonts.fontExtra,
-    fontSize: 13,
+    fontSize: 14,
     color: colors.texto
   },
   avisoPreview: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 12,
     color: colors.texto2,
     lineHeight: 16
   },
@@ -404,17 +404,17 @@ const styles = StyleSheet.create({
   },
   leidoTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: colors.verde
   },
   noLeidoTxt: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0"
   },
   verMasTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: colors.halcones
   }
 });

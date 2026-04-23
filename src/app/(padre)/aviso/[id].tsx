@@ -182,8 +182,8 @@ export default function DetalleAviso() {
           activeOpacity={0.7}
         >
           <Svg
-            width={14}
-            height={14}
+            width={40}
+            height={40}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -195,8 +195,8 @@ export default function DetalleAviso() {
         <Text style={styles.headerTitulo}>Detalle del aviso</Text>
         <TouchableOpacity style={styles.shareBtn} activeOpacity={0.7}>
           <Svg
-            width={14}
-            height={14}
+            width={25}
+            height={25}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -265,8 +265,8 @@ export default function DetalleAviso() {
               <View style={styles.eventoBloque}>
                 <View style={styles.eventoIcono}>
                   <Svg
-                    width={18}
-                    height={18}
+                    width={24}
+                    height={24}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#5A4800"
@@ -305,8 +305,8 @@ export default function DetalleAviso() {
                   >
                     {mat.hecho && (
                       <Svg
-                        width={10}
-                        height={10}
+                        width={15}
+                        height={15}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#fff"
@@ -334,8 +334,8 @@ export default function DetalleAviso() {
             >
               {leido && (
                 <Svg
-                  width={14}
-                  height={14}
+                  width={24}
+                  height={24}
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#3A7A18"
@@ -382,8 +382,8 @@ export default function DetalleAviso() {
                   >
                     {adj.tipo === "pdf" ? (
                       <Svg
-                        width={16}
-                        height={16}
+                        width={26}
+                        height={26}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke={colors.rojo}
@@ -394,8 +394,8 @@ export default function DetalleAviso() {
                       </Svg>
                     ) : (
                       <Svg
-                        width={16}
-                        height={16}
+                        width={26}
+                        height={26}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke={colors.halcones}
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
 
   header: {
     backgroundColor: colors.card,
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -462,8 +462,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -473,12 +473,12 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 15,
+    fontSize: 22,
     color: colors.texto
   },
   shareBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -517,13 +517,13 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     elevation: 2
   },
-  tagTxt: { fontFamily: fonts.fontBlack, fontSize: 10 },
-  tiempo: { fontFamily: fonts.fontSemibold, fontSize: 10, color: "#C0C0C0" },
+  tagTxt: { fontFamily: fonts.fontBlack, fontSize: 14 },
+  tiempo: { fontFamily: fonts.fontSemibold, fontSize: 14, color: "#C0C0C0" },
   avisoTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 17,
+    fontSize: 20,
     color: colors.texto,
-    lineHeight: 22
+    lineHeight: 30
   },
   maestraRow: {
     flexDirection: "row",
@@ -532,8 +532,8 @@ const styles = StyleSheet.create({
     marginTop: 4
   },
   maestraAvatar: {
-    width: 22,
-    height: 22,
+    width: 42,
+    height: 42,
     borderRadius: 999,
     backgroundColor: colors.halconesLight,
     borderWidth: 1.5,
@@ -543,10 +543,10 @@ const styles = StyleSheet.create({
   },
   maestraAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10,
+    fontSize: 18,
     color: colors.halconesS
   },
-  maestraNombre: { fontFamily: fonts.fontBold, fontSize: 11, color: "#888" },
+  maestraNombre: { fontFamily: fonts.fontBold, fontSize: 16, color: "#888" },
 
   avisoBody: {
     padding: 14,
@@ -555,7 +555,7 @@ const styles = StyleSheet.create({
   },
   avisoTexto: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 13,
+    fontSize: 18,
     color: "#444",
     lineHeight: 20
   },
@@ -573,8 +573,8 @@ const styles = StyleSheet.create({
     gap: 10
   },
   eventoIcono: {
-    width: 34,
-    height: 34,
+    width: 44,
+    height: 44,
     backgroundColor: colors.primarioAmarillo,
     borderRadius: 10,
     alignItems: "center",
@@ -587,10 +587,10 @@ const styles = StyleSheet.create({
     flexShrink: 0
   },
   eventoInfo: { flex: 1 },
-  eventoLbl: { fontFamily: fonts.fontBold, fontSize: 10, color: "#AAA" },
+  eventoLbl: { fontFamily: fonts.fontBold, fontSize: 12, color: "#AAA" },
   eventoVal: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.texto,
     lineHeight: 18
   },
@@ -607,7 +607,7 @@ const styles = StyleSheet.create({
   },
   btnAgendaSmTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10,
+    fontSize: 12,
     color: "#5A4800"
   },
 
@@ -619,7 +619,7 @@ const styles = StyleSheet.create({
   },
   materialesTitulo: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 14,
     color: colors.texto,
     marginBottom: 4
   },
@@ -630,8 +630,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4
   },
   matCheck: {
-    width: 18,
-    height: 18,
+    width: 24,
+    height: 24,
     borderRadius: 6,
     borderWidth: 2,
     borderColor: "#E0E0E0",
@@ -639,7 +639,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   matCheckOn: { backgroundColor: colors.verde, borderColor: colors.verde },
-  matLbl: { fontFamily: fonts.fontBold, fontSize: 12, color: "#444" },
+  matLbl: { fontFamily: fonts.fontBold, fontSize: 14, color: "#444" },
   matLblHecho: { color: "#C0C0C0", textDecorationLine: "line-through" },
 
   avisoFooter: { padding: 12 },
@@ -666,14 +666,14 @@ const styles = StyleSheet.create({
   },
   btnConfirmarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 18,
     color: "#5A4800"
   },
   btnConfirmadoTxt: { color: "#3A7A18" },
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -698,19 +698,19 @@ const styles = StyleSheet.create({
   },
   adjItemLast: { borderBottomWidth: 0 },
   adjIcono: {
-    width: 34,
-    height: 34,
+    width: 54,
+    height: 54,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0
   },
   adjInfo: { flex: 1 },
-  adjNombre: { fontFamily: fonts.fontExtra, fontSize: 12, color: colors.texto },
-  adjSize: { fontFamily: fonts.fontSemibold, fontSize: 10, color: "#AAA" },
+  adjNombre: { fontFamily: fonts.fontExtra, fontSize: 14, color: colors.texto },
+  adjSize: { fontFamily: fonts.fontSemibold, fontSize: 11, color: "#AAA" },
   adjAbrir: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 14,
     color: colors.halcones
   },
 
@@ -724,7 +724,7 @@ const styles = StyleSheet.create({
   },
   confirmTitulo: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 14,
     color: colors.texto
   },
   barraWrap: {
@@ -735,6 +735,6 @@ const styles = StyleSheet.create({
   },
   barra: { height: "100%", backgroundColor: colors.verde, borderRadius: 4 },
   confirmNums: { flexDirection: "row", justifyContent: "space-between" },
-  confirmOk: { fontFamily: fonts.fontBlack, fontSize: 11, color: "#3A7A18" },
-  confirmPend: { fontFamily: fonts.fontSemibold, fontSize: 11, color: "#AAA" }
+  confirmOk: { fontFamily: fonts.fontBlack, fontSize: 13, color: "#3A7A18" },
+  confirmPend: { fontFamily: fonts.fontSemibold, fontSize: 12, color: "#AAA" }
 });
