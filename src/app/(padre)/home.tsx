@@ -146,7 +146,7 @@ export default function Home() {
                 }
                 onVerCuenta={
                   card.tipo === "colegiatura"
-                    ? () => console.log("ver cuenta")
+                    ? () => router.push("/(padre)/colegiatura" as any)
                     : undefined
                 }
                 onAgenda={

@@ -348,7 +348,11 @@ export default function DetalleHijo() {
             </View>
             <Text style={styles.accesoLbl}>Comida</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.accesoCard}
+            activeOpacity={0.7}
+            onPress={() => router.push("/(padre)/colegiatura")}
+          >
             <View
               style={[
                 styles.accesoIcono,

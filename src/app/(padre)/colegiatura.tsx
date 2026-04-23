@@ -197,8 +197,8 @@ export default function Colegiatura() {
             activeOpacity={0.7}
           >
             <Svg
-              width={14}
-              height={14}
+              width={40}
+              height={40}
               viewBox="0 0 24 24"
               fill="none"
               stroke={colors.texto}
@@ -259,8 +259,8 @@ export default function Colegiatura() {
             <View style={styles.alertaTop}>
               <View style={styles.alertaBadge}>
                 <Svg
-                  width={10}
-                  height={10}
+                  width={15}
+                  height={15}
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#fff"
@@ -286,9 +286,9 @@ export default function Colegiatura() {
                 ? col.monto.toLocaleString()
                 : col.monto.toLocaleString()}
             </Text>
-            <Text style={styles.alertaMonto}>
+            {/* <Text style={styles.alertaMonto}>
               ${col.monto.toLocaleString()}
-            </Text>
+            </Text> */}
             <Text style={styles.alertaConcepto}>{col.pendiente!.mes}</Text>
             <View style={styles.alertaFechaWrap}>
               <Text style={styles.alertaFecha}>
@@ -298,8 +298,8 @@ export default function Colegiatura() {
 
             <TouchableOpacity style={styles.btnPagar} activeOpacity={0.85}>
               <Svg
-                width={14}
-                height={14}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#fff"
@@ -313,8 +313,8 @@ export default function Colegiatura() {
 
             <TouchableOpacity style={styles.btnWhatsapp} activeOpacity={0.85}>
               <Svg
-                width={14}
-                height={14}
+                width={24}
+                height={24}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={colors.texto}
@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
 
   header: {
     backgroundColor: colors.card,
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 14,
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
@@ -437,8 +437,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16,
+    fontSize: 22,
     color: colors.texto
   },
 
@@ -462,7 +462,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill
   },
   hijoTabOff: { backgroundColor: "#F0F0F0" },
-  hijoTabTxt: { fontFamily: fonts.fontBlack, fontSize: 10 },
+  hijoTabTxt: { fontFamily: fonts.fontBlack, fontSize: 16 },
 
   scroll: { flex: 1 },
   scrollContent: { padding: spacing.md, gap: 8, paddingBottom: 30 },
@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
   alertaTop: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "flex-start"
   },
   alertaBadge: {
     flexDirection: "row",
@@ -499,25 +499,25 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     elevation: 2
   },
-  alertaBadgeTxt: { fontFamily: fonts.fontBlack, fontSize: 10, color: "#fff" },
+  alertaBadgeTxt: { fontFamily: fonts.fontBlack, fontSize: 14, color: "#fff" },
   alertaCountdown: { alignItems: "flex-end" },
   alertaNum: {
     fontFamily: fonts.fontBlack,
-    fontSize: 20,
+    fontSize: 26,
     color: colors.rojo,
-    lineHeight: 22
+    lineHeight: 32
   },
-  alertaLbl: { fontFamily: fonts.fontBold, fontSize: 9, color: "#C0C0C0" },
+  alertaLbl: { fontFamily: fonts.fontBold, fontSize: 13, color: "#C0C0C0" },
   alertaMonto: {
     fontFamily: fonts.fontBlack,
-    fontSize: 32,
+    fontSize: 42,
     color: colors.texto,
     textAlign: "center",
     letterSpacing: -1
   },
   alertaConcepto: {
     fontFamily: fonts.fontBold,
-    fontSize: 12,
+    fontSize: 16,
     color: "#888",
     textAlign: "center"
   },
@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
   },
   alertaFecha: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 14,
     color: colors.rojo,
     textAlign: "center"
   },
@@ -544,9 +544,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4
+    elevation: 4,
+    marginBottom: 6
   },
-  btnPagarTxt: { fontFamily: fonts.fontBlack, fontSize: 15, color: "#fff" },
+  btnPagarTxt: { fontFamily: fonts.fontBlack, fontSize: 18, color: "#fff" },
   btnWhatsapp: {
     backgroundColor: colors.card,
     borderRadius: 14,
@@ -565,7 +566,7 @@ const styles = StyleSheet.create({
   },
   btnWhatsappTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.texto
   },
 
@@ -597,7 +598,7 @@ const styles = StyleSheet.create({
 
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -621,10 +622,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F5F5F5"
   },
   resumenRowLast: { borderBottomWidth: 0 },
-  resumenLabel: { fontFamily: fonts.fontBold, fontSize: 11, color: "#666" },
+  resumenLabel: { fontFamily: fonts.fontBold, fontSize: 14, color: "#666" },
   resumenVal: {
     fontFamily: fonts.fontBlack,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto
   },
   resumenValOk: { color: colors.hormigas },
@@ -647,14 +648,14 @@ const styles = StyleSheet.create({
   },
   pagoItemLast: { borderBottomWidth: 0 },
   pagoLeft: { gap: 2 },
-  pagoMes: { fontFamily: fonts.fontExtra, fontSize: 12, color: colors.texto },
-  pagoFecha: { fontFamily: fonts.fontSemibold, fontSize: 9, color: "#AAA" },
+  pagoMes: { fontFamily: fonts.fontExtra, fontSize: 14, color: colors.texto },
+  pagoFecha: { fontFamily: fonts.fontSemibold, fontSize: 11, color: "#AAA" },
   pagoRight: { alignItems: "flex-end", gap: 3 },
-  pagoMonto: { fontFamily: fonts.fontBlack, fontSize: 12, color: colors.texto },
+  pagoMonto: { fontFamily: fonts.fontBlack, fontSize: 16, color: colors.texto },
   statusBadge: {
     paddingVertical: 2,
     paddingHorizontal: 8,
     borderRadius: radii.sm
   },
-  statusTxt: { fontFamily: fonts.fontBlack, fontSize: 9 }
+  statusTxt: { fontFamily: fonts.fontBlack, fontSize: 11 }
 });
