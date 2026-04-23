@@ -1,10 +1,18 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
+import Svg, { Path } from "react-native-svg";
 import FeedCard from "../../components/ui/FeedCard";
 import FiltrosHijos from "../../components/ui/FiltrosHijos";
 import HeaderHome from "../../components/ui/HeaderHome";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
-import { fonts } from "../../styles/global";
+import { colors, fonts, radii } from "../../styles/global";
 
 const HIJOS = [
   { id: "victoria", nombre: "Victoria", salon: "abejas" },
@@ -77,6 +85,7 @@ const CARDS = [
 
 export default function Home() {
   const [filtroActivo, setFiltroActivo] = useState("todos");
+  const router = useRouter();
 
   const cardsFiltradas = CARDS.filter((card) => {
     if (filtroActivo === "todos") return true;
@@ -149,6 +158,35 @@ export default function Home() {
             ))}
           </View>
         ))}
+
+        <TouchableOpacity
+          style={styles.btnMasAvisos}
+          onPress={() => router.push("/(padre)/avisos" as any)}
+          activeOpacity={0.85}
+        >
+          <Svg
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke={colors.texto}
+            strokeWidth="2.2"
+          >
+            <Path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <Path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </Svg>
+          <Text style={styles.btnMasAvisosTxt}>Ver todos los avisos</Text>
+          <Svg
+            width={14}
+            height={14}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke={colors.texto2}
+            strokeWidth="2.5"
+          >
+            <Path d="M9 18l6-6-6-6" />
+          </Svg>
+        </TouchableOpacity>
       </ScrollView>
 
       <TabBar />
@@ -177,5 +215,22 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     paddingVertical: 4,
     paddingHorizontal: 2
+  },
+  btnMasAvisos: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    backgroundColor: colors.card,
+    borderRadius: radii.md,
+    borderWidth: 1,
+    borderColor: colors.borde,
+    padding: 14,
+    marginTop: 4
+  },
+  btnMasAvisosTxt: {
+    fontFamily: fonts.fontExtra,
+    fontSize: 13,
+    color: colors.texto,
+    flex: 1
   }
 });
