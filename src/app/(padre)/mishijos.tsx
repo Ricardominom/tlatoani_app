@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import Svg, { Circle, Ellipse, Path, Rect } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
+import { AnimalAvatar } from "../../components/ui/AnimalKit";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import {
   colors,
@@ -33,63 +34,6 @@ const HIJOS = [
     edad: "7 años"
   }
 ];
-
-function AnimalIcon({ salon }: { salon: string }) {
-  switch (salon) {
-    case "abejas":
-      return (
-        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
-          <Ellipse cx="24" cy="34" rx="9" ry="12" fill="#F5C800" />
-          <Rect x="15" y="29" width="18" height="4" rx="1" fill="#2D2D2D" />
-          <Ellipse cx="24" cy="22" rx="8" ry="7" fill="#2D2D2D" />
-          <Circle cx="24" cy="13" r="7" fill="#F5C800" />
-          <Ellipse
-            cx="12"
-            cy="19"
-            rx="7"
-            ry="4"
-            fill="#C8E8F5"
-            opacity="0.85"
-          />
-          <Ellipse
-            cx="36"
-            cy="19"
-            rx="7"
-            ry="4"
-            fill="#C8E8F5"
-            opacity="0.85"
-          />
-        </Svg>
-      );
-    case "halcones":
-      return (
-        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
-          <Path d="M6 20 Q18 8 40 7 Q31 17 24 21Z" fill="#00AECC" />
-          <Ellipse cx="24" cy="32" rx="10" ry="12" fill="#00AECC" />
-          <Ellipse cx="7" cy="21" rx="6" ry="4" fill="#007A8F" />
-        </Svg>
-      );
-    case "hormigas":
-      return (
-        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
-          <Ellipse cx="24" cy="36" rx="9" ry="8" fill="#7BC441" />
-          <Ellipse cx="24" cy="24" rx="6" ry="6" fill="#5A9A2A" />
-          <Circle cx="24" cy="13" r="7" fill="#7BC441" />
-        </Svg>
-      );
-    case "lobos":
-      return (
-        <Svg width={58} height={58} viewBox="0 0 48 48" fill="none">
-          <Ellipse cx="24" cy="32" rx="12" ry="9" fill="#E5297E" />
-          <Ellipse cx="24" cy="17" rx="11" ry="10" fill="#E5297E" />
-          <Path d="M14 11 L10 3 L19 9Z" fill="#A01D59" />
-          <Path d="M34 11 L38 3 L29 9Z" fill="#A01D59" />
-        </Svg>
-      );
-    default:
-      return null;
-  }
-}
 
 export default function MisHijos() {
   const router = useRouter();
@@ -136,7 +80,7 @@ export default function MisHijos() {
                   }
                 ]}
               >
-                <AnimalIcon salon={hijo.salon} />
+                <AnimalAvatar salon={hijo.salon} size="md" />
               </View>
               <View style={styles.datos}>
                 <Text style={styles.nombre}>{hijo.nombre}</Text>
