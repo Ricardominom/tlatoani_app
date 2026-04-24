@@ -138,7 +138,7 @@ export default function Home() {
                 leido={card.leido}
                 acento={card.acento}
                 comidaInfo={card.comidaInfo}
-                onPress={() => console.log("card", card.id)}
+                onPress={() => router.push(`/(padre)/aviso/${card.id}` as any)}
                 onConfirmar={
                   card.tipo === "aviso"
                     ? () => console.log("confirmar", card.id)
