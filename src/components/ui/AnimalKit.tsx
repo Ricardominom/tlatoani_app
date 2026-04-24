@@ -891,17 +891,7 @@ export function AnimalPill({
 
 // COMPONENTE 4 — Pill ligero (fondo claro, borde de color)
 
-export function AnimalPillLight({
-  salon,
-  label,
-  size = "sm",
-  style
-}: {
-  salon: string;
-  label?: string;
-  size?: "sm" | "md";
-  style?: any;
-}) {
+export function AnimalPillLight({ salon, label, size = "sm", style }) {
   const g = getGrupo(salon);
   if (!g) return null;
 
@@ -916,16 +906,18 @@ export function AnimalPillLight({
           flexDirection: "row",
           alignItems: "center",
           gap: 6,
-          backgroundColor: g.color,
+          backgroundColor: g.light,
+          borderWidth: 2, // ← sube de 1.5 a 2
+          borderColor: g.color,
           borderRadius: 20,
           paddingVertical: paddingV,
-          paddingLeft: 8,
-          paddingRight: 14,
-          shadowColor: g.shadow,
-          shadowOffset: { width: 0, height: 2.5 },
-          shadowOpacity: 1,
+          paddingLeft: 6,
+          paddingRight: 12,
+          shadowColor: g.shadow, // ← agrega sombra
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.4,
           shadowRadius: 0,
-          elevation: 2
+          elevation: 1
         },
         style
       ]}
