@@ -1,3 +1,8 @@
+import {
+  AnimalIcon,
+  AnimalPill,
+  AnimalPillLight
+} from "@/src/components/ui/AnimalKit";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -76,57 +81,57 @@ const PROXIMOS_TURNOS = [
   }
 ];
 
-function AnimalIconSm({ salon, activo }: { salon: string; activo: boolean }) {
-  const color = activo ? "#5A4800" : "#AAA";
-  switch (salon) {
-    case "abejas":
-      return (
-        <Svg width={12} height={12} viewBox="0 0 48 48" fill="none">
-          <Ellipse cx="24" cy="34" rx="9" ry="12" fill={color} opacity="0.5" />
-          <Rect
-            x="15"
-            y="29"
-            width="18"
-            height="3"
-            rx="1"
-            fill={color}
-            opacity="0.6"
-          />
-          <Circle cx="24" cy="13" r="7" fill={color} opacity="0.5" />
-          <Ellipse
-            cx="11"
-            cy="19"
-            rx="7"
-            ry="3.5"
-            fill={color}
-            opacity="0.35"
-          />
-          <Ellipse
-            cx="37"
-            cy="19"
-            rx="7"
-            ry="3.5"
-            fill={color}
-            opacity="0.35"
-          />
-        </Svg>
-      );
-    case "halcones":
-      return (
-        <Svg width={12} height={12} viewBox="0 0 48 48" fill="none">
-          <Path
-            d="M8 22 Q18 10 38 8 Q30 16 24 20Z"
-            fill={color}
-            opacity="0.5"
-          />
-          <Ellipse cx="24" cy="30" rx="7" ry="9" fill={color} opacity="0.4" />
-          <Circle cx="8" cy="23" r="4" fill={color} opacity="0.4" />
-        </Svg>
-      );
-    default:
-      return null;
-  }
-}
+// function AnimalIconSm({ salon, activo }: { salon: string; activo: boolean }) {
+//   const color = activo ? "#5A4800" : "#AAA";
+//   switch (salon) {
+//     case "abejas":
+//       return (
+//         <Svg width={12} height={12} viewBox="0 0 48 48" fill="none">
+//           <Ellipse cx="24" cy="34" rx="9" ry="12" fill={color} opacity="0.5" />
+//           <Rect
+//             x="15"
+//             y="29"
+//             width="18"
+//             height="3"
+//             rx="1"
+//             fill={color}
+//             opacity="0.6"
+//           />
+//           <Circle cx="24" cy="13" r="7" fill={color} opacity="0.5" />
+//           <Ellipse
+//             cx="11"
+//             cy="19"
+//             rx="7"
+//             ry="3.5"
+//             fill={color}
+//             opacity="0.35"
+//           />
+//           <Ellipse
+//             cx="37"
+//             cy="19"
+//             rx="7"
+//             ry="3.5"
+//             fill={color}
+//             opacity="0.35"
+//           />
+//         </Svg>
+//       );
+//     case "halcones":
+//       return (
+//         <Svg width={12} height={12} viewBox="0 0 48 48" fill="none">
+//           <Path
+//             d="M8 22 Q18 10 38 8 Q30 16 24 20Z"
+//             fill={color}
+//             opacity="0.5"
+//           />
+//           <Ellipse cx="24" cy="30" rx="7" ry="9" fill={color} opacity="0.4" />
+//           <Circle cx="8" cy="23" r="4" fill={color} opacity="0.4" />
+//         </Svg>
+//       );
+//     default:
+//       return null;
+//   }
+// }
 
 export default function Comida() {
   const router = useRouter();
@@ -144,35 +149,21 @@ export default function Comida() {
         <View style={styles.hijosTabs}>
           {HIJOS.map((h) => {
             const activo = hijoActivo === h.id;
-            const col = grupoColors[h.salon as keyof typeof grupoColors];
-            return (
+            return activo ? (
               <TouchableOpacity
                 key={h.id}
-                style={[
-                  styles.hijoTab,
-                  activo
-                    ? {
-                        backgroundColor: col.base,
-                        shadowColor: col.dark,
-                        shadowOffset: { width: 0, height: 3 },
-                        shadowOpacity: 1,
-                        shadowRadius: 0,
-                        elevation: 3
-                      }
-                    : styles.hijoTabOff
-                ]}
                 onPress={() => setHijoActivo(h.id)}
                 activeOpacity={0.8}
               >
-                <AnimalIconSm salon={h.salon} activo={activo} />
-                <Text
-                  style={[
-                    styles.hijoTabTxt,
-                    { color: activo ? col.textColor : "#AAA" }
-                  ]}
-                >
-                  {h.nombre}
-                </Text>
+                <AnimalPill salon={h.salon} label={h.nombre} size="md" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                key={h.id}
+                onPress={() => setHijoActivo(h.id)}
+                activeOpacity={0.8}
+              >
+                <AnimalPillLight salon={h.salon} label={h.nombre} size="md" />
               </TouchableOpacity>
             );
           })}
@@ -203,7 +194,7 @@ export default function Comida() {
                 }
               ]}
             >
-              <AnimalIconSm salon={hijo.salon} activo={true} />
+              <AnimalIcon salon={hijo.salon} size={30} />
               <Text style={[styles.turnoBadgeTxt, { color: colores.dark }]}>
                 Le toca a {hijo.nombre}
               </Text>
