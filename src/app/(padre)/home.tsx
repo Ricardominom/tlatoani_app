@@ -187,6 +187,33 @@ export default function Home() {
             <Path d="M9 18l6-6-6-6" />
           </Svg>
         </TouchableOpacity>
+
+        <View style={styles.fotosSection}>
+          <View style={styles.fotosSectionHeader}>
+            <Text style={styles.fotosSectionTitulo}>Fotos recientes</Text>
+            <TouchableOpacity
+              onPress={() => router.push("/(padre)/galeria" as any)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.fotosSectionLink}>Ver galería →</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.fotosGrid}>
+            {[
+              ["#a8e063", "#56ab2f"],
+              ["#89f7fe", "#66a6ff"],
+              ["#f093fb", "#f5576c"],
+              ["#ffecd2", "#fcb69f"]
+            ].map((col, i) => (
+              <TouchableOpacity
+                key={i}
+                style={[styles.fotoThumb, { backgroundColor: col[0] }]}
+                onPress={() => router.push("/(padre)/galeria/1" as any)}
+                activeOpacity={0.85}
+              />
+            ))}
+          </View>
+        </View>
       </ScrollView>
 
       <TabBar />
@@ -232,5 +259,38 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.texto,
     flex: 1
+  },
+  fotosSection: {
+    backgroundColor: colors.card,
+    borderRadius: radii.md,
+    borderWidth: 1,
+    borderColor: colors.borde,
+    padding: 14,
+    marginTop: 4,
+    gap: 10
+  },
+  fotosSectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  fotosSectionTitulo: {
+    fontFamily: fonts.fontBlack,
+    fontSize: 13,
+    color: colors.texto
+  },
+  fotosSectionLink: {
+    fontFamily: fonts.fontExtra,
+    fontSize: 11,
+    color: colors.halcones
+  },
+  fotosGrid: {
+    flexDirection: "row",
+    gap: 5
+  },
+  fotoThumb: {
+    flex: 1,
+    height: 60,
+    borderRadius: 10
   }
 });
