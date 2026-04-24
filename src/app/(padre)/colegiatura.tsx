@@ -8,13 +8,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import Svg, {
-  Circle,
-  Line,
-  Path,
-  Polyline,
-  Rect
-} from "react-native-svg";
+import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import {
   colors,
@@ -144,40 +138,6 @@ function StatusBadge({ status }: { status: string }) {
     </View>
   );
 }
-
-// function AnimalIconSm({ salon, activo }: { salon: string; activo: boolean }) {
-//   const color = activo ? "#5A4800" : "#999";
-//   switch (salon) {
-//     case "abejas":
-//       return (
-//         <Svg width={10} height={10} viewBox="0 0 48 48" fill="none">
-//           <Ellipse cx="24" cy="34" rx="9" ry="12" fill={color} opacity="0.4" />
-//           <Ellipse cx="24" cy="14" rx="6" ry="7" fill={color} opacity="0.4" />
-//           <Ellipse cx="10" cy="20" rx="5" ry="3" fill={color} opacity="0.3" />
-//         </Svg>
-//       );
-//     case "halcones":
-//       return (
-//         <Svg width={10} height={10} viewBox="0 0 48 48" fill="none">
-//           <Path
-//             d="M8 22 Q18 10 38 8 Q30 16 24 20Z"
-//             fill={activo ? "#5A4800" : "#999"}
-//             opacity="0.5"
-//           />
-//           <Ellipse
-//             cx="24"
-//             cy="30"
-//             rx="7"
-//             ry="9"
-//             fill={activo ? "#5A4800" : "#999"}
-//             opacity="0.4"
-//           />
-//         </Svg>
-//       );
-//     default:
-//       return null;
-//   }
-// }
 
 export default function Colegiatura() {
   const router = useRouter();
