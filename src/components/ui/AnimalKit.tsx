@@ -891,7 +891,17 @@ export function AnimalPill({
 
 // COMPONENTE 4 — Pill ligero (fondo claro, borde de color)
 
-export function AnimalPillLight({ salon, label, size = "sm", style }) {
+export function AnimalPillLight({
+  salon,
+  label,
+  size = "sm",
+  style
+}: {
+  salon: string;
+  label?: string;
+  size?: "sm" | "md";
+  style?: any;
+}) {
   const g = getGrupo(salon);
   if (!g) return null;
 

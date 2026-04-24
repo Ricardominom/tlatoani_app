@@ -1,3 +1,4 @@
+import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -8,13 +9,7 @@ import {
   View
 } from "react-native";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
-import {
-  colors,
-  fonts,
-  grupoColors,
-  radii,
-  spacing
-} from "../../styles/global";
+import { colors, fonts, radii, spacing } from "../../styles/global";
 
 type TipoAviso = "aviso" | "colegiatura" | "bitacora" | "comida" | "general";
 type TipoTag =
@@ -165,7 +160,7 @@ export default function Avisos() {
           </View>
         </View>
 
-        <ScrollView
+        {/* <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.filtrosScroll}
@@ -206,6 +201,65 @@ export default function Avisos() {
                 >
                   {hijo.label}
                 </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView> */}
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filtrosScroll}
+        >
+          {HIJOS_FILTRO.map((hijo) => {
+            const activo = filtroActivo === hijo.id;
+
+            // Filtro "Todos" — sin animal
+            if (!hijo.salon) {
+              return (
+                <TouchableOpacity
+                  key={hijo.id}
+                  style={[
+                    styles.filtroChip,
+                    activo
+                      ? styles.filtroChipActivoNeutro
+                      : styles.filtroChipInactivo
+                  ]}
+                  onPress={() => setFiltroActivo(hijo.id)}
+                  activeOpacity={0.8}
+                >
+                  <Text
+                    style={[
+                      styles.filtroTxt,
+                      { color: activo ? colors.primarioAmarillo : "#AAA" }
+                    ]}
+                  >
+                    {hijo.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }
+
+            // Filtros con animal
+            return activo ? (
+              <TouchableOpacity
+                key={hijo.id}
+                onPress={() => setFiltroActivo(hijo.id)}
+                activeOpacity={0.8}
+              >
+                <AnimalPill salon={hijo.salon} label={hijo.label} size="md" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                key={hijo.id}
+                onPress={() => setFiltroActivo(hijo.id)}
+                activeOpacity={0.8}
+              >
+                <AnimalPillLight
+                  salon={hijo.salon}
+                  label={hijo.label}
+                  size="md"
+                />
               </TouchableOpacity>
             );
           })}
