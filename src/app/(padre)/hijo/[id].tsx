@@ -133,6 +133,11 @@ export default function DetalleHijo() {
     return null;
   }
 
+  const CHAT_POR_HIJO: Record<string, string> = {
+    victoria: "sandra",
+    diego: "rebeca"
+  };
+
   return (
     <View style={styles.root}>
       <View style={styles.header}>
@@ -313,7 +318,13 @@ export default function DetalleHijo() {
             <Text style={styles.maestraNombre}>{hijo.maestra.nombre}</Text>
             <Text style={styles.maestraGrupo}>{hijo.maestra.grupo}</Text>
           </View>
-          <TouchableOpacity style={styles.btnMsg} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.btnMsg}
+            activeOpacity={0.7}
+            onPress={() =>
+              router.push(`/(padre)/chat/${CHAT_POR_HIJO[id] ?? id}` as any)
+            }
+          >
             <Svg
               width={22}
               height={22}

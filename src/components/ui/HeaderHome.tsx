@@ -4,14 +4,14 @@ import { colors, fonts, spacing } from "../../styles/global";
 
 interface HeaderHomeProps {
   nombreFamilia: string;
-  tieneNotificaciones: boolean;
-  onNotifPress: () => void;
+  mensajesSinLeer: number;
+  onMensajesPress: () => void;
 }
 
 export default function HeaderHome({
   nombreFamilia,
-  tieneNotificaciones,
-  onNotifPress
+  mensajesSinLeer,
+  onMensajesPress
 }: HeaderHomeProps) {
   return (
     <View style={styles.contenedor}>
@@ -51,7 +51,7 @@ export default function HeaderHome({
 
         <TouchableOpacity
           style={styles.notifBtn}
-          onPress={onNotifPress}
+          onPress={onMensajesPress}
           activeOpacity={0.7}
         >
           <Svg
@@ -62,10 +62,15 @@ export default function HeaderHome({
             stroke={colors.texto}
             strokeWidth="2.2"
           >
-            <Path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <Path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            <Path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </Svg>
-          {tieneNotificaciones && <View style={styles.notifDot} />}
+          {mensajesSinLeer > 0 && (
+            <View style={styles.mensajesBadge}>
+              <Text style={styles.mensajesBadgeTxt}>
+                {mensajesSinLeer > 9 ? "9+" : mensajesSinLeer}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -118,16 +123,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "relative"
   },
-  notifDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 999,
-    backgroundColor: colors.rojo,
+  mensajesBadge: {
+    position: "absolute",
+    top: 2,
+    right: 2,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: colors.lobos,
     borderWidth: 1.5,
     borderColor: colors.card,
-    position: "absolute",
-    top: 3,
-    right: 3
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 3
+  },
+  mensajesBadgeTxt: {
+    fontFamily: fonts.fontBlack,
+    fontSize: 9,
+    color: "#fff"
   },
   saludoHi: {
     fontFamily: fonts.fontSemibold,

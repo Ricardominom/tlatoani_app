@@ -108,8 +108,10 @@ export default function Home() {
     <View style={styles.root}>
       <HeaderHome
         nombreFamilia="Familia Ramírez"
-        tieneNotificaciones={true}
-        onNotifPress={() => console.log("notificaciones")}
+        mensajesSinLeer={3}
+        onMensajesPress={() =>
+          router.push("/(padre)/lista-conversaciones" as any)
+        }
       />
 
       <FiltrosHijos
