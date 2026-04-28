@@ -232,7 +232,11 @@ export default function DetalleHijo() {
         </View>
 
         <View style={styles.accesosRow}>
-          <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.accesoCard}
+            activeOpacity={0.7}
+            onPress={() => router.push("/(padre)/bitacora/[id]")}
+          >
             <View style={[styles.accesoIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
                 width={28}
