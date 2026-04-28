@@ -1,12 +1,12 @@
 import { AnimalIcon, getGrupo } from "@/src/components/ui/AnimalKit";
 import { useRouter } from "expo-router";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, { Circle, Line, Path } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -223,8 +223,8 @@ export default function ListaConversaciones() {
           <Text style={styles.headerTitulo}>Mensajes</Text>
           <TouchableOpacity style={styles.iconBtn} activeOpacity={0.8}>
             <Svg
-              width={14}
-              height={14}
+              width={24}
+              height={24}
               viewBox="0 0 24 24"
               fill="none"
               stroke={colors.texto}
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
 
   header: {
     backgroundColor: "#fff",
-    paddingTop: 56,
+    paddingTop: 65,
     paddingHorizontal: 16,
     paddingBottom: 12,
     borderBottomWidth: 0.5,
@@ -314,12 +314,12 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 15,
+    fontSize: 22,
     color: colors.texto
   },
   iconBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 15,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontFamily: fonts.fontBold,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.texto,
     padding: 0
   },
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
   },
   sep: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     letterSpacing: 0.7,
     textTransform: "uppercase",
@@ -389,8 +389,8 @@ const styles = StyleSheet.create({
   },
 
   convAvatar: {
-    width: 42,
-    height: 42,
+    width: 52,
+    height: 52,
     borderRadius: 13,
     alignItems: "center",
     justifyContent: "center",
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
   },
   convAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 17
+    fontSize: 20
   },
   onlineDot: {
     position: "absolute",
@@ -435,18 +435,18 @@ const styles = StyleSheet.create({
   },
   convNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.texto
   },
   convSub: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 12,
     color: "#AAA",
     marginTop: 1
   },
   convPreview: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 13,
     color: "#888",
     marginTop: 4
   },
@@ -462,15 +462,15 @@ const styles = StyleSheet.create({
   },
   convHora: {
     fontFamily: fonts.fontBold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0"
   },
   convHoraUnread: {
     color: "#00AECC"
   },
   unreadDot: {
-    width: 18,
-    height: 18,
+    width: 28,
+    height: 28,
     borderRadius: 9,
     backgroundColor: "#00AECC",
     alignItems: "center",
@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
   },
   unreadDotTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9,
+    fontSize: 11,
     color: "#fff"
   }
 });
