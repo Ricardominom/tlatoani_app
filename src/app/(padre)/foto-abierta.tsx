@@ -1,12 +1,13 @@
+import { AnimalPill } from "@/src/components/ui/AnimalKit";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    Dimensions,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import { colors, fonts } from "../../styles/global";
@@ -97,8 +98,8 @@ export default function FotoAbierta() {
           activeOpacity={0.8}
         >
           <Svg
-            width={14}
-            height={14}
+            width={40}
+            height={40}
             viewBox="0 0 24 24"
             fill="none"
             stroke="#fff"
@@ -116,8 +117,8 @@ export default function FotoAbierta() {
 
         <TouchableOpacity style={styles.iconBtn} activeOpacity={0.8}>
           <Svg
-            width={14}
-            height={14}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke="#fff"
@@ -146,8 +147,8 @@ export default function FotoAbierta() {
             activeOpacity={0.8}
           >
             <Svg
-              width={12}
-              height={12}
+              width={30}
+              height={30}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#fff"
@@ -165,8 +166,8 @@ export default function FotoAbierta() {
             activeOpacity={0.8}
           >
             <Svg
-              width={12}
-              height={12}
+              width={30}
+              height={30}
               viewBox="0 0 24 24"
               fill="none"
               stroke="#fff"
@@ -183,8 +184,8 @@ export default function FotoAbierta() {
           <View style={styles.fotoMetaRow}>
             <View style={styles.fotoFechaRow}>
               <Svg
-                width={9}
-                height={9}
+                width={15}
+                height={15}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="rgba(255,255,255,0.55)"
@@ -195,13 +196,7 @@ export default function FotoAbierta() {
               </Svg>
               <Text style={styles.fotoFecha}>{evento.fecha}</Text>
             </View>
-            {evento.salon && (
-              <View style={styles.fotoTag}>
-                <Text style={styles.fotoTagTxt}>
-                  {evento.salon.charAt(0).toUpperCase() + evento.salon.slice(1)}
-                </Text>
-              </View>
-            )}
+            {evento.salon && <AnimalPill salon={evento.salon} size="sm" />}
           </View>
         </View>
       </View>
@@ -213,8 +208,8 @@ export default function FotoAbierta() {
           activeOpacity={0.8}
         >
           <Svg
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             viewBox="0 0 24 24"
             fill={liked ? colors.lobos : "none"}
             stroke={liked ? colors.lobos : "rgba(255,255,255,0.7)"}
@@ -229,8 +224,8 @@ export default function FotoAbierta() {
 
         <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
           <Svg
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             viewBox="0 0 24 24"
             fill="none"
             stroke="rgba(255,255,255,0.7)"
@@ -243,8 +238,8 @@ export default function FotoAbierta() {
 
         <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
           <Svg
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             viewBox="0 0 24 24"
             fill="none"
             stroke="rgba(255,255,255,0.7)"
@@ -259,8 +254,8 @@ export default function FotoAbierta() {
 
         <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
           <Svg
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             viewBox="0 0 24 24"
             fill="none"
             stroke="rgba(255,255,255,0.7)"
@@ -312,7 +307,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 56,
+    paddingTop: 65,
     paddingHorizontal: 14,
     paddingBottom: 10,
     position: "absolute",
@@ -322,8 +317,8 @@ const styles = StyleSheet.create({
     zIndex: 10
   },
   iconBtn: {
-    width: 32,
-    height: 32,
+    width: 42,
+    height: 42,
     borderRadius: 999,
     backgroundColor: "rgba(0,0,0,0.45)",
     alignItems: "center",
@@ -331,11 +326,11 @@ const styles = StyleSheet.create({
   },
   fotoCounter: {
     backgroundColor: "rgba(0,0,0,0.45)",
-    paddingVertical: 5,
-    paddingHorizontal: 12,
+    paddingVertical: 7,
+    paddingHorizontal: 16,
     borderRadius: 20
   },
-  fotoCounterTxt: { fontFamily: fonts.fontExtra, fontSize: 12, color: "#fff" },
+  fotoCounterTxt: { fontFamily: fonts.fontExtra, fontSize: 16, color: "#fff" },
 
   fotoMain: {
     flex: 1,
@@ -355,8 +350,8 @@ const styles = StyleSheet.create({
   navArrow: {
     position: "absolute",
     top: "50%",
-    width: 28,
-    height: 28,
+    width: 42,
+    height: 42,
     borderRadius: 999,
     backgroundColor: "rgba(0,0,0,0.4)",
     alignItems: "center",
@@ -378,13 +373,13 @@ const styles = StyleSheet.create({
   },
   fotoEventoLbl: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 16,
     color: "rgba(255,255,255,0.6)",
     marginBottom: 3
   },
   fotoDescripcion: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14,
+    fontSize: 18,
     color: "#fff",
     marginBottom: 6
   },
@@ -396,22 +391,9 @@ const styles = StyleSheet.create({
   fotoFechaRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   fotoFecha: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 12,
     color: "rgba(255,255,255,0.55)"
   },
-  fotoTag: {
-    backgroundColor: colors.primarioAmarillo,
-    paddingVertical: 3,
-    paddingHorizontal: 9,
-    borderRadius: 20,
-    shadowColor: colors.secundarioAmarillo,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
-    elevation: 2
-  },
-  fotoTagTxt: { fontFamily: fonts.fontBlack, fontSize: 9, color: "#5A4800" },
-
   acciones: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -423,7 +405,7 @@ const styles = StyleSheet.create({
   accionBtn: { alignItems: "center", gap: 4 },
   accionLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "rgba(255,255,255,0.7)"
   },
 
@@ -438,8 +420,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   tiraThumb: {
-    width: 46,
-    height: 46,
+    width: 66,
+    height: 66,
     borderRadius: 8
   },
   tiraThumbActivo: {

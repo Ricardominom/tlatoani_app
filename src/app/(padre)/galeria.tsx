@@ -387,8 +387,8 @@ export default function Galeria() {
             activeOpacity={0.7}
           >
             <Svg
-              width={14}
-              height={14}
+              width={40}
+              height={40}
               viewBox="0 0 24 24"
               fill="none"
               stroke={colors.texto}
@@ -432,9 +432,9 @@ export default function Galeria() {
               activeOpacity={0.8}
             >
               {filtroActivo === salon ? (
-                <AnimalPill salon={salon} />
+                <AnimalPill salon={salon} size="md" />
               ) : (
-                <AnimalPillLight salon={salon} />
+                <AnimalPillLight salon={salon} size="md" />
               )}
             </TouchableOpacity>
           ))}
@@ -485,13 +485,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 52,
+    paddingTop: 65,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: radii.pill,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -501,7 +501,7 @@ const styles = StyleSheet.create({
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 15,
+    fontSize: 22,
     color: colors.texto
   },
   headerSpacer: { width: 30 },
@@ -509,15 +509,17 @@ const styles = StyleSheet.create({
   filtrosScroll: { paddingBottom: spacing.md },
   filtrosContent: {
     flexDirection: "row",
-    gap: 7,
+    gap: 10,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md
   },
   filPill: {
-    paddingVertical: 6,
+    paddingVertical: 7,
     paddingHorizontal: 14,
     borderRadius: radii.pill,
-    backgroundColor: "#F0F0F0"
+    backgroundColor: "#F0F0F0",
+    alignItems: "center",
+    justifyContent: "center"
   },
   filPillOn: {
     backgroundColor: "#2D2D2D",
@@ -529,7 +531,7 @@ const styles = StyleSheet.create({
   },
   filTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 10,
+    fontSize: 14,
     color: "#AAA"
   },
   filTxtOn: { color: colors.primarioAmarillo },
@@ -542,7 +544,7 @@ const styles = StyleSheet.create({
   },
   mesSep: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9,
+    fontSize: 12,
     color: "#C0C0C0",
     letterSpacing: 0.7,
     textTransform: "uppercase",
@@ -581,7 +583,7 @@ const styles = StyleSheet.create({
   },
   countTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 10,
+    fontSize: 12,
     color: "#fff"
   },
   videoBadge: {
@@ -603,7 +605,7 @@ const styles = StyleSheet.create({
   },
   videoTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9
+    fontSize: 11
   },
   infoWrap: {
     paddingHorizontal: 13,
@@ -612,7 +614,7 @@ const styles = StyleSheet.create({
   },
   eventoNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14,
+    fontSize: 18,
     color: colors.texto,
     marginBottom: 4
   },
@@ -628,7 +630,7 @@ const styles = StyleSheet.create({
   },
   fechaTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 10,
+    fontSize: 13,
     color: "#AAA"
   },
   tagEscuela: {
@@ -644,7 +646,7 @@ const styles = StyleSheet.create({
   },
   tagEscuelaTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9,
+    fontSize: 11,
     color: colors.primarioAmarillo
   },
 
@@ -669,7 +671,7 @@ const styles = StyleSheet.create({
   },
   masTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 15,
     color: "#fff"
   },
 
@@ -679,7 +681,7 @@ const styles = StyleSheet.create({
   },
   vacioTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 13,
+    fontSize: 17,
     color: colors.texto3
   }
 });

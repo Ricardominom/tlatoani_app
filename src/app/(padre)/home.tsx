@@ -276,12 +276,12 @@ const styles = StyleSheet.create({
   },
   fotosSectionTitulo: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.texto
   },
   fotosSectionLink: {
     fontFamily: fonts.fontExtra,
-    fontSize: 11,
+    fontSize: 13,
     color: colors.halcones
   },
   fotosGrid: {
