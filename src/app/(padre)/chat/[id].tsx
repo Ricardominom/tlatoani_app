@@ -1,14 +1,14 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 import Svg, { Line, Path, Polyline } from "react-native-svg";
 import { colors, fonts } from "../../../styles/global";
@@ -245,8 +245,8 @@ function NotaFormal() {
   return (
     <View style={styles.notaFormal}>
       <Svg
-        width={12}
-        height={12}
+        width={22}
+        height={22}
         viewBox="0 0 24 24"
         fill="none"
         stroke="#3A7A18"
@@ -366,8 +366,8 @@ export default function Chat() {
           activeOpacity={0.8}
         >
           <Svg
-            width={14}
-            height={14}
+            width={40}
+            height={40}
             viewBox="0 0 24 24"
             fill="none"
             stroke={colors.texto}
@@ -438,8 +438,8 @@ export default function Chat() {
       <View style={styles.inputArea}>
         <TouchableOpacity style={styles.attachBtn} activeOpacity={0.8}>
           <Svg
-            width={14}
-            height={14}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke="#888"
@@ -463,8 +463,8 @@ export default function Chat() {
           activeOpacity={0.8}
         >
           <Svg
-            width={15}
-            height={15}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill="none"
             stroke={texto.trim() ? "#5A4800" : "#C0C0C0"}
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
 
   header: {
     backgroundColor: "#fff",
-    paddingTop: 56,
+    paddingTop: 65,
     paddingBottom: 12,
     paddingHorizontal: 14,
     borderBottomWidth: 0.5,
@@ -494,8 +494,8 @@ const styles = StyleSheet.create({
     gap: 10
   },
   backBtn: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 15,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -505,8 +505,8 @@ const styles = StyleSheet.create({
     flexShrink: 0
   },
   headerAvatar: {
-    width: 38,
-    height: 38,
+    width: 48,
+    height: 48,
     borderRadius: 12,
     borderWidth: 2,
     alignItems: "center",
@@ -517,11 +517,11 @@ const styles = StyleSheet.create({
     elevation: 2,
     flexShrink: 0
   },
-  headerAvatarTxt: { fontFamily: fonts.fontBlack, fontSize: 16 },
+  headerAvatarTxt: { fontFamily: fonts.fontBlack, fontSize: 20 },
   headerInfo: { flex: 1 },
   headerNombre: {
     fontFamily: fonts.fontBlack,
-    fontSize: 13,
+    fontSize: 20,
     color: colors.texto
   },
   headerSubRow: {
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: "#7BC441"
   },
-  headerSub: { fontFamily: fonts.fontBold, fontSize: 10, color: "#AAA" },
+  headerSub: { fontFamily: fonts.fontBold, fontSize: 12, color: "#AAA" },
 
   chatBody: { flex: 1 },
   chatContent: { padding: 12, paddingBottom: 16, gap: 8 },
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 20
   },
-  fechaChipTxt: { fontFamily: fonts.fontExtra, fontSize: 9, color: "#C0C0C0" },
+  fechaChipTxt: { fontFamily: fonts.fontExtra, fontSize: 11, color: "#C0C0C0" },
 
   contextoBurbuja: {
     backgroundColor: "#FFFBE6",
@@ -562,7 +562,7 @@ const styles = StyleSheet.create({
   },
   contextoLbl: {
     fontFamily: fonts.fontExtra,
-    fontSize: 9,
+    fontSize: 11,
     color: "#B89600",
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
   },
   contextoTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 11,
+    fontSize: 13,
     color: "#7A6200",
     lineHeight: 16
   },
@@ -581,14 +581,14 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingHorizontal: 10,
     alignSelf: "center",
-    maxWidth: "90%",
+    maxWidth: "100%",
     flexDirection: "row",
     alignItems: "flex-start",
     gap: 6
   },
   notaFormalTxt: {
     fontFamily: fonts.fontBold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#3A7A18",
     lineHeight: 14,
     flex: 1
@@ -602,15 +602,15 @@ const styles = StyleSheet.create({
     maxWidth: "85%"
   },
   burbujaAv: {
-    width: 24,
-    height: 24,
+    width: 34,
+    height: 34,
     borderRadius: 8,
     borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0
   },
-  burbujaAvTxt: { fontFamily: fonts.fontBlack, fontSize: 10 },
+  burbujaAvTxt: { fontFamily: fonts.fontBlack, fontSize: 12 },
   burbujaContenidoMaestra: {
     backgroundColor: "#fff",
     borderTopLeftRadius: 4,
@@ -624,19 +624,19 @@ const styles = StyleSheet.create({
   },
   burbujaTxt: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 12,
+    fontSize: 16,
     color: "#333",
     lineHeight: 18
   },
   burbujaHoraMaestra: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#C0C0C0",
     marginTop: 4,
     textAlign: "right"
   },
 
-  burbujaRowPadre: { alignSelf: "flex-end", maxWidth: "85%" },
+  burbujaRowPadre: { alignSelf: "flex-end", maxWidth: "90%" },
   burbujaContenidoPadre: {
     backgroundColor: colors.primarioAmarillo,
     borderTopLeftRadius: 16,
@@ -653,7 +653,7 @@ const styles = StyleSheet.create({
   },
   burbujaTxtPadre: {
     fontFamily: fonts.fontBold,
-    fontSize: 12,
+    fontSize: 16,
     color: "#5A4800",
     lineHeight: 18
   },
@@ -666,7 +666,7 @@ const styles = StyleSheet.create({
   },
   burbujaHoraPadre: {
     fontFamily: fonts.fontSemibold,
-    fontSize: 9,
+    fontSize: 11,
     color: "#9A7800"
   },
 
@@ -703,8 +703,8 @@ const styles = StyleSheet.create({
     gap: 8
   },
   attachBtn: {
-    width: 32,
-    height: 32,
+    width: 42,
+    height: 42,
     borderRadius: 16,
     backgroundColor: "#F5F5F5",
     borderWidth: 0.5,
@@ -725,8 +725,8 @@ const styles = StyleSheet.create({
     maxHeight: 100
   },
   sendBtn: {
-    width: 36,
-    height: 36,
+    width: 46,
+    height: 46,
     borderRadius: 18,
     backgroundColor: colors.primarioAmarillo,
     alignItems: "center",
