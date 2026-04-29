@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   },
   errorTxt: {
     fontFamily: fonts.fontExtra,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.rojo,
     textAlign: "center",
     marginTop: -4

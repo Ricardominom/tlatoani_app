@@ -1,3 +1,4 @@
+import { useAuth } from "@/src/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -140,6 +141,12 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
 
 export default function MiPerfil() {
   const router = useRouter();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/(auth)/Login");
+  };
 
   const [notifStates, setNotifStates] = useState<Record<string, boolean>>({
     avisos: true,
@@ -345,7 +352,10 @@ export default function MiPerfil() {
             </Svg>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.cuentaItem, styles.cuentaItemLast]}>
+          <TouchableOpacity
+            style={[styles.cuentaItem, styles.cuentaItemLast]}
+            onPress={handleLogout}
+          >
             <View style={[styles.cuentaIcono, { backgroundColor: "#FFF0F0" }]}>
               <Svg
                 width={24}
