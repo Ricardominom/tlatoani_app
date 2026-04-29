@@ -12,15 +12,38 @@ import {
 } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import CarruselAnimales from "../../components/ui/CarruselAnimales";
+import { useAuth } from "../../context/AuthContext";
 import { colors, fonts, radii, spacing } from "../../styles/global";
 
-export default function login() {
+export default function Login() {
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
 
   const router = useRouter();
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError("Escribe tu correo y contraseña");
+      return;
+    }
+    try {
+      setLoading(true);
+      setError("");
+      await login(email, password);
+      router.replace("/(padre)/home");
+    } catch (error: any) {
+      const msg = error?.response?.data?.message;
+      setError(msg ?? "Correo o contraseña incorrectos.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -107,12 +130,17 @@ export default function login() {
               <Text style={styles.forgot}>¿Olvidaste tu contraseña?</Text>
             </TouchableOpacity>
 
+            {error !== "" && <Text style={styles.errorTxt}>{error}</Text>}
+
             <TouchableOpacity
-              style={styles.btnLogin}
+              style={[styles.btnLogin, loading && styles.btnLoginOff]}
               activeOpacity={0.85}
-              onPress={() => router.replace("/(padre)/home")}
+              onPress={handleLogin}
+              disabled={loading}
             >
-              <Text style={styles.btnLoginTxt}>Entrar</Text>
+              <Text style={styles.btnLoginTxt}>
+                {loading ? "Entrando..." : "Entrar"}
+              </Text>
             </TouchableOpacity>
 
             <View style={styles.dividerRow}>
@@ -314,5 +342,15 @@ const styles = StyleSheet.create({
   footerLink: {
     fontFamily: fonts.fontExtra,
     color: colors.primarioAmarillo
+  },
+  btnLoginOff: {
+    opacity: 0.6
+  },
+  errorTxt: {
+    fontFamily: fonts.fontExtra,
+    fontSize: 13,
+    color: colors.rojo,
+    textAlign: "center",
+    marginTop: -4
   }
 });
