@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ScrollView,
@@ -138,6 +139,8 @@ function NotifIcon({ id, color }: { id: string; color: string }) {
 }
 
 export default function MiPerfil() {
+  const router = useRouter();
+
   const [notifStates, setNotifStates] = useState<Record<string, boolean>>({
     avisos: true,
     comida: true,
@@ -252,7 +255,10 @@ export default function MiPerfil() {
 
         <Text style={styles.sep}>Cuenta</Text>
         <View style={styles.cuentaCard}>
-          <TouchableOpacity style={styles.cuentaItem}>
+          <TouchableOpacity
+            style={styles.cuentaItem}
+            onPress={() => router.push("/(padre)/editar-perfil" as any)}
+          >
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
                 width={24}
@@ -279,7 +285,10 @@ export default function MiPerfil() {
             </Svg>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.cuentaItem}>
+          <TouchableOpacity
+            style={styles.cuentaItem}
+            onPress={() => router.push("/(padre)/cambiar-contrasena" as any)}
+          >
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
                 width={24}
@@ -306,7 +315,10 @@ export default function MiPerfil() {
             </Svg>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.cuentaItem}>
+          <TouchableOpacity
+            style={styles.cuentaItem}
+            onPress={() => router.push("/(padre)/soporte" as any)}
+          >
             <View style={[styles.cuentaIcono, { backgroundColor: "#F5F5F5" }]}>
               <Svg
                 width={24}
