@@ -6,5 +6,5 @@ export default function Index() {
 
   if (isLoading) return null;
 
-  return <Redirect href={token ? "/(padre)/home" : "/(auth)/login"} />;
+  return <Redirect href={token ? "/(padre)/home" : "/(auth)/Login"} />;
 }

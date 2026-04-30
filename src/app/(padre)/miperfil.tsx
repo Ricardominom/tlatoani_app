@@ -1,7 +1,7 @@
-import { useAuth } from "@/src/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Switch,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
+import { useAuth } from "../../context/AuthContext";
 import { colors, fonts, radii, spacing } from "../../styles/global";
 
 const PADRE = {
@@ -143,9 +144,25 @@ export default function MiPerfil() {
   const router = useRouter();
   const { logout } = useAuth();
 
-  const handleLogout = async () => {
-    await logout();
-    router.replace("/(auth)/Login");
+  const handleLogout = () => {
+    Alert.alert(
+      "Cerrar sesión",
+      "¿Estás seguro que deseas salir de la aplicación?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel"
+        },
+        {
+          text: "Cerrar sesión",
+          style: "destructive",
+          onPress: async () => {
+            await logout();
+            router.replace("/(auth)/Login" as any);
+          }
+        }
+      ]
+    );
   };
 
   const [notifStates, setNotifStates] = useState<Record<string, boolean>>({
