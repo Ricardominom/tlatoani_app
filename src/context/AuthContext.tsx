@@ -1,9 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {
-    getStoredToken,
-    login as loginService,
-    logout as logoutService
-} from "../services/authService";
 
 interface AuthUser {
   id: number;
@@ -27,20 +22,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getStoredToken().then((savedToken) => {
-      setToken(savedToken);
-      setIsLoading(false);
-    });
+    // getStoredToken().then((savedToken) => {
+    //   setToken(savedToken);
+    //   setIsLoading(false);
+
+    //DEMO MODE
+    setIsLoading(false);
+    // });
   }, []);
 
   async function login(email: string, password: string) {
-    const data = await loginService(email, password);
-    setToken(data.token);
-    setUser(data.user);
+    //DEMO MODE
+    setToken("demo-token");
+    setUser({
+      id: 1,
+      name: "Ricardo Mino",
+      email: email || "demo@tlatoani.com"
+    });
+
+    //descomentar para acceder a la conexion con API
+    // const data = await loginService(email, password);
+    // setToken(data.token);
+    // setUser(data.user);
   }
 
   async function logout() {
-    if (token) await logoutService(token);
+    // if (token) await logoutService(token);
+
+    //DEMO MODE
     setToken(null);
     setUser(null);
   }
