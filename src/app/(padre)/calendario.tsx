@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -23,14 +23,32 @@ interface Dia {
   num: number;
   tipo: TipoDia;
   label?: string;
-  esVacaciones?: boolean;
+}
+
+interface FechaSimple {
+  anio: number;
+  mes: number;
+  dia: number;
+}
+
+type TipoDiaEspecial = "junta" | "suspension" | "festivo";
+
+interface DiaEspecial {
+  fecha: FechaSimple;
+  tipo: TipoDiaEspecial;
+  label: string;
+}
+
+interface RangoVacaciones {
+  inicio: FechaSimple;
+  fin: FechaSimple;
+  label: string;
 }
 
 type TipoEvento = "evento" | "junta" | "suspension" | "festivo";
 
 interface Evento {
-  dia: number;
-  mes: string;
+  fecha: FechaSimple;
   tipo: TipoEvento;
   titulo: string;
   descripcion: string;
@@ -48,78 +66,183 @@ const MESES = [
   "Septiembre",
   "Octubre",
   "Noviembre",
-  "Diciembre"
+  "Diciembre",
 ];
 
 const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie"];
+
+// Convierte un índice de mes (0-11) en su abreviatura de 3 letras para las tarjetas de eventos
+function mesCorto(mes: number) {
+  return MESES[mes].slice(0, 3).toLowerCase();
+}
 
 const COLORES_LETRAS = [
   colors.primarioAmarillo,
   colors.verde,
   colors.lobos,
-  colors.halcones
+  colors.halcones,
 ];
 
-const GRID_DIAS: (Dia | null)[][] = [
-  [
-    null,
-    { num: 1, tipo: "normal" },
-    { num: 2, tipo: "normal" },
-    { num: 3, tipo: "normal" },
-    { num: 4, tipo: "normal" }
-  ],
-  [
-    { num: 7, tipo: "normal" },
-    { num: 8, tipo: "normal" },
-    { num: 9, tipo: "hoy" },
-    { num: 10, tipo: "normal" },
-    { num: 11, tipo: "normal" }
-  ],
-  [
-    { num: 22, tipo: "junta", label: "C.Infantil" },
-    { num: 23, tipo: "junta", label: "Halcones" },
-    { num: 24, tipo: "junta", label: "Lobos" },
-    null,
+const ANIO_REFERENCIA = 2025;
+
+function mismaFecha(a: FechaSimple, b: FechaSimple) {
+  return a.anio === b.anio && a.mes === b.mes && a.dia === b.dia;
+}
+
+function esHoy(fecha: FechaSimple) {
+  const ahora = new Date();
+  return mismaFecha(fecha, {
+    anio: ahora.getFullYear(),
+    mes: ahora.getMonth(),
+    dia: ahora.getDate(),
+  });
+}
+
+function fechaEnRango(fecha: FechaSimple, rango: RangoVacaciones) {
+  const t = new Date(fecha.anio, fecha.mes, fecha.dia).getTime();
+  const desde = new Date(
+    rango.inicio.anio,
+    rango.inicio.mes,
+    rango.inicio.dia,
+  ).getTime();
+  const hasta = new Date(
+    rango.fin.anio,
+    rango.fin.mes,
+    rango.fin.dia,
+  ).getTime();
+  return t >= desde && t <= hasta;
+}
+
+// Construye la celda de un día real consultando "hoy" y los días especiales
+function construirDia(fecha: FechaSimple): Dia {
+  if (esHoy(fecha)) {
+    return { num: fecha.dia, tipo: "hoy" };
+  }
+
+  const especial = DIAS_ESPECIALES.find((d) => mismaFecha(d.fecha, fecha));
+  if (especial) {
+    return { num: fecha.dia, tipo: especial.tipo, label: especial.label };
+  }
+
+  return { num: fecha.dia, tipo: "normal" };
+}
+
+// Si TODOS los días de una semana caen dentro del mismo rango vacacional,
+// esa semana se muestra como un banner en vez de celdas individuales
+function vacacionesDeLaSemana(fechas: FechaSimple[]): RangoVacaciones | null {
+  if (fechas.length === 0) return null;
+  return (
+    VACACIONES.find((rango) => fechas.every((f) => fechaEnRango(f, rango))) ??
     null
-  ],
-  [
-    { num: 27, tipo: "junta", label: "Leones" },
-    { num: 28, tipo: "junta", label: "Abejas" },
-    { num: 29, tipo: "normal" },
-    { num: 30, tipo: "festivo", label: "Día niño" },
-    { num: 1, tipo: "suspension", label: "Suspensión" }
-  ]
+  );
+}
+
+interface FilaVacaciones {
+  esVacaciones: true;
+  label: string;
+}
+
+type FilaCalendario = (Dia | null)[] | FilaVacaciones;
+
+// Genera la cuadrícula completa de un mes calculando fechas reales,
+// en lugar de leerla de una tabla escrita a mano
+function generarCuadricula(anio: number, mes: number): FilaCalendario[] {
+  const totalDias = new Date(anio, mes + 1, 0).getDate();
+  const filas: FilaCalendario[] = [];
+  let semana: (Dia | null)[] = [];
+  let fechasSemana: FechaSimple[] = [];
+
+  function cerrarSemana() {
+    const vacaciones = vacacionesDeLaSemana(fechasSemana);
+    filas.push(
+      vacaciones ? { esVacaciones: true, label: vacaciones.label } : semana,
+    );
+    semana = [];
+    fechasSemana = [];
+  }
+
+  for (let dia = 1; dia <= totalDias; dia++) {
+    const fecha: FechaSimple = { anio, mes, dia };
+    const diaSemana = new Date(anio, mes, dia).getDay(); // 0=domingo ... 6=sábado
+
+    if (diaSemana === 0 || diaSemana === 6) continue; // el calendario solo muestra Lun-Vie
+
+    const columna = diaSemana - 1; // lunes(1) -> 0 ... viernes(5) -> 4
+
+    if (semana.length === 0 && columna > 0) {
+      for (let i = 0; i < columna; i++) semana.push(null);
+    }
+
+    semana.push(construirDia(fecha));
+    fechasSemana.push(fecha);
+
+    if (columna === 4) cerrarSemana();
+  }
+
+  if (semana.length > 0) {
+    while (semana.length < 5) semana.push(null);
+    cerrarSemana();
+  }
+
+  return filas;
+}
+
+const DIAS_ESPECIALES: DiaEspecial[] = [
+  {
+    fecha: { anio: 2025, mes: 3, dia: 22 },
+    tipo: "junta",
+    label: "C.Infantil",
+  },
+  { fecha: { anio: 2025, mes: 3, dia: 23 }, tipo: "junta", label: "Halcones" },
+  { fecha: { anio: 2025, mes: 3, dia: 24 }, tipo: "junta", label: "Lobos" },
+  { fecha: { anio: 2025, mes: 3, dia: 27 }, tipo: "junta", label: "Leones" },
+  { fecha: { anio: 2025, mes: 3, dia: 28 }, tipo: "junta", label: "Abejas" },
+  {
+    fecha: { anio: 2025, mes: 3, dia: 30 },
+    tipo: "festivo",
+    label: "Día niño",
+  },
+  {
+    fecha: { anio: 2025, mes: 4, dia: 1 },
+    tipo: "suspension",
+    label: "Suspensión",
+  },
+];
+
+// Periodos vacacionales como un rango de fechas real, no como una fila vacía fija en la tabla
+const VACACIONES: RangoVacaciones[] = [
+  {
+    inicio: { anio: 2025, mes: 3, dia: 14 },
+    fin: { anio: 2025, mes: 3, dia: 18 },
+    label: "Vacaciones de Semana Santa",
+  },
 ];
 
 const EVENTOS: Evento[] = [
   {
-    dia: 13,
-    mes: "abr",
+    fecha: { anio: 2025, mes: 3, dia: 13 },
     tipo: "evento",
     titulo: "Regreso de vacaciones",
-    descripcion: "Último día pago sin recargo · Colegiatura"
+    descripcion: "Último día pago sin recargo · Colegiatura",
   },
   {
-    dia: 28,
-    mes: "abr",
+    fecha: { anio: 2025, mes: 3, dia: 28 },
     tipo: "junta",
     titulo: "Casa de niños — Abejas",
-    descripcion: "9:00am · Victoria asiste con papá o mamá"
+    descripcion: "9:00am · Victoria asiste con papá o mamá",
   },
   {
-    dia: 30,
-    mes: "abr",
+    fecha: { anio: 2025, mes: 3, dia: 30 },
     tipo: "festivo",
     titulo: "Día del niño",
-    descripcion: "Actividades especiales · Todos los niveles"
+    descripcion: "Actividades especiales · Todos los niveles",
   },
   {
-    dia: 1,
-    mes: "may",
+    fecha: { anio: 2025, mes: 4, dia: 1 },
     tipo: "suspension",
     titulo: "Día del trabajo",
-    descripcion: "No hay clases · Reanudan el lunes 4"
-  }
+    descripcion: "No hay clases · Reanudan el lunes 4",
+  },
 ];
 
 function getCeldaEstilo(tipo: TipoDia) {
@@ -129,42 +252,42 @@ function getCeldaEstilo(tipo: TipoDia) {
         bg: "#2D2D2D",
         border: "#2D2D2D",
         borderStyle: "solid" as const,
-        shadow: "#000"
+        shadow: "#000",
       };
     case "evento":
       return {
         bg: colors.lightAmarillo,
         border: colors.primarioAmarillo,
         borderStyle: "solid" as const,
-        shadow: colors.secundarioAmarillo
+        shadow: colors.secundarioAmarillo,
       };
     case "junta":
       return {
         bg: "#EAF8FB",
         border: colors.halcones,
         borderStyle: "solid" as const,
-        shadow: colors.halconesS
+        shadow: colors.halconesS,
       };
     case "suspension":
       return {
         bg: "#F5F5F5",
         border: "#C0C0C0",
         borderStyle: "dashed" as const,
-        shadow: "transparent"
+        shadow: "transparent",
       };
     case "festivo":
       return {
         bg: "#FEF0F7",
         border: colors.lobos,
         borderStyle: "solid" as const,
-        shadow: colors.lobosS
+        shadow: colors.lobosS,
       };
     default:
       return {
         bg: colors.card,
         border: "#F0ECD8",
         borderStyle: "solid" as const,
-        shadow: "transparent"
+        shadow: "transparent",
       };
   }
 }
@@ -209,26 +332,26 @@ function EventoBadge({ tipo }: { tipo: TipoEvento }) {
       bg: colors.primarioAmarillo,
       color: "#5A4800",
       shadow: colors.secundarioAmarillo,
-      label: "Evento"
+      label: "Evento",
     },
     junta: {
       bg: colors.halcones,
       color: "#fff",
       shadow: colors.halconesS,
-      label: "Junta de ambiente"
+      label: "Junta de ambiente",
     },
     suspension: {
       bg: "#E0E0E0",
       color: "#666",
       shadow: "#B0B0B0",
-      label: "Suspensión"
+      label: "Suspensión",
     },
     festivo: {
       bg: colors.lobos,
       color: "#fff",
       shadow: colors.lobosS,
-      label: "Festivo"
-    }
+      label: "Festivo",
+    },
   }[tipo];
 
   return (
@@ -237,8 +360,8 @@ function EventoBadge({ tipo }: { tipo: TipoEvento }) {
         styles.evBadge,
         {
           backgroundColor: config.bg,
-          shadowColor: config.shadow
-        }
+          shadowColor: config.shadow,
+        },
       ]}
     >
       <Text style={[styles.evBadgeTxt, { color: config.color }]}>
@@ -262,9 +385,44 @@ function getEvBoxColor(tipo: TipoEvento) {
 }
 
 export default function Calendario() {
+  const [anio, setAnio] = useState(ANIO_REFERENCIA);
   const [mesIndex, setMesIndex] = useState(3);
+
+  function irMesAnterior() {
+    if (mesIndex === 0) {
+      setMesIndex(11);
+      setAnio((a) => a - 1);
+    } else {
+      setMesIndex((m) => m - 1);
+    }
+  }
+
+  function irMesSiguiente() {
+    if (mesIndex === 11) {
+      setMesIndex(0);
+      setAnio((a) => a + 1);
+    } else {
+      setMesIndex((m) => m + 1);
+    }
+  }
   const mesNombre = MESES[mesIndex];
   const letras = mesNombre.split("");
+  const cuadricula = generarCuadricula(anio, mesIndex);
+
+  function timestamp(fecha: FechaSimple) {
+    return new Date(fecha.anio, fecha.mes, fecha.dia).getTime();
+  }
+
+  const ahora = new Date();
+  const inicioDeHoy = new Date(
+    ahora.getFullYear(),
+    ahora.getMonth(),
+    ahora.getDate(),
+  ).getTime();
+
+  const proximosEventos = EVENTOS.filter(
+    (ev) => timestamp(ev.fecha) >= inicioDeHoy,
+  ).sort((a, b) => timestamp(a.fecha) - timestamp(b.fecha));
 
   return (
     <View style={styles.root}>
@@ -307,7 +465,7 @@ export default function Calendario() {
           <View style={styles.monthNav}>
             <TouchableOpacity
               style={styles.monthBtn}
-              onPress={() => setMesIndex((i) => Math.max(0, i - 1))}
+              onPress={() => irMesAnterior()}
               activeOpacity={0.7}
             >
               <Svg
@@ -330,20 +488,20 @@ export default function Calendario() {
                     style={[
                       styles.monthLetra,
                       {
-                        color: COLORES_LETRAS[i % COLORES_LETRAS.length]
-                      }
+                        color: COLORES_LETRAS[i % COLORES_LETRAS.length],
+                      },
                     ]}
                   >
                     {letra}
                   </Text>
                 ))}
               </View>
-              <Text style={styles.monthAnio}>2025</Text>
+              <Text style={styles.monthAnio}>{anio}</Text>
             </View>
 
             <TouchableOpacity
               style={styles.monthBtn}
-              onPress={() => setMesIndex((i) => Math.min(11, i + 1))}
+              onPress={() => irMesSiguiente()}
               activeOpacity={0.7}
             >
               <Svg
@@ -376,20 +534,18 @@ export default function Calendario() {
           </View>
 
           <View style={styles.calBody}>
-            {GRID_DIAS.map((semana, si) => {
-              if (semana === null) {
+            {cuadricula.map((fila, fi) => {
+              if ("esVacaciones" in fila) {
                 return (
-                  <View key={`vac-${si}`} style={styles.vacRow}>
-                    <Text style={styles.vacTxt}>
-                      🌿 Vacaciones de Semana Santa
-                    </Text>
+                  <View key={`vac-${fi}`} style={styles.vacRow}>
+                    <Text style={styles.vacTxt}>🌿 {fila.label}</Text>
                   </View>
                 );
               }
 
               return (
-                <View key={si} style={styles.calRow}>
-                  {semana.map((dia, di) => {
+                <View key={fi} style={styles.calRow}>
+                  {fila.map((dia, di) => {
                     if (!dia) {
                       return <View key={di} style={styles.calCeldaVacia} />;
                     }
@@ -409,14 +565,14 @@ export default function Calendario() {
                             shadowOpacity:
                               estilo.shadow !== "transparent" ? 1 : 0,
                             shadowRadius: 0,
-                            elevation: estilo.shadow !== "transparent" ? 2 : 0
-                          }
+                            elevation: estilo.shadow !== "transparent" ? 2 : 0,
+                          },
                         ]}
                       >
                         <Text
                           style={[
                             styles.calNum,
-                            { color: getNumColor(dia.tipo) }
+                            { color: getNumColor(dia.tipo) },
                           ]}
                         >
                           {dia.num}
@@ -425,7 +581,7 @@ export default function Calendario() {
                           <Text
                             style={[
                               styles.calLbl,
-                              { color: getLblColor(dia.tipo) }
+                              { color: getLblColor(dia.tipo) },
                             ]}
                           >
                             {dia.label}
@@ -446,32 +602,32 @@ export default function Calendario() {
               bg: colors.lightAmarillo,
               border: colors.primarioAmarillo,
               dashed: false,
-              label: "Evento"
+              label: "Evento",
             },
             {
               bg: "#EAF8FB",
               border: colors.halcones,
               dashed: false,
-              label: "Junta"
+              label: "Junta",
             },
             {
               bg: "#F0FAF0",
               border: colors.verde,
               dashed: true,
-              label: "Vacaciones"
+              label: "Vacaciones",
             },
             {
               bg: "#F5F5F5",
               border: "#C0C0C0",
               dashed: true,
-              label: "Suspensión"
+              label: "Suspensión",
             },
             {
               bg: "#FEF0F7",
               border: colors.lobos,
               dashed: false,
-              label: "Festivo"
-            }
+              label: "Festivo",
+            },
           ].map((item) => (
             <View key={item.label} style={styles.leyItem}>
               <View
@@ -480,8 +636,8 @@ export default function Calendario() {
                   {
                     backgroundColor: item.bg,
                     borderColor: item.border,
-                    borderStyle: item.dashed ? "dashed" : "solid"
-                  }
+                    borderStyle: item.dashed ? "dashed" : "solid",
+                  },
                 ]}
               />
               <Text style={styles.leyTxt}>{item.label}</Text>
@@ -491,7 +647,7 @@ export default function Calendario() {
 
         <Text style={styles.sep}>Próximos eventos</Text>
 
-        {EVENTOS.map((ev, index) => {
+        {proximosEventos.map((ev, index) => {
           const boxColor = getEvBoxColor(ev.tipo);
           return (
             <TouchableOpacity
@@ -501,10 +657,10 @@ export default function Calendario() {
             >
               <View style={[styles.evBox, { backgroundColor: boxColor.bg }]}>
                 <Text style={[styles.evDia, { color: boxColor.color }]}>
-                  {ev.dia}
+                  {ev.fecha.dia}
                 </Text>
                 <Text style={[styles.evMes, { color: boxColor.color }]}>
-                  {ev.mes}
+                  {mesCorto(ev.fecha.mes)}
                 </Text>
               </View>
               <View style={styles.evInfo}>
@@ -541,7 +697,7 @@ export default function Calendario() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "#FFFDF5"
+    backgroundColor: "#FFFDF5",
   },
   header: {
     backgroundColor: colors.card,
@@ -550,32 +706,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0ECD8",
-    gap: 14
+    gap: 14,
   },
   headerTop: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   logoRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6
+    gap: 6,
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
 
   monthSection: {
-    alignItems: "center"
+    alignItems: "center",
   },
   monthNav: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
   },
   monthBtn: {
     width: 50,
@@ -585,43 +741,43 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   monthCenter: {
     alignItems: "center",
-    gap: 2
+    gap: 2,
   },
   monthLetters: {
     flexDirection: "row",
-    gap: 1
+    gap: 1,
   },
   monthLetra: {
     fontFamily: fonts.fontPacifico,
     fontSize: 45,
     lineHeight: 70,
-    letterSpacing: 3
+    letterSpacing: 3,
   },
   monthAnio: {
     fontFamily: fonts.fontBold,
     fontSize: 14,
     color: "#C0C0C0",
-    letterSpacing: 1.5
+    letterSpacing: 1.5,
   },
 
   scroll: { flex: 1 },
   scrollContent: {
-    paddingBottom: 30
+    paddingBottom: 30,
   },
 
   calSection: {
     backgroundColor: "#FFFDF5",
     padding: 10,
-    paddingBottom: 6
+    paddingBottom: 6,
   },
   calHead: {
     flexDirection: "row",
     gap: 3,
-    marginBottom: 5
+    marginBottom: 5,
   },
   calDn: {
     flex: 1,
@@ -629,14 +785,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
     color: "#C0C0C0",
-    paddingVertical: 2
+    paddingVertical: 2,
   },
   calBody: {
-    gap: 3
+    gap: 3,
   },
   calRow: {
     flexDirection: "row",
-    gap: 3
+    gap: 3,
   },
   calCelda: {
     flex: 1,
@@ -645,23 +801,23 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     padding: 5,
     alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   calCeldaVacia: {
     flex: 1,
-    minHeight: 46
+    minHeight: 46,
   },
   calNum: {
     fontFamily: fonts.fontBlack,
     fontSize: 13,
     lineHeight: 14,
-    marginBottom: 2
+    marginBottom: 2,
   },
   calLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 10,
     textAlign: "center",
-    lineHeight: 12
+    lineHeight: 12,
   },
   vacRow: {
     backgroundColor: "#F0FAF0",
@@ -673,12 +829,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 6
+    gap: 6,
   },
   vacTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 12,
-    color: "#3A7A18"
+    color: "#3A7A18",
   },
 
   leyenda: {
@@ -689,24 +845,24 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: "#FFFDF5",
     borderTopWidth: 0.5,
-    borderTopColor: "#F0ECD8"
+    borderTopColor: "#F0ECD8",
   },
   leyItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 3
+    gap: 3,
   },
   leySq: {
     width: 12,
     height: 12,
     borderRadius: 2,
     borderWidth: 1.5,
-    flexShrink: 0
+    flexShrink: 0,
   },
   leyTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 12,
-    color: "#888"
+    color: "#888",
   },
 
   sep: {
@@ -718,7 +874,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 8,
     paddingBottom: 4,
-    marginTop: 10
+    marginTop: 10,
   },
 
   evCard: {
@@ -731,7 +887,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "flex-start",
     marginHorizontal: 10,
-    marginBottom: 7
+    marginBottom: 7,
   },
   evBox: {
     width: 70,
@@ -739,17 +895,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   evDia: {
     fontFamily: fonts.fontBlack,
     fontSize: 24,
-    lineHeight: 26
+    lineHeight: 26,
   },
   evMes: {
     fontFamily: fonts.fontExtra,
     fontSize: 11,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   evInfo: { flex: 1, gap: 3 },
   evBadge: {
@@ -760,23 +916,23 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   evBadgeTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14
+    fontSize: 14,
   },
   evTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 16,
     color: colors.texto,
-    marginTop: 5
+    marginTop: 5,
   },
   evDesc: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: "#888",
-    marginVertical: 5
+    marginVertical: 5,
   },
   evAgenda: {
     flexDirection: "row",
@@ -786,11 +942,11 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 8,
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   evAgendaTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 16,
-    color: colors.halconesS
-  }
+    color: colors.halconesS,
+  },
 });
