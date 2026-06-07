@@ -83,8 +83,6 @@ const COLORES_LETRAS = [
   colors.halcones,
 ];
 
-const ANIO_REFERENCIA = 2025;
-
 function mismaFecha(a: FechaSimple, b: FechaSimple) {
   return a.anio === b.anio && a.mes === b.mes && a.dia === b.dia;
 }
@@ -385,8 +383,9 @@ function getEvBoxColor(tipo: TipoEvento) {
 }
 
 export default function Calendario() {
-  const [anio, setAnio] = useState(ANIO_REFERENCIA);
-  const [mesIndex, setMesIndex] = useState(3);
+  const hoy = new Date();
+  const [anio, setAnio] = useState(hoy.getFullYear());
+  const [mesIndex, setMesIndex] = useState(hoy.getMonth());
 
   function irMesAnterior() {
     if (mesIndex === 0) {
