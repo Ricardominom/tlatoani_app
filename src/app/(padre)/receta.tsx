@@ -1,3 +1,4 @@
+import { mesAbrev } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -5,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, {
   Circle,
@@ -13,77 +14,87 @@ import Svg, {
   Line,
   Path,
   Polyline,
-  Rect
+  Rect,
 } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
+
+function enDias(n: number): Date {
+  return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+function formatFechaReceta(fecha: Date): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
+}
 
 const RECETA = {
   nombre: "Pasta boloñesa",
   tiempo: "45 min",
   ninos: 22,
-  fecha: "Jue 17 oct",
+  fecha: formatFechaReceta(enDias(12)),
   ingredientes: [
     {
       nombre: "Carne molida de res",
       cantidad: "2.5 kg",
       color: colors.rojo,
-      destacado: true
+      destacado: true,
     },
     {
       nombre: "Pasta espagueti",
       cantidad: "1.8 kg",
       color: colors.primarioAmarillo,
-      destacado: true
+      destacado: true,
     },
     {
       nombre: "Jitomate bola",
       cantidad: "1.2 kg",
       color: colors.verde,
-      destacado: false
+      destacado: false,
     },
     {
       nombre: "Cebolla blanca",
       cantidad: "3 piezas",
       color: colors.verde,
-      destacado: false
+      destacado: false,
     },
     {
       nombre: "Ajo",
       cantidad: "1 cabeza",
       color: colors.verde,
-      destacado: false
+      destacado: false,
     },
     {
       nombre: "Puré de tomate",
       cantidad: "800 ml",
       color: colors.halcones,
-      destacado: false
+      destacado: false,
     },
     {
       nombre: "Aceite de oliva",
       cantidad: "4 cdas",
       color: "#888",
-      destacado: false
+      destacado: false,
     },
     {
       nombre: "Sal y pimienta",
       cantidad: "Al gusto",
       color: "#888",
-      destacado: false
-    }
+      destacado: false,
+    },
   ],
   pasos: [
     "Sofreír cebolla y ajo picados en aceite hasta acitronar.",
     "Añadir la carne molida y cocinar a fuego medio hasta dorar.",
     "Agregar jitomate picado y puré. Sazonar y cocinar 20 min.",
     "Hervir la pasta en agua con sal hasta al dente. Escurrir.",
-    "Servir la pasta y bañar con la salsa boloñesa. ¡Listo!"
+    "Servir la pasta y bañar con la salsa boloñesa. ¡Listo!",
   ],
   alergenos:
     "Gluten (pasta de trigo) · Puede contener trazas de lactosa si se agrega queso parmesano.",
   notaMaestra:
-    "Por favor traer los cubiertos desechables y servilletas. La comida debe llegar en recipiente con tapa antes de las 12:30pm."
+    "Por favor traer los cubiertos desechables y servilletas. La comida debe llegar en recipiente con tapa antes de las 12:30pm.",
 };
 
 export default function Receta() {
@@ -246,7 +257,7 @@ export default function Receta() {
               style={[
                 styles.ingrItem,
                 ing.destacado && styles.ingrItemDest,
-                index === arr.length - 1 && styles.ingrItemLast
+                index === arr.length - 1 && styles.ingrItemLast,
               ]}
             >
               <View style={styles.ingrLeft}>
@@ -256,7 +267,7 @@ export default function Receta() {
                 <Text
                   style={[
                     styles.ingrNombre,
-                    ing.destacado && styles.ingrNombreDest
+                    ing.destacado && styles.ingrNombreDest,
                   ]}
                 >
                   {ing.nombre}
@@ -265,7 +276,7 @@ export default function Receta() {
               <Text
                 style={[
                   styles.ingrCantidad,
-                  ing.destacado && styles.ingrNombreDest
+                  ing.destacado && styles.ingrNombreDest,
                 ]}
               >
                 {ing.cantidad}
@@ -281,7 +292,7 @@ export default function Receta() {
               key={index}
               style={[
                 styles.pasoItem,
-                index === arr.length - 1 && styles.pasoItemLast
+                index === arr.length - 1 && styles.pasoItemLast,
               ]}
             >
               <View style={styles.pasoNum}>
@@ -340,7 +351,7 @@ export default function Receta() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.fondo
+    backgroundColor: colors.fondo,
   },
   header: {
     backgroundColor: colors.card,
@@ -351,7 +362,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   backBtn: {
     width: 40,
@@ -361,12 +372,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   shareBtn: {
     width: 40,
@@ -376,14 +387,14 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   scroll: { flex: 1 },
   scrollContent: {
     padding: spacing.md,
     gap: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
 
   platoHero: {
@@ -398,7 +409,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4
+    elevation: 4,
   },
   platoIcono: {
     width: 90,
@@ -407,19 +418,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightAmarillo,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 2
+    marginBottom: 2,
   },
   platoNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 24,
     color: colors.texto,
-    textAlign: "center"
+    textAlign: "center",
   },
   platoMeta: {
     flexDirection: "row",
     gap: 8,
     flexWrap: "wrap",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   platoChip: {
     flexDirection: "row",
@@ -428,12 +439,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     paddingVertical: 4,
     paddingHorizontal: 10,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   platoChipTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
-    color: "#666"
+    color: "#666",
   },
 
   porcionesRow: {
@@ -445,17 +456,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10
+    marginTop: 10,
   },
   porcionesLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 18,
-    color: colors.texto
+    color: colors.texto,
   },
   porcionesCtrl: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10
+    gap: 10,
   },
   porcBtn: {
     width: 38,
@@ -468,20 +479,20 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   porcBtnTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
     color: "#5A4800",
-    lineHeight: 24
+    lineHeight: 24,
   },
   porcNum: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
     color: colors.texto,
     minWidth: 24,
-    textAlign: "center"
+    textAlign: "center",
   },
 
   sep: {
@@ -491,7 +502,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   card: {
@@ -499,7 +510,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
 
   ingrItem: {
@@ -508,37 +519,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   ingrItemDest: {
     backgroundColor: colors.lightAmarillo,
     marginHorizontal: -14,
-    paddingHorizontal: 14
+    paddingHorizontal: 14,
   },
   ingrItemLast: { borderBottomWidth: 0 },
   ingrLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8
+    gap: 8,
   },
   ingrDot: {
     width: 8,
     height: 8,
     borderRadius: 999,
-    flexShrink: 0
+    flexShrink: 0,
   },
   ingrNombre: {
     fontFamily: fonts.fontBold,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
   ingrNombreDest: {
-    color: "#7A6200"
+    color: "#7A6200",
   },
   ingrCantidad: {
     fontFamily: fonts.fontBlack,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
 
   pasoItem: {
@@ -546,7 +557,7 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 7,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   pasoItemLast: { borderBottomWidth: 0 },
   pasoNum: {
@@ -561,12 +572,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   pasoNumTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 16,
-    color: "#5A4800"
+    color: "#5A4800",
   },
   pasoTxt: {
     fontFamily: fonts.fontSemibold,
@@ -574,7 +585,7 @@ const styles = StyleSheet.create({
     color: "#555",
     lineHeight: 24,
     flex: 1,
-    paddingTop: 2
+    paddingTop: 2,
   },
 
   alergenosCard: {
@@ -583,23 +594,23 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: colors.rojo,
     padding: 14,
-    gap: 6
+    gap: 6,
   },
   alergenosTitulo: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5
+    gap: 5,
   },
   alergenosTituloTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 18,
-    color: "#C62828"
+    color: "#C62828",
   },
   alergenosLista: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: "#555",
-    lineHeight: 18
+    lineHeight: 18,
   },
 
   notaCard: {
@@ -608,22 +619,22 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: colors.halcones,
     padding: 14,
-    gap: 4
+    gap: 4,
   },
   notaTitulo: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5
+    gap: 5,
   },
   notaTituloTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 18,
-    color: colors.halconesS
+    color: colors.halconesS,
   },
   notaTxt: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: "#444",
-    lineHeight: 18
-  }
+    lineHeight: 18,
+  },
 });

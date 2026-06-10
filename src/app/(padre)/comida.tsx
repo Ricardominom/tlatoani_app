@@ -1,8 +1,9 @@
 import {
   AnimalIcon,
   AnimalPill,
-  AnimalPillLight
+  AnimalPillLight,
 } from "@/src/components/ui/AnimalKit";
+import { diasHasta, mesAbrev } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -10,7 +11,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, {
   Circle,
@@ -18,7 +19,7 @@ import Svg, {
   Line,
   Path,
   Polyline,
-  Rect
+  Rect,
 } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import {
@@ -26,8 +27,40 @@ import {
   fonts,
   grupoColors,
   radii,
-  spacing
+  spacing,
 } from "../../styles/global";
+
+function enDias(n: number): Date {
+  return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+const MESES_LARGO = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+];
+
+function formatFechaTurno(fecha: Date): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} de ${MESES_LARGO[fecha.getMonth()]}`;
+}
+
+function formatFechaProximo(fecha: Date): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
+}
+
+const victoriaFechaTurno = enDias(12);
+const diegoFechaTurno = enDias(17);
 
 const HIJOS = [
   {
@@ -36,10 +69,10 @@ const HIJOS = [
     salon: "abejas",
     turno: {
       platillo: "Pasta boloñesa",
-      fecha: "Jue 17 de octubre",
-      diasRestantes: 12,
-      ninos: 22
-    }
+      fecha: formatFechaTurno(victoriaFechaTurno),
+      diasRestantes: diasHasta(victoriaFechaTurno),
+      ninos: 22,
+    },
   },
   {
     id: "diego",
@@ -47,38 +80,38 @@ const HIJOS = [
     salon: "halcones",
     turno: {
       platillo: "Arroz con pollo",
-      fecha: "Mar 22 de octubre",
-      diasRestantes: 17,
-      ninos: 20
-    }
-  }
+      fecha: formatFechaTurno(diegoFechaTurno),
+      diasRestantes: diasHasta(diegoFechaTurno),
+      ninos: 20,
+    },
+  },
 ];
 
 const PROXIMOS_TURNOS = [
   {
     quien: "Victoria Miño",
     platillo: "Pasta boloñesa",
-    fecha: "Jue 17 oct",
-    esPropio: true
+    fecha: formatFechaProximo(victoriaFechaTurno),
+    esPropio: true,
   },
   {
     quien: "Mateo López",
     platillo: "Arroz con pollo",
-    fecha: "Vie 18 oct",
-    esPropio: false
+    fecha: formatFechaProximo(enDias(13)),
+    esPropio: false,
   },
   {
     quien: "Valeria Torres",
     platillo: "Sopa de verduras",
-    fecha: "Lun 21 oct",
-    esPropio: false
+    fecha: formatFechaProximo(enDias(16)),
+    esPropio: false,
   },
   {
     quien: "Emilio Vega",
     platillo: "Quesadillas",
-    fecha: "Mar 22 oct",
-    esPropio: false
-  }
+    fecha: formatFechaProximo(enDias(18)),
+    esPropio: false,
+  },
 ];
 
 export default function Comida() {
@@ -128,8 +161,8 @@ export default function Comida() {
             styles.turnoHero,
             {
               borderColor: colores.base,
-              shadowColor: colores.dark
-            }
+              shadowColor: colores.dark,
+            },
           ]}
         >
           <View style={styles.turnoTop}>
@@ -138,8 +171,8 @@ export default function Comida() {
                 styles.turnoBadge,
                 {
                   backgroundColor: colores.light,
-                  borderColor: colores.base
-                }
+                  borderColor: colores.base,
+                },
               ]}
             >
               <AnimalIcon salon={hijo.salon} size={30} />
@@ -209,8 +242,8 @@ export default function Comida() {
                 styles.btnAgenda,
                 {
                   backgroundColor: colores.base,
-                  shadowColor: colores.dark
-                }
+                  shadowColor: colores.dark,
+                },
               ]}
               activeOpacity={0.85}
             >
@@ -260,7 +293,7 @@ export default function Comida() {
             <View
               style={[
                 styles.accesoIcono,
-                { backgroundColor: colors.halconesLight }
+                { backgroundColor: colors.halconesLight },
               ]}
             >
               <Svg
@@ -285,7 +318,7 @@ export default function Comida() {
             <View
               style={[
                 styles.accesoIcono,
-                { backgroundColor: colors.verdeLight }
+                { backgroundColor: colors.verdeLight },
               ]}
             >
               <Svg
@@ -312,7 +345,7 @@ export default function Comida() {
               key={turno.quien}
               style={[
                 styles.proximoItem,
-                index === arr.length - 1 && styles.proximoItemLast
+                index === arr.length - 1 && styles.proximoItemLast,
               ]}
             >
               <View style={styles.proximoLeft}>
@@ -322,13 +355,13 @@ export default function Comida() {
               <View
                 style={[
                   styles.proximoFechaBadge,
-                  turno.esPropio && styles.proximoFechaBadgePropio
+                  turno.esPropio && styles.proximoFechaBadgePropio,
                 ]}
               >
                 <Text
                   style={[
                     styles.proximoFechaTxt,
-                    turno.esPropio && styles.proximoFechaTxtPropio
+                    turno.esPropio && styles.proximoFechaTxtPropio,
                   ]}
                 >
                   {turno.fecha}
@@ -347,7 +380,7 @@ export default function Comida() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.fondo
+    backgroundColor: colors.fondo,
   },
   header: {
     backgroundColor: colors.card,
@@ -356,20 +389,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
-    gap: 12
+    gap: 12,
   },
   headerTop: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   hijosTabs: {
     flexDirection: "row",
-    gap: 8
+    gap: 8,
   },
   hijoTab: {
     flexDirection: "row",
@@ -377,21 +410,21 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingVertical: 6,
     paddingHorizontal: 14,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   hijoTabOff: {
-    backgroundColor: "#F0F0F0"
+    backgroundColor: "#F0F0F0",
   },
   hijoTabTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16
+    fontSize: 16,
   },
 
   scroll: { flex: 1 },
   scrollContent: {
     padding: spacing.md,
     gap: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
 
   turnoHero: {
@@ -403,12 +436,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4
+    elevation: 4,
   },
   turnoTop: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   turnoBadge: {
     flexDirection: "row",
@@ -417,29 +450,29 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: radii.pill,
     paddingVertical: 4,
-    paddingHorizontal: 11
+    paddingHorizontal: 11,
   },
   turnoBadgeTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14
+    fontSize: 14,
   },
   turnoCountdown: {
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   turnoNum: {
     fontFamily: fonts.fontBlack,
     fontSize: 26,
-    lineHeight: 32
+    lineHeight: 32,
   },
   turnoLbl: {
     fontFamily: fonts.fontBold,
     fontSize: 13,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   turnoPlato: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 14
+    gap: 14,
   },
   turnoIcono: {
     width: 76,
@@ -447,7 +480,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   turnoInfo: { flex: 1 },
   turnoPlatillo: {
@@ -455,21 +488,21 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: colors.texto,
     lineHeight: 30,
-    marginBottom: 3
+    marginBottom: 3,
   },
   turnoFecha: {
     fontFamily: fonts.fontExtra,
-    fontSize: 18
+    fontSize: 18,
   },
   turnoNinos: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: "#888",
-    marginTop: 2
+    marginTop: 2,
   },
   turnoBtns: {
     flexDirection: "row",
-    gap: 8
+    gap: 8,
   },
   btnAgenda: {
     flex: 1,
@@ -482,11 +515,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 3
+    elevation: 3,
   },
   btnAgendaTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 18
+    fontSize: 18,
   },
   btnReceta: {
     flex: 1,
@@ -503,18 +536,18 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 3
+    elevation: 3,
   },
   btnRecetaTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
-    color: colors.texto
+    color: colors.texto,
   },
 
   accesosRow: {
     flexDirection: "row",
     gap: 8,
-    marginTop: 12
+    marginTop: 12,
   },
   accesoCard: {
     flex: 1,
@@ -524,26 +557,26 @@ const styles = StyleSheet.create({
     borderColor: "#EBEBEB",
     padding: 14,
     alignItems: "center",
-    gap: 6
+    gap: 6,
   },
   accesoIcono: {
     width: 58,
     height: 58,
     borderRadius: 12,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   accesoLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
     color: colors.texto,
-    textAlign: "center"
+    textAlign: "center",
   },
   accesoSub: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
     color: "#AAA",
-    textAlign: "center"
+    textAlign: "center",
   },
 
   sep: {
@@ -553,7 +586,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   proximosCard: {
@@ -561,7 +594,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
   proximoItem: {
     flexDirection: "row",
@@ -569,35 +602,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   proximoItemLast: { borderBottomWidth: 0 },
   proximoLeft: { gap: 2 },
   proximoQuien: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
   proximoPlatillo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 12,
-    color: "#888"
+    color: "#888",
   },
   proximoFechaBadge: {
     backgroundColor: colors.halconesLight,
     paddingVertical: 3,
     paddingHorizontal: 9,
-    borderRadius: radii.sm
+    borderRadius: radii.sm,
   },
   proximoFechaBadgePropio: {
-    backgroundColor: colors.lightAmarillo
+    backgroundColor: colors.lightAmarillo,
   },
   proximoFechaTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 12,
-    color: colors.halcones
+    color: colors.halcones,
   },
   proximoFechaTxtPropio: {
-    color: colors.secundarioAmarillo
-  }
+    color: colors.secundarioAmarillo,
+  },
 });
