@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle
 } from "react-native";
-import Svg, { Path, Polyline } from "react-native-svg";
+import Svg, { Circle, Path, Rect } from "react-native-svg";
 import { colors, fonts, radii } from "../../styles/global";
 import { AnimalAvatar } from "./AnimalKit";
 
@@ -50,16 +50,11 @@ export default function FiltrosHijos({
         <View
           style={[styles.fiBox, filtroActivo === "todos" && styles.fiBoxActivo]}
         >
-          <Svg
-            width={22}
-            height={22}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={filtroActivo === "todos" ? colors.primarioAmarillo : "#999"}
-            strokeWidth="2"
-          >
-            <Path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <Polyline points="9 22 9 12 15 12 15 22" />
+          <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+            <Circle cx="24" cy="24" r="21" fill="none" stroke="#F5C800" strokeWidth="5.4" />
+            <Circle cx="24" cy="24" r="14" fill="none" stroke="#7BC441" strokeWidth="5.4" />
+            <Path d="M24 16.5 a7.5 7.5 0 1 1 -0.01 0" fill="none" stroke="#E5297E" strokeWidth="5.4" strokeLinecap="round" />
+            <Circle cx="24" cy="24" r="3.6" fill="#00AECC" />
           </Svg>
         </View>
         <Text
@@ -116,17 +111,12 @@ export default function FiltrosHijos({
             filtroActivo === "generales" && styles.fiBoxActivo
           ]}
         >
-          <Svg
-            width={22}
-            height={22}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={
-              filtroActivo === "generales" ? colors.primarioAmarillo : "#999"
-            }
-            strokeWidth="2"
-          >
-            <Path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <Svg width={38} height={38} viewBox="0 0 48 48" fill="none">
+            <Rect x="7" y="20" width="9" height="11" rx="3" fill={filtroActivo === "generales" ? "#fff" : "#2D2D2D"} />
+            <Path d="M15 18 L33 9 Q36 9 36 12 L36 39 Q36 42 33 42 L15 33 Z" fill="#F5C800" stroke={filtroActivo === "generales" ? "#fff" : "#2D2D2D"} strokeWidth="2.4" strokeLinejoin="round" />
+            <Rect x="11.5" y="30" width="6.5" height="11" rx="3" fill={filtroActivo === "generales" ? "#fff" : "#2D2D2D"} />
+            <Path d="M40 17 Q44 24 40 31" stroke="#00AECC" strokeWidth="2.6" strokeLinecap="round" fill="none" />
+            <Path d="M40.5 22 Q42 24 40.5 26" stroke="#E5297E" strokeWidth="2.6" strokeLinecap="round" fill="none" />
           </Svg>
         </View>
         <Text

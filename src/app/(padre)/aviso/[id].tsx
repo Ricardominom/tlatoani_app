@@ -1,4 +1,4 @@
-import { mesAbrev } from "@/src/utils/tiempo";
+import { diasHasta, mesAbrev } from "@/src/utils/tiempo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -14,6 +14,10 @@ import { colors, fonts, radii, spacing } from "../../../styles/global";
 
 function enDias(n: number): Date {
   return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+function haceDias(n: number): Date {
+  return new Date(Date.now() - n * 24 * 60 * 60 * 1000);
 }
 
 const DIAS_AVISO = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
@@ -32,6 +36,18 @@ const suspensionFecha = enDias(24);
 const reanudanFecha = enDias(27);
 const mesActualNombre = MESES_LARGO[new Date().getMonth()];
 
+const excursionFecha = enDias(10);
+const juntaFecha = enDias(3);
+const _hoy = new Date();
+const diaDeVencimiento = _hoy.getDate() <= 16
+  ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
+  : new Date(
+      _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
+      (_hoy.getMonth() + 1) % 12,
+      16
+    );
+const diasAlPago = diasHasta(diaDeVencimiento);
+
 const AVISOS_DATA: Record<string, any> = {
   "1": {
     tag: { label: "Colegiatura", tipo: "alerta" },
@@ -39,7 +55,7 @@ const AVISOS_DATA: Record<string, any> = {
     tiempo: "Hoy · 8:30am",
     maestra: null,
     texto: [
-      "Tu colegiatura del mes de octubre vence en 3 días. Te recordamos que el pago debe realizarse antes del viernes para evitar recargos.",
+      `Tu colegiatura del mes de ${mesActualNombre} vence en ${diasAlPago} días. Te recordamos que el pago debe realizarse antes del ${DIAS_AVISO[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()} para evitar recargos.`,
       "Puedes realizar el pago mediante transferencia bancaria o en la caja de la escuela de 8am a 1pm."
     ],
     evento: null,
@@ -55,11 +71,11 @@ const AVISOS_DATA: Record<string, any> = {
     tiempo: "Hoy · 8:30am",
     maestra: { inicial: "S", nombre: "Sandra García" },
     texto: [
-      "El próximo martes 22 de octubre saldremos a las 9:00am rumbo al Jardín Botánico de Puebla. La actividad regresa a la escuela aproximadamente a las 12:30pm.",
+      `El próximo ${DIAS_AVISO[excursionFecha.getDay()]} ${excursionFecha.getDate()} de ${MESES_LARGO[excursionFecha.getMonth()]} saldremos a las 9:00am rumbo al Jardín Botánico de Puebla. La actividad regresa a la escuela aproximadamente a las 12:30pm.`,
       "Por favor asegúrate de que tu hijo llegue puntual ese día. Los niños deben venir con ropa cómoda y zapatos cerrados — nada de sandalias."
     ],
     evento: {
-      fecha: "Martes 22 de octubre",
+      fecha: formatFechaLarga(excursionFecha),
       horario: "9:00am · regreso 12:30pm"
     },
     materiales: [
@@ -136,11 +152,11 @@ const AVISOS_DATA: Record<string, any> = {
     tiempo: "Hace 2 días",
     maestra: { inicial: "S", nombre: "Sandra García" },
     texto: [
-      "Este viernes a las 9am tendremos la junta de ambiente del salón Abejas en el salón de clases. Es obligatoria la asistencia de al menos un padre o tutor.",
+      `El ${DIAS_AVISO[juntaFecha.getDay()]} ${juntaFecha.getDate()} de ${MESES_LARGO[juntaFecha.getMonth()]} a las 9am tendremos la junta de ambiente del salón Abejas en el salón de clases. Es obligatoria la asistencia de al menos un padre o tutor.`,
       "En esta junta hablaremos sobre el avance del grupo, el proyecto de comida compartida y los eventos de fin de ciclo."
     ],
     evento: {
-      fecha: "Viernes 18 de octubre",
+      fecha: formatFechaLarga(juntaFecha),
       horario: "9:00am · Salón Abejas"
     },
     materiales: null,

@@ -1,4 +1,4 @@
-import { formatTiempoRelativo, mesAbrev, seccionRelativa } from "@/src/utils/tiempo";
+import { diasHasta, formatTiempoRelativo, mesAbrev, seccionRelativa } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -39,6 +39,19 @@ function formatFechaProximo(fecha: Date): string {
   return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
 }
 
+const DIAS_NOMBRE = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+
+const excursionFecha = enDias(10);
+const _hoy = new Date();
+const diaDeVencimiento = _hoy.getDate() <= 16
+  ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
+  : new Date(
+      _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
+      (_hoy.getMonth() + 1) % 12,
+      16
+    );
+const diasAlPago = diasHasta(diaDeVencimiento);
+
 const suspensionFecha = enDias(24);
 const reanudanFecha = enDias(27);
 
@@ -50,7 +63,7 @@ const CARDS = [
     tag: { label: "Colegiatura", tipo: "alerta" as const },
     titulo: "Recordatorio de pago",
     cuerpo:
-      "Tu colegiatura vence en 3 días. Evita recargos pagando antes del viernes.",
+      `Tu colegiatura vence en ${diasAlPago} días. Evita recargos pagando antes del ${DIAS_NOMBRE[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()}.`,
     leido: false,
     acento: "rojo" as const,
   },
@@ -61,7 +74,7 @@ const CARDS = [
     tag: { label: "Sofía · Abejas", tipo: "abejas" as const },
     titulo: "Visita al jardín botánico",
     cuerpo:
-      "El martes saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.",
+      `El ${DIAS_NOMBRE[excursionFecha.getDay()]} saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.`,
     leido: false,
     acento: "amarillo" as const,
     conAgenda: true,
