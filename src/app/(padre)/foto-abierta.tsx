@@ -1,4 +1,5 @@
 import { AnimalPill } from "@/src/components/ui/AnimalKit";
+import { mesAbrev } from "@/src/utils/tiempo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -7,69 +8,79 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import { colors, fonts } from "../../styles/global";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
+function haceDias(n: number): Date {
+  return new Date(Date.now() - n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+function formatFechaConHora(fecha: Date, hora: string): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())} · ${hora}`;
+}
+
 const FOTOS_MOCK = [
   {
     id: "1",
     colores: ["#a8e063", "#56ab2f"],
-    descripcion: "Los niños explorando las plantas"
+    descripcion: "Los niños explorando las plantas",
   },
   {
     id: "2",
     colores: ["#d4fc79", "#96e6a1"],
-    descripcion: "Caminata por el jardín"
+    descripcion: "Caminata por el jardín",
   },
   {
     id: "3",
     colores: ["#89f7fe", "#66a6ff"],
-    descripcion: "Mariposas del invernadero"
+    descripcion: "Mariposas del invernadero",
   },
   {
     id: "4",
     colores: ["#ffecd2", "#fcb69f"],
-    descripcion: "Lunch en el jardín"
+    descripcion: "Lunch en el jardín",
   },
   {
     id: "5",
     colores: ["#a18cd1", "#fbc2eb"],
-    descripcion: "Regreso a la escuela"
+    descripcion: "Regreso a la escuela",
   },
   { id: "6", colores: ["#f093fb", "#f5576c"], descripcion: "Fotos del grupo" },
   {
     id: "7",
     colores: ["#f7971e", "#ffd200"],
-    descripcion: "Actividades al aire libre"
+    descripcion: "Actividades al aire libre",
   },
-  { id: "8", colores: ["#4facfe", "#00f2fe"], descripcion: "Vista del jardín" }
+  { id: "8", colores: ["#4facfe", "#00f2fe"], descripcion: "Vista del jardín" },
 ];
 
 const EVENTOS_DATA: Record<string, any> = {
   "1": {
     nombre: "Visita al jardín botánico",
-    fecha: "Mar 22 oct · 10:15am",
-    salon: "abejas"
+    fecha: formatFechaConHora(haceDias(18), "10:15am"),
+    salon: "abejas",
   },
   "2": {
     nombre: "Festival de otoño",
-    fecha: "Vie 18 oct · 9:00am",
-    salon: null
+    fecha: formatFechaConHora(haceDias(22), "9:00am"),
+    salon: null,
   },
   "3": {
     nombre: "Desfile de independencia",
-    fecha: "Lun 15 sep · 8:30am",
-    salon: null
+    fecha: formatFechaConHora(haceDias(75), "8:30am"),
+    salon: null,
   },
   "4": {
     nombre: "Junta de ambiente",
-    fecha: "Vie 12 sep · 9:00am",
-    salon: "abejas"
-  }
+    fecha: formatFechaConHora(haceDias(78), "9:00am"),
+    salon: "abejas",
+  },
 };
 
 export default function FotoAbierta() {
@@ -289,7 +300,7 @@ export default function FotoAbierta() {
                   { backgroundColor: foto.colores[0] },
                   index === fotoActiva
                     ? styles.tiraThumbActivo
-                    : styles.tiraThumbInactivo
+                    : styles.tiraThumbInactivo,
                 ]}
               />
             </TouchableOpacity>
@@ -314,7 +325,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    zIndex: 10
+    zIndex: 10,
   },
   iconBtn: {
     width: 42,
@@ -322,13 +333,13 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: "rgba(0,0,0,0.45)",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   fotoCounter: {
     backgroundColor: "rgba(0,0,0,0.45)",
     paddingVertical: 7,
     paddingHorizontal: 16,
-    borderRadius: 20
+    borderRadius: 20,
   },
   fotoCounterTxt: { fontFamily: fonts.fontExtra, fontSize: 16, color: "#fff" },
 
@@ -336,7 +347,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   fotoBg: {
     position: "absolute",
@@ -344,7 +355,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.5
+    opacity: 0.5,
   },
 
   navArrow: {
@@ -357,7 +368,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 3,
-    marginTop: -14
+    marginTop: -14,
   },
   navPrev: { left: 10 },
   navNext: { right: 10 },
@@ -369,30 +380,30 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 16,
     paddingTop: 40,
-    backgroundColor: "rgba(0,0,0,0)"
+    backgroundColor: "rgba(0,0,0,0)",
   },
   fotoEventoLbl: {
     fontFamily: fonts.fontBold,
     fontSize: 16,
     color: "rgba(255,255,255,0.6)",
-    marginBottom: 3
+    marginBottom: 3,
   },
   fotoDescripcion: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
     color: "#fff",
-    marginBottom: 6
+    marginBottom: 6,
   },
   fotoMetaRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   fotoFechaRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   fotoFecha: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
-    color: "rgba(255,255,255,0.55)"
+    color: "rgba(255,255,255,0.55)",
   },
   acciones: {
     flexDirection: "row",
@@ -400,35 +411,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: "rgba(0,0,0,0.7)"
+    backgroundColor: "rgba(0,0,0,0.7)",
   },
   accionBtn: { alignItems: "center", gap: 4 },
   accionLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 11,
-    color: "rgba(255,255,255,0.7)"
+    color: "rgba(255,255,255,0.7)",
   },
 
   tiraWrap: {
     backgroundColor: "rgba(0,0,0,0.8)",
     paddingVertical: 10,
-    paddingBottom: 24
+    paddingBottom: 24,
   },
   tiraScroll: {
     paddingHorizontal: 12,
     gap: 5,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   tiraThumb: {
     width: 66,
     height: 66,
-    borderRadius: 8
+    borderRadius: 8,
   },
   tiraThumbActivo: {
     borderWidth: 2.5,
-    borderColor: colors.primarioAmarillo
+    borderColor: colors.primarioAmarillo,
   },
   tiraThumbInactivo: {
-    opacity: 0.5
-  }
+    opacity: 0.5,
+  },
 });
