@@ -82,3 +82,11 @@ export function diasHasta(fecha: Date): number {
         (inicioDelDia(fecha).getTime() - inicioDelDia(new Date()).getTime()) / msPorDia
     );
 }
+
+export function formatHoraMensaje(fecha: Date): string {
+    const dias = diasDeDiferencia(fecha);
+    if (dias === 0) return formatHora(fecha);
+    if (dias === 1) return "Ayer";
+    const DIAS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    return `${DIAS[fecha.getDay()]} ${fecha.getDate()}`;
+}

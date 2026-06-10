@@ -1,4 +1,5 @@
 import { AnimalIcon, getGrupo } from "@/src/components/ui/AnimalKit";
+import { formatHoraMensaje } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import {
   ScrollView,
@@ -6,7 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -22,26 +23,26 @@ const AVATAR_COLORS: Record<
     bg: "#E8F8FC",
     text: "#007A8F",
     border: "#00AECC",
-    shadow: "#007A8F"
+    shadow: "#007A8F",
   },
   verde: {
     bg: "#F0FAF0",
     text: "#3A7A18",
     border: "#7BC441",
-    shadow: "#4A7A1E"
+    shadow: "#4A7A1E",
   },
   rosa: {
     bg: "#FDF0F8",
     text: "#A01D59",
     border: "#E5297E",
-    shadow: "#A01D59"
+    shadow: "#A01D59",
   },
   amarillo: {
     bg: "#FFFBE6",
     text: "#7A6200",
     border: "#F5C800",
-    shadow: "#B89600"
-  }
+    shadow: "#B89600",
+  },
 };
 
 interface Conversacion {
@@ -58,75 +59,79 @@ interface Conversacion {
   avatarColor: AvatarColor;
 }
 
+function hace(horas: number): Date {
+  return new Date(Date.now() - horas * 60 * 60 * 1000);
+}
+
 const CONVERSACIONES: Conversacion[] = [
   {
     id: "sandra",
     nombre: "Mtra. Sandra García",
     subtitulo: "Sofía · Abejas",
     preview: "¡Claro! Podemos vernos el miércoles…",
-    hora: "9:03am",
+    hora: formatHoraMensaje(hace(1)),
     noLeidos: 1,
     online: true,
     tipo: "maestra",
     hijoSalon: "abejas",
     avatarLetra: "S",
-    avatarColor: "turq"
+    avatarColor: "turq",
   },
   {
     id: "admin",
     nombre: "Dirección Tlatoani",
     subtitulo: "Administración escolar",
     preview: "Su colegiatura de mayo vence en 3 días…",
-    hora: "8:45am",
+    hora: formatHoraMensaje(hace(1.5)),
     noLeidos: 2,
     online: false,
     tipo: "admin",
     avatarLetra: "D",
-    avatarColor: "rosa"
+    avatarColor: "rosa",
   },
   {
     id: "rebeca",
     nombre: "Mtra. Rebeca Ortiz",
     subtitulo: "Diego · Halcones",
     preview: "Gracias por confirmar, hasta el lunes.",
-    hora: "Ayer",
+    hora: formatHoraMensaje(hace(25)),
     noLeidos: 0,
     online: false,
     tipo: "maestra",
     hijoSalon: "halcones",
     avatarLetra: "R",
-    avatarColor: "verde"
+    avatarColor: "verde",
   },
   {
     id: "sandra-excursion",
     nombre: "Mtra. Sandra García",
     subtitulo: "Sofía · Abejas · Excursión",
     preview: "Recuerda la autorización firmada para mañana.",
-    hora: "Lun 21",
+    hora: formatHoraMensaje(hace(90)),
     noLeidos: 0,
     online: true,
     tipo: "maestra",
     hijoSalon: "abejas",
     avatarLetra: "S",
-    avatarColor: "turq"
+    avatarColor: "turq",
   },
   {
     id: "admin-festival",
     nombre: "Dirección Tlatoani",
     subtitulo: "Festival de otoño",
     preview: "¡Gracias por su participación en el festival!",
-    hora: "Vie 18",
+    hora: formatHoraMensaje(hace(114)),
     noLeidos: 0,
     online: false,
     tipo: "admin",
     avatarLetra: "T",
-    avatarColor: "amarillo"
-  }
+    avatarColor: "amarillo",
+  },
 ];
 
 function ConvCard({
   conv,
-  onPress
+  onPress,
 }: {
   conv: Conversacion;
   onPress: () => void;
@@ -148,8 +153,8 @@ function ConvCard({
           {
             backgroundColor: col.bg,
             borderColor: col.border,
-            shadowColor: col.shadow
-          }
+            shadowColor: col.shadow,
+          },
         ]}
       >
         <Text style={[styles.convAvatarTxt, { color: col.text }]}>
@@ -164,8 +169,8 @@ function ConvCard({
             {
               backgroundColor: conv.hijoSalon
                 ? (getGrupo(conv.hijoSalon)?.color ?? "#ccc")
-                : "#2D2D2D"
-            }
+                : "#2D2D2D",
+            },
           ]}
         >
           {conv.hijoSalon ? (
@@ -305,17 +310,17 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
-    gap: 12
+    gap: 12,
   },
   headerTop: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 22,
-    color: colors.texto
+    color: colors.texto,
   },
   iconBtn: {
     width: 40,
@@ -325,7 +330,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   searchWrap: {
@@ -337,21 +342,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 9,
     borderWidth: 1.5,
-    borderColor: "#EBEBEB"
+    borderColor: "#EBEBEB",
   },
   searchInput: {
     flex: 1,
     fontFamily: fonts.fontBold,
     fontSize: 14,
     color: colors.texto,
-    padding: 0
+    padding: 0,
   },
 
   feed: { flex: 1 },
   feedContent: {
     padding: 12,
     paddingBottom: 24,
-    gap: 6
+    gap: 6,
   },
   sep: {
     fontFamily: fonts.fontExtra,
@@ -360,7 +365,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     textTransform: "uppercase",
     paddingVertical: 2,
-    paddingHorizontal: 2
+    paddingHorizontal: 2,
   },
 
   convCard: {
@@ -373,11 +378,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   convCardUnread: {
     borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0
+    borderBottomLeftRadius: 0,
   },
   unreadAccent: {
     position: "absolute",
@@ -385,7 +390,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 3,
-    backgroundColor: "#00AECC"
+    backgroundColor: "#00AECC",
   },
 
   convAvatar: {
@@ -399,11 +404,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 2,
-    flexShrink: 0
+    flexShrink: 0,
   },
   convAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 20
+    fontSize: 20,
   },
   onlineDot: {
     position: "absolute",
@@ -414,7 +419,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#7BC441",
     borderWidth: 2,
-    borderColor: "#fff"
+    borderColor: "#fff",
   },
   hijoBadge: {
     position: "absolute",
@@ -426,47 +431,47 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   convDatos: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
   },
   convNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
   convSub: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
     color: "#AAA",
-    marginTop: 1
+    marginTop: 1,
   },
   convPreview: {
     fontFamily: fonts.fontSemibold,
     fontSize: 13,
     color: "#888",
-    marginTop: 4
+    marginTop: 4,
   },
   convPreviewUnread: {
     fontFamily: fonts.fontExtra,
-    color: colors.texto
+    color: colors.texto,
   },
 
   convMeta: {
     alignItems: "flex-end",
     gap: 5,
-    flexShrink: 0
+    flexShrink: 0,
   },
   convHora: {
     fontFamily: fonts.fontBold,
     fontSize: 11,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   convHoraUnread: {
-    color: "#00AECC"
+    color: "#00AECC",
   },
   unreadDot: {
     width: 28,
@@ -479,11 +484,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   unreadDotTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 11,
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 });
