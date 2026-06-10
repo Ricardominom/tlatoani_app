@@ -1,4 +1,4 @@
-import { formatTiempoRelativo, seccionRelativa } from "@/src/utils/tiempo";
+import { formatTiempoRelativo, mesAbrev, seccionRelativa } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -23,6 +23,24 @@ const HIJOS = [
 function hace(horas: number) {
   return new Date(Date.now() - horas * 60 * 60 * 1000);
 }
+
+function enDias(n: number): Date {
+  return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+const MESES_LARGO = [
+  "enero", "febrero", "marzo", "abril", "mayo", "junio",
+  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+];
+
+function formatFechaProximo(fecha: Date): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
+}
+
+const suspensionFecha = enDias(24);
+const reanudanFecha = enDias(27);
 
 const CARDS = [
   {
@@ -53,11 +71,11 @@ const CARDS = [
     fecha: hace(3),
     tipo: "comida" as const,
     tag: { label: "Diego · Halcones", tipo: "halcones" as const },
-    titulo: "Menú compartido — octubre",
+    titulo: `Menú compartido — ${MESES_LARGO[new Date().getMonth()]}`,
     cuerpo: "Ya está disponible el calendario de comida de este mes.",
     leido: false,
     acento: "rosa" as const,
-    comidaInfo: { texto: "Diego: pasta boloñesa para 20", fecha: "Jue 17 oct" },
+    comidaInfo: { texto: "Diego: pasta boloñesa para 20", fecha: formatFechaProximo(enDias(12)) },
     conAgenda: true,
   },
   {
@@ -75,8 +93,8 @@ const CARDS = [
     fecha: hace(35),
     tipo: "general" as const,
     tag: { label: "Escuela general", tipo: "general" as const },
-    titulo: "Suspensión de clases — 25 oct",
-    cuerpo: "No habrá clases por día del maestro. Reanudan el lunes 28.",
+    titulo: `Suspensión de clases — ${suspensionFecha.getDate()} ${mesAbrev(suspensionFecha.getMonth())}`,
+    cuerpo: `No habrá clases por día del maestro. Reanudan el lunes ${reanudanFecha.getDate()}.`,
     leido: true,
     acento: "ninguno" as const,
     conAgenda: true,

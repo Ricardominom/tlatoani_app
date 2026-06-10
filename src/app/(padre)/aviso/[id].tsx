@@ -1,3 +1,4 @@
+import { mesAbrev } from "@/src/utils/tiempo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -10,6 +11,26 @@ import {
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../../styles/global";
+
+function enDias(n: number): Date {
+  return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_AVISO = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+const DIAS_AVISO_CAP = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const MESES_LARGO = [
+  "enero", "febrero", "marzo", "abril", "mayo", "junio",
+  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+];
+
+function formatFechaLarga(fecha: Date): string {
+  return `${DIAS_AVISO_CAP[fecha.getDay()]} ${fecha.getDate()} de ${MESES_LARGO[fecha.getMonth()]}`;
+}
+
+const diegoTurno = enDias(17);
+const suspensionFecha = enDias(24);
+const reanudanFecha = enDias(27);
+const mesActualNombre = MESES_LARGO[new Date().getMonth()];
 
 const AVISOS_DATA: Record<string, any> = {
   "1": {
@@ -58,14 +79,14 @@ const AVISOS_DATA: Record<string, any> = {
   },
   "3": {
     tag: { label: "Diego · Halcones", tipo: "halcones" },
-    titulo: "Menú compartido — octubre",
+    titulo: `Menú compartido — ${mesActualNombre}`,
     tiempo: "Hace 3h",
     maestra: { inicial: "R", nombre: "Roberto Lima" },
     texto: [
-      "Ya está disponible el calendario de comida compartida para el mes de octubre. Recuerda que el turno de Diego está programado para el martes 22."
+      `Ya está disponible el calendario de comida compartida para el mes de ${mesActualNombre}. Recuerda que el turno de Diego está programado para el ${DIAS_AVISO[diegoTurno.getDay()]} ${diegoTurno.getDate()}.`
     ],
     evento: {
-      fecha: "Martes 22 de octubre",
+      fecha: formatFechaLarga(diegoTurno),
       horario: "Llevar comida antes de las 12:30pm"
     },
     materiales: null,
@@ -92,16 +113,16 @@ const AVISOS_DATA: Record<string, any> = {
   },
   "5": {
     tag: { label: "Escuela general", tipo: "general" },
-    titulo: "Suspensión de clases — 25 oct",
+    titulo: `Suspensión de clases — ${suspensionFecha.getDate()} ${MESES_LARGO[suspensionFecha.getMonth()].slice(0, 3)}`,
     tiempo: "Ayer 11am",
     maestra: null,
     texto: [
-      "Se informa a todas las familias que el viernes 25 de octubre no habrá clases por motivo del Día del Maestro.",
-      "Las clases se reanudan normalmente el lunes 28 de octubre. Que tengan un excelente fin de semana largo."
+      `Se informa a todas las familias que el ${DIAS_AVISO[suspensionFecha.getDay()]} ${suspensionFecha.getDate()} de ${MESES_LARGO[suspensionFecha.getMonth()]} no habrá clases por motivo del Día del Maestro.`,
+      `Las clases se reanudan normalmente el lunes ${reanudanFecha.getDate()} de ${MESES_LARGO[reanudanFecha.getMonth()]}. Que tengan un excelente fin de semana largo.`
     ],
     evento: {
-      fecha: "Viernes 25 de octubre",
-      horario: "Sin clases · Reanudan lunes 28"
+      fecha: formatFechaLarga(suspensionFecha),
+      horario: `Sin clases · Reanudan lunes ${reanudanFecha.getDate()}`
     },
     materiales: null,
     leido: true,
