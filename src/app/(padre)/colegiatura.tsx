@@ -1,4 +1,13 @@
 import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
+import {
+  diasHasta,
+  mesAbrev,
+  mesActual,
+  MesAnio,
+  nombreDiaSemana,
+  nombreMes,
+  sumarMeses,
+} from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -6,7 +15,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -15,8 +24,38 @@ import {
   fonts,
   grupoColors,
   radii,
-  spacing
+  spacing,
 } from "../../styles/global";
+
+const DIA_PAGO = 16;
+
+function mesPendiente(): MesAnio {
+  const hoy = new Date();
+  return hoy.getDate() <= DIA_PAGO ? mesActual() : sumarMeses(mesActual(), 1);
+}
+
+function diasParaPago(m: MesAnio): number {
+  return diasHasta(new Date(m.anio, m.mes, DIA_PAGO));
+}
+
+function textoVence(m: MesAnio): string {
+  const fecha = new Date(m.anio, m.mes, DIA_PAGO);
+  return `${nombreDiaSemana(fecha)} ${DIA_PAGO} de ${mesAbrev(m.mes)} · ${m.anio}`;
+}
+
+function textoPagado(m: MesAnio): string {
+  return `Pagado el 8 ${mesAbrev(m.mes)} · sin recargo`;
+}
+
+function textoProximo(m: MesAnio): string {
+  return `Vence ${DIA_PAGO} ${mesAbrev(m.mes)}`;
+}
+
+function textoPendiente(m: MesAnio): string {
+  return `Vence ${DIA_PAGO} ${mesAbrev(m.mes)} · ${diasParaPago(m)} días`;
+}
+
+const mp = mesPendiente();
 
 const HIJOS = [
   {
@@ -26,55 +65,55 @@ const HIJOS = [
     colegiatura: {
       monto: 3200,
       pendiente: {
-        mes: "Mayo 2025",
-        vence: "viernes 16 de mayo · 2025",
-        diasRestantes: 3
+        mes: nombreMes(mp),
+        vence: textoVence(mp),
+        diasRestantes: diasParaPago(mp),
       },
       resumen: {
         pagados: 8,
         total: 10,
-        totalPagado: 25600,
-        saldoPendiente: 6400
+        totalPagado: 8 * 3200,
+        saldoPendiente: 2 * 3200,
       },
       historial: [
         {
-          mes: "Abril 2025",
-          fecha: "Pagado el 10 abr · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -1)),
+          fecha: textoPagado(sumarMeses(mp, -1)),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Mayo 2025",
-          fecha: "Vence 16 may · 3 días",
+          mes: nombreMes(mp),
+          fecha: textoPendiente(mp),
           monto: 3200,
-          status: "pendiente"
+          status: "pendiente",
         },
         {
-          mes: "Junio 2025",
-          fecha: "Vence 16 jun",
+          mes: nombreMes(sumarMeses(mp, 1)),
+          fecha: textoProximo(sumarMeses(mp, 1)),
           monto: 3200,
-          status: "proximo"
+          status: "proximo",
         },
         {
-          mes: "Marzo 2025",
-          fecha: "Pagado el 8 mar · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -2)),
+          fecha: textoPagado(sumarMeses(mp, -2)),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Febrero 2025",
-          fecha: "Pagado el 5 feb · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -3)),
+          fecha: textoPagado(sumarMeses(mp, -3)),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Enero 2025",
-          fecha: "Pagado el 8 ene · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -4)),
+          fecha: textoPagado(sumarMeses(mp, -4)),
           monto: 3200,
-          status: "pagado"
-        }
-      ]
-    }
+          status: "pagado",
+        },
+      ],
+    },
   },
   {
     id: "diego",
@@ -86,37 +125,37 @@ const HIJOS = [
       resumen: {
         pagados: 10,
         total: 10,
-        totalPagado: 32000,
-        saldoPendiente: 0
+        totalPagado: 10 * 3200,
+        saldoPendiente: 0,
       },
       historial: [
         {
-          mes: "Mayo 2025",
-          fecha: "Pagado el 5 may · sin recargo",
+          mes: nombreMes(mp),
+          fecha: textoPagado(mp),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Abril 2025",
-          fecha: "Pagado el 8 abr · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -1)),
+          fecha: textoPagado(sumarMeses(mp, -1)),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Marzo 2025",
-          fecha: "Pagado el 6 mar · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -2)),
+          fecha: textoPagado(sumarMeses(mp, -2)),
           monto: 3200,
-          status: "pagado"
+          status: "pagado",
         },
         {
-          mes: "Febrero 2025",
-          fecha: "Pagado el 4 feb · sin recargo",
+          mes: nombreMes(sumarMeses(mp, -3)),
+          fecha: textoPagado(sumarMeses(mp, -3)),
           monto: 3200,
-          status: "pagado"
-        }
-      ]
-    }
-  }
+          status: "pagado",
+        },
+      ],
+    },
+  },
 ];
 
 function StatusBadge({ status }: { status: string }) {
@@ -126,8 +165,8 @@ function StatusBadge({ status }: { status: string }) {
     proximo: {
       bg: colors.lightAmarillo,
       color: colors.secundarioAmarillo,
-      label: "Próximo"
-    }
+      label: "Próximo",
+    },
   }[status] ?? { bg: "#F5F5F5", color: "#888", label: status };
 
   return (
@@ -297,28 +336,28 @@ export default function Colegiatura() {
             {
               label: "Meses pagados",
               val: `${col.resumen.pagados} de ${col.resumen.total} ✓`,
-              ok: true
+              ok: true,
             },
             {
               label: "Meses pendientes",
               val: `${col.resumen.total - col.resumen.pagados} meses`,
-              err: col.resumen.total - col.resumen.pagados > 0
+              err: col.resumen.total - col.resumen.pagados > 0,
             },
             {
               label: "Total pagado",
-              val: `$${col.resumen.totalPagado.toLocaleString()}`
+              val: `$${col.resumen.totalPagado.toLocaleString()}`,
             },
             {
               label: "Saldo pendiente",
               val: `$${col.resumen.saldoPendiente.toLocaleString()}`,
-              err: col.resumen.saldoPendiente > 0
-            }
+              err: col.resumen.saldoPendiente > 0,
+            },
           ].map((item, index, arr) => (
             <View
               key={item.label}
               style={[
                 styles.resumenRow,
-                index === arr.length - 1 && styles.resumenRowLast
+                index === arr.length - 1 && styles.resumenRowLast,
               ]}
             >
               <Text style={styles.resumenLabel}>{item.label}</Text>
@@ -326,7 +365,7 @@ export default function Colegiatura() {
                 style={[
                   styles.resumenVal,
                   item.ok && styles.resumenValOk,
-                  item.err && styles.resumenValErr
+                  item.err && styles.resumenValErr,
                 ]}
               >
                 {item.val}
@@ -342,7 +381,7 @@ export default function Colegiatura() {
               key={pago.mes}
               style={[
                 styles.pagoItem,
-                index === arr.length - 1 && styles.pagoItemLast
+                index === arr.length - 1 && styles.pagoItemLast,
               ]}
             >
               <View style={styles.pagoLeft}>
@@ -375,12 +414,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
-    gap: 12
+    gap: 12,
   },
   headerTop: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   backBtn: {
     width: 40,
@@ -390,12 +429,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 22,
-    color: colors.texto
+    color: colors.texto,
   },
 
   hijosTabs: { flexDirection: "row", gap: 8 },
@@ -405,7 +444,7 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingVertical: 6,
     paddingHorizontal: 13,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   hijoTabOff: { backgroundColor: "#F0F0F0" },
   hijoTabTxt: { fontFamily: fonts.fontBlack, fontSize: 16 },
@@ -424,12 +463,12 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     elevation: 4,
     padding: 16,
-    gap: 8
+    gap: 8,
   },
   alertaTop: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
   },
   alertaBadge: {
     flexDirection: "row",
@@ -443,7 +482,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   alertaBadgeTxt: { fontFamily: fonts.fontBlack, fontSize: 14, color: "#fff" },
   alertaCountdown: { alignItems: "flex-end" },
@@ -451,7 +490,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontBlack,
     fontSize: 26,
     color: colors.rojo,
-    lineHeight: 32
+    lineHeight: 32,
   },
   alertaLbl: { fontFamily: fonts.fontBold, fontSize: 13, color: "#C0C0C0" },
   alertaMonto: {
@@ -459,24 +498,24 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: colors.texto,
     textAlign: "center",
-    letterSpacing: -1
+    letterSpacing: -1,
   },
   alertaConcepto: {
     fontFamily: fonts.fontBold,
     fontSize: 16,
     color: "#888",
-    textAlign: "center"
+    textAlign: "center",
   },
   alertaFechaWrap: {
     backgroundColor: colors.rojoLight,
     borderRadius: radii.sm,
-    padding: 8
+    padding: 8,
   },
   alertaFecha: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
     color: colors.rojo,
-    textAlign: "center"
+    textAlign: "center",
   },
   btnPagar: {
     backgroundColor: colors.rojo,
@@ -491,7 +530,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 4,
-    marginBottom: 6
+    marginBottom: 6,
   },
   btnPagarTxt: { fontFamily: fonts.fontBlack, fontSize: 18, color: "#fff" },
   btnWhatsapp: {
@@ -508,12 +547,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 3
+    elevation: 3,
   },
   btnWhatsappTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
 
   alCorreienteCard: {
@@ -528,18 +567,18 @@ const styles = StyleSheet.create({
     elevation: 4,
     padding: 24,
     alignItems: "center",
-    gap: 8
+    gap: 8,
   },
   alCorrirenteTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   alCorrienteDesc: {
     fontFamily: fonts.fontSemibold,
     fontSize: 13,
     color: colors.texto2,
-    textAlign: "center"
+    textAlign: "center",
   },
 
   sep: {
@@ -549,7 +588,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   resumenCard: {
@@ -557,7 +596,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
   resumenRow: {
     flexDirection: "row",
@@ -565,14 +604,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 7,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   resumenRowLast: { borderBottomWidth: 0 },
   resumenLabel: { fontFamily: fonts.fontBold, fontSize: 14, color: "#666" },
   resumenVal: {
     fontFamily: fonts.fontBlack,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
   resumenValOk: { color: colors.hormigas },
   resumenValErr: { color: colors.rojo },
@@ -582,7 +621,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
   pagoItem: {
     flexDirection: "row",
@@ -590,7 +629,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   pagoItemLast: { borderBottomWidth: 0 },
   pagoLeft: { gap: 2 },
@@ -601,7 +640,7 @@ const styles = StyleSheet.create({
   statusBadge: {
     paddingVertical: 2,
     paddingHorizontal: 8,
-    borderRadius: radii.sm
+    borderRadius: radii.sm,
   },
-  statusTxt: { fontFamily: fonts.fontBlack, fontSize: 11 }
+  statusTxt: { fontFamily: fonts.fontBlack, fontSize: 11 },
 });

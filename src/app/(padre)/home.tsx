@@ -1,3 +1,4 @@
+import { formatTiempoRelativo, seccionRelativa } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -5,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import FeedCard from "../../components/ui/FeedCard";
@@ -16,71 +17,70 @@ import { colors, fonts, radii } from "../../styles/global";
 
 const HIJOS = [
   { id: "victoria", nombre: "Victoria", salon: "abejas" },
-  { id: "diego", nombre: "Diego", salon: "halcones" }
+  { id: "diego", nombre: "Diego", salon: "halcones" },
 ];
+
+function hace(horas: number) {
+  return new Date(Date.now() - horas * 60 * 60 * 1000);
+}
 
 const CARDS = [
   {
     id: "1",
-    seccion: "Hoy",
+    fecha: hace(1),
     tipo: "colegiatura" as const,
     tag: { label: "Colegiatura", tipo: "alerta" as const },
     titulo: "Recordatorio de pago",
     cuerpo:
       "Tu colegiatura vence en 3 días. Evita recargos pagando antes del viernes.",
-    tiempo: "Hace 1h",
     leido: false,
-    acento: "rojo" as const
+    acento: "rojo" as const,
   },
   {
     id: "2",
-    seccion: "Hoy",
+    fecha: hace(2),
     tipo: "aviso" as const,
     tag: { label: "Sofía · Abejas", tipo: "abejas" as const },
     titulo: "Visita al jardín botánico",
     cuerpo:
       "El martes saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.",
-    tiempo: "Hace 2h",
     leido: false,
     acento: "amarillo" as const,
-    conAgenda: true
+    conAgenda: true,
   },
   {
     id: "3",
-    seccion: "Hoy",
+    fecha: hace(3),
     tipo: "comida" as const,
     tag: { label: "Diego · Halcones", tipo: "halcones" as const },
     titulo: "Menú compartido — octubre",
     cuerpo: "Ya está disponible el calendario de comida de este mes.",
-    tiempo: "Hace 3h",
     leido: false,
     acento: "rosa" as const,
     comidaInfo: { texto: "Diego: pasta boloñesa para 20", fecha: "Jue 17 oct" },
-    conAgenda: true
+    conAgenda: true,
   },
   {
     id: "4",
-    seccion: "Ayer",
+    fecha: hace(28.5),
     tipo: "bitacora" as const,
     tag: { label: "Sofía · Abejas", tipo: "abejas" as const },
     titulo: "Observación de la maestra",
     cuerpo: "Sofía completó sola el trabajo de letras móviles por primera vez.",
-    tiempo: "Ayer 4:30pm",
     leido: true,
-    acento: "ninguno" as const
+    acento: "ninguno" as const,
   },
   {
     id: "5",
-    seccion: "Ayer",
+    fecha: hace(35),
     tipo: "general" as const,
     tag: { label: "Escuela general", tipo: "general" as const },
     titulo: "Suspensión de clases — 25 oct",
     cuerpo: "No habrá clases por día del maestro. Reanudan el lunes 28.",
-    tiempo: "Ayer 11am",
     leido: true,
     acento: "ninguno" as const,
-    conAgenda: true
-  }
+    conAgenda: true,
+  },
 ];
 
 export default function Home() {
@@ -97,11 +97,12 @@ export default function Home() {
 
   const secciones = cardsFiltradas.reduce(
     (acc, card) => {
-      if (!acc[card.seccion]) acc[card.seccion] = [];
-      acc[card.seccion].push(card);
+      const seccion = seccionRelativa(card.fecha);
+      if (!acc[seccion]) acc[seccion] = [];
+      acc[seccion].push(card);
       return acc;
     },
-    {} as Record<string, typeof CARDS>
+    {} as Record<string, typeof CARDS>,
   );
 
   return (
@@ -136,7 +137,7 @@ export default function Home() {
                 tag={card.tag}
                 titulo={card.titulo}
                 cuerpo={card.cuerpo}
-                tiempo={card.tiempo}
+                tiempo={formatTiempoRelativo(card.fecha)}
                 leido={card.leido}
                 acento={card.acento}
                 comidaInfo={card.comidaInfo}
@@ -205,7 +206,7 @@ export default function Home() {
               ["#a8e063", "#56ab2f"],
               ["#89f7fe", "#66a6ff"],
               ["#f093fb", "#f5576c"],
-              ["#ffecd2", "#fcb69f"]
+              ["#ffecd2", "#fcb69f"],
             ].map((col, i) => (
               <TouchableOpacity
                 key={i}
@@ -226,15 +227,15 @@ export default function Home() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "#F2F2F2"
+    backgroundColor: "#F2F2F2",
   },
   feed: {
-    flex: 1
+    flex: 1,
   },
   feedContent: {
     padding: 10,
     gap: 8,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   sep: {
     fontFamily: fonts.fontExtra,
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingVertical: 4,
-    paddingHorizontal: 2
+    paddingHorizontal: 2,
   },
   btnMasAvisos: {
     flexDirection: "row",
@@ -254,13 +255,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.borde,
     padding: 14,
-    marginTop: 4
+    marginTop: 4,
   },
   btnMasAvisosTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 15,
     color: colors.texto,
-    flex: 1
+    flex: 1,
   },
   fotosSection: {
     backgroundColor: colors.card,
@@ -269,30 +270,30 @@ const styles = StyleSheet.create({
     borderColor: colors.borde,
     padding: 14,
     marginTop: 4,
-    gap: 10
+    gap: 10,
   },
   fotosSectionHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   fotosSectionTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
   fotosSectionLink: {
     fontFamily: fonts.fontExtra,
     fontSize: 13,
-    color: colors.halcones
+    color: colors.halcones,
   },
   fotosGrid: {
     flexDirection: "row",
-    gap: 5
+    gap: 5,
   },
   fotoThumb: {
     flex: 1,
     height: 60,
-    borderRadius: 10
-  }
+    borderRadius: 10,
+  },
 });

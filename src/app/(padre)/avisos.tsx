@@ -1,4 +1,5 @@
 import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
+import { formatTiempoRelativo } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -6,7 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
@@ -26,7 +27,7 @@ interface Aviso {
   tag: { label: string; tipo: TipoTag };
   titulo: string;
   preview: string;
-  tiempo: string;
+  fecha: Date;
   leido: boolean;
   acento: string;
 }
@@ -34,8 +35,12 @@ interface Aviso {
 const HIJOS_FILTRO = [
   { id: "todos", label: "Todos" },
   { id: "victoria", label: "Victoria", salon: "abejas" },
-  { id: "diego", label: "Diego", salon: "halcones" }
+  { id: "diego", label: "Diego", salon: "halcones" },
 ];
+
+function hace(horas: number) {
+  return new Date(Date.now() - horas * 60 * 60 * 1000);
+}
 
 const AVISOS: Aviso[] = [
   {
@@ -45,9 +50,9 @@ const AVISOS: Aviso[] = [
     titulo: "Recordatorio de pago",
     preview:
       "Tu colegiatura vence en 3 días. Evita recargos pagando antes del viernes.",
-    tiempo: "Hace 1h",
+    fecha: hace(1),
     leido: false,
-    acento: colors.rojo
+    acento: colors.rojo,
   },
   {
     id: "2",
@@ -56,9 +61,9 @@ const AVISOS: Aviso[] = [
     titulo: "Visita al jardín botánico",
     preview:
       "El martes saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.",
-    tiempo: "Hace 2h",
+    fecha: hace(2),
     leido: false,
-    acento: colors.primarioAmarillo
+    acento: colors.primarioAmarillo,
   },
   {
     id: "3",
@@ -66,9 +71,9 @@ const AVISOS: Aviso[] = [
     tag: { label: "Diego · Halcones", tipo: "halcones" },
     titulo: "Menú compartido — octubre",
     preview: "Ya está disponible el calendario de comida de este mes.",
-    tiempo: "Hace 3h",
+    fecha: hace(3),
     leido: false,
-    acento: colors.lobos
+    acento: colors.lobos,
   },
   {
     id: "4",
@@ -77,9 +82,9 @@ const AVISOS: Aviso[] = [
     titulo: "Observación de la maestra",
     preview:
       "Victoria completó sola el trabajo de letras móviles por primera vez.",
-    tiempo: "Ayer 4:30pm",
+    fecha: hace(28.5),
     leido: true,
-    acento: "transparent"
+    acento: "transparent",
   },
   {
     id: "5",
@@ -87,9 +92,9 @@ const AVISOS: Aviso[] = [
     tag: { label: "Escuela general", tipo: "general" },
     titulo: "Suspensión de clases — 25 oct",
     preview: "No habrá clases por día del maestro. Reanudan el lunes 28.",
-    tiempo: "Ayer 11am",
+    fecha: hace(35),
     leido: true,
-    acento: "transparent"
+    acento: "transparent",
   },
   {
     id: "6",
@@ -98,10 +103,10 @@ const AVISOS: Aviso[] = [
     titulo: "Junta de ambiente — Abejas",
     preview:
       "Este viernes a las 9am en el salón. Es obligatoria la asistencia de al menos un padre.",
-    tiempo: "Hace 2 días",
+    fecha: hace(50),
     leido: true,
-    acento: "transparent"
-  }
+    acento: "transparent",
+  },
 ];
 
 function getTagEstilo(tipo: TipoTag) {
@@ -110,7 +115,7 @@ function getTagEstilo(tipo: TipoTag) {
       return {
         bg: colors.primarioAmarillo,
         color: "#5A4800",
-        shadow: colors.secundarioAmarillo
+        shadow: colors.secundarioAmarillo,
       };
     case "halcones":
       return { bg: colors.halcones, color: "#fff", shadow: colors.halconesS };
@@ -223,7 +228,7 @@ export default function Avisos() {
                     styles.filtroChip,
                     activo
                       ? styles.filtroChipActivoNeutro
-                      : styles.filtroChipInactivo
+                      : styles.filtroChipInactivo,
                   ]}
                   onPress={() => setFiltroActivo(hijo.id)}
                   activeOpacity={0.8}
@@ -231,7 +236,7 @@ export default function Avisos() {
                   <Text
                     style={[
                       styles.filtroTxt,
-                      { color: activo ? colors.primarioAmarillo : "#AAA" }
+                      { color: activo ? colors.primarioAmarillo : "#AAA" },
                     ]}
                   >
                     {hijo.label}
@@ -286,8 +291,8 @@ export default function Avisos() {
                   borderRadius: 0,
                   borderTopRightRadius: radii.md,
                   borderBottomRightRadius: radii.md,
-                  paddingLeft: 10
-                }
+                  paddingLeft: 10,
+                },
               ]}
               onPress={() => router.push(`/(padre)/aviso/${aviso.id}` as any)}
               activeOpacity={0.85}
@@ -298,8 +303,8 @@ export default function Avisos() {
                     styles.tag,
                     {
                       backgroundColor: tagEstilo.bg,
-                      shadowColor: tagEstilo.shadow
-                    }
+                      shadowColor: tagEstilo.shadow,
+                    },
                   ]}
                 >
                   <Text style={[styles.tagTxt, { color: tagEstilo.color }]}>
@@ -307,7 +312,9 @@ export default function Avisos() {
                   </Text>
                 </View>
                 <View style={styles.cardTopRight}>
-                  <Text style={styles.tiempo}>{aviso.tiempo}</Text>
+                  <Text style={styles.tiempo}>
+                    {formatTiempoRelativo(aviso.fecha)}
+                  </Text>
                   {!aviso.leido && <View style={styles.puntoPendiente} />}
                 </View>
               </View>
@@ -339,7 +346,7 @@ export default function Avisos() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.fondo
+    backgroundColor: colors.fondo,
   },
   header: {
     backgroundColor: colors.card,
@@ -347,51 +354,51 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
-    gap: 12
+    gap: 12,
   },
   headerTop: {
     paddingHorizontal: spacing.lg,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   titulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 22,
-    color: colors.texto
+    color: colors.texto,
   },
   subtitulo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: colors.rojo,
-    marginTop: 2
+    marginTop: 2,
   },
   filtrosScroll: {
     paddingHorizontal: spacing.lg,
     gap: 8,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   filtroChip: {
     paddingVertical: 6,
     paddingHorizontal: 14,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   filtroChipActivoNeutro: {
-    backgroundColor: colors.texto
+    backgroundColor: colors.texto,
   },
   filtroChipInactivo: {
-    backgroundColor: "#F0F0F0"
+    backgroundColor: "#F0F0F0",
   },
   filtroTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 15
+    fontSize: 15,
   },
 
   scroll: { flex: 1 },
   scrollContent: {
     padding: spacing.md,
     gap: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
 
   avisoCard: {
@@ -400,17 +407,17 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    gap: 5
+    gap: 5,
   },
   cardTop: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   cardTopRight: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6
+    gap: 6,
   },
   tag: {
     paddingVertical: 4,
@@ -419,33 +426,33 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   tagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14
+    fontSize: 14,
   },
   tiempo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   puntoPendiente: {
     width: 12,
     height: 12,
     borderRadius: 999,
-    backgroundColor: colors.rojo
+    backgroundColor: colors.rojo,
   },
   avisoTitulo: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
   avisoPreview: {
     fontFamily: fonts.fontSemibold,
     fontSize: 12,
     color: colors.texto2,
-    lineHeight: 16
+    lineHeight: 16,
   },
   cardFooter: {
     flexDirection: "row",
@@ -454,21 +461,21 @@ const styles = StyleSheet.create({
     marginTop: 4,
     paddingTop: 8,
     borderTopWidth: 0.5,
-    borderTopColor: "#F5F5F5"
+    borderTopColor: "#F5F5F5",
   },
   leidoTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 11,
-    color: colors.verde
+    color: colors.verde,
   },
   noLeidoTxt: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   verMasTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 11,
-    color: colors.halcones
-  }
+    color: colors.halcones,
+  },
 });
