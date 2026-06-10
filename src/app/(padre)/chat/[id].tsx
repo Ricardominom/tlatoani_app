@@ -348,11 +348,28 @@ export default function Chat() {
   const convId = id ?? "sandra";
 
   const conv = CONV_INFO[convId] ?? CONV_INFO["sandra"];
-  const mensajes = MENSAJES_POR_CONV[convId] ?? [];
   const col = AVATAR_COLORS[conv.avatarColor];
 
   const [texto, setTexto] = useState("");
+  const [extras, setExtras] = useState<Mensaje[]>([]);
   const scrollRef = useRef<ScrollView>(null);
+
+  const mensajes = [...(MENSAJES_POR_CONV[convId] ?? []), ...extras];
+
+  function enviar() {
+    const txt = texto.trim();
+    if (!txt) return;
+    const ahora = new Date();
+    const h = ahora.getHours() % 12 || 12;
+    const m = ahora.getMinutes().toString().padStart(2, "0");
+    const sufijo = ahora.getHours() >= 12 ? "pm" : "am";
+    setExtras((prev) => [
+      ...prev,
+      { id: `e${Date.now()}`, tipo: "padre", texto: txt, hora: `${h}:${m}${sufijo}` }
+    ]);
+    setTexto("");
+    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -461,6 +478,7 @@ export default function Chat() {
         <TouchableOpacity
           style={[styles.sendBtn, !texto.trim() && styles.sendBtnDisabled]}
           activeOpacity={0.8}
+          onPress={enviar}
         >
           <Svg
             width={20}

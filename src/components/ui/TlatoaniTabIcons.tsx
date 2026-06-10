@@ -218,15 +218,15 @@ const TABS = [
     light: "#E8E8E8",
     Icon: IconoInicio
   },
-  // {
-  //   id: "avisos",
-  //   label: "Avisos",
-  //   ruta: "/(padre)/avisos",
-  //   color: "#E5297E",
-  //   shadow: "#A0005A",
-  //   light: "#FCE4EF",
-  //   Icon: IconoAvisos
-  // },
+  {
+    id: "avisos",
+    label: "Avisos",
+    ruta: "/(padre)/avisos",
+    color: "#E5297E",
+    shadow: "#A0005A",
+    light: "#FCE4EF",
+    Icon: IconoAvisos
+  },
   {
     id: "comida",
     label: "Comida",

@@ -1,5 +1,5 @@
 import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
-import { formatTiempoRelativo } from "@/src/utils/tiempo";
+import { diasHasta, formatTiempoRelativo, mesAbrev } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -42,14 +42,33 @@ function hace(horas: number) {
   return new Date(Date.now() - horas * 60 * 60 * 1000);
 }
 
+function enDias(n: number): Date {
+  return new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_NOMBRE = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+const MESES_LARGO = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+
+const excursionFecha = enDias(10);
+const juntaFecha = enDias(3);
+const suspensionFecha = enDias(24);
+const reanudanFecha = enDias(27);
+const _hoy = new Date();
+const diaDeVencimiento = _hoy.getDate() <= 16
+  ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
+  : new Date(
+      _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
+      (_hoy.getMonth() + 1) % 12, 16
+    );
+const diasAlPago = diasHasta(diaDeVencimiento);
+
 const AVISOS: Aviso[] = [
   {
     id: "1",
     tipo: "colegiatura",
     tag: { label: "Colegiatura", tipo: "alerta" },
     titulo: "Recordatorio de pago",
-    preview:
-      "Tu colegiatura vence en 3 días. Evita recargos pagando antes del viernes.",
+    preview: `Tu colegiatura vence en ${diasAlPago} días. Evita recargos pagando antes del ${DIAS_NOMBRE[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()}.`,
     fecha: hace(1),
     leido: false,
     acento: colors.rojo,
@@ -59,8 +78,7 @@ const AVISOS: Aviso[] = [
     tipo: "aviso",
     tag: { label: "Victoria · Abejas", tipo: "abejas" },
     titulo: "Visita al jardín botánico",
-    preview:
-      "El martes saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.",
+    preview: `El ${DIAS_NOMBRE[excursionFecha.getDay()]} saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.`,
     fecha: hace(2),
     leido: false,
     acento: colors.primarioAmarillo,
@@ -69,7 +87,7 @@ const AVISOS: Aviso[] = [
     id: "3",
     tipo: "comida",
     tag: { label: "Diego · Halcones", tipo: "halcones" },
-    titulo: "Menú compartido — octubre",
+    titulo: `Menú compartido — ${MESES_LARGO[new Date().getMonth()]}`,
     preview: "Ya está disponible el calendario de comida de este mes.",
     fecha: hace(3),
     leido: false,
@@ -90,8 +108,8 @@ const AVISOS: Aviso[] = [
     id: "5",
     tipo: "general",
     tag: { label: "Escuela general", tipo: "general" },
-    titulo: "Suspensión de clases — 25 oct",
-    preview: "No habrá clases por día del maestro. Reanudan el lunes 28.",
+    titulo: `Suspensión de clases — ${suspensionFecha.getDate()} ${mesAbrev(suspensionFecha.getMonth())}`,
+    preview: `No habrá clases por día del maestro. Reanudan el ${DIAS_NOMBRE[reanudanFecha.getDay()]} ${reanudanFecha.getDate()}.`,
     fecha: hace(35),
     leido: true,
     acento: "transparent",
@@ -101,8 +119,7 @@ const AVISOS: Aviso[] = [
     tipo: "aviso",
     tag: { label: "Victoria · Abejas", tipo: "abejas" },
     titulo: "Junta de ambiente — Abejas",
-    preview:
-      "Este viernes a las 9am en el salón. Es obligatoria la asistencia de al menos un padre.",
+    preview: `El ${DIAS_NOMBRE[juntaFecha.getDay()]} ${juntaFecha.getDate()} a las 9am en el salón. Es obligatoria la asistencia de al menos un padre.`,
     fecha: hace(50),
     leido: true,
     acento: "transparent",
