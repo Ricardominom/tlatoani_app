@@ -1,20 +1,21 @@
 import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
+import { mesAbrev, nombreMes } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Svg, {
-    Circle,
-    Ellipse,
-    Line,
-    Path,
-    Polyline,
-    Rect
+  Circle,
+  Ellipse,
+  Line,
+  Path,
+  Polyline,
+  Rect,
 } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
@@ -32,51 +33,69 @@ interface Evento {
   coloresMini: string[][];
 }
 
+function haceDias(n: number): Date {
+  return new Date(Date.now() - n * 24 * 60 * 60 * 1000);
+}
+
+const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+function formatFechaEvento(fecha: Date): string {
+  return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
+}
+
+function mesDeEvento(fecha: Date): string {
+  return nombreMes({ anio: fecha.getFullYear(), mes: fecha.getMonth() });
+}
+
+const ev1 = haceDias(18);
+const ev2 = haceDias(22);
+const ev3 = haceDias(75);
+
 const EVENTOS: Evento[] = [
   {
     id: "1",
     nombre: "Visita al jardín botánico",
-    fecha: "Mar 22 oct",
+    fecha: formatFechaEvento(ev1),
     salon: "abejas",
     totalFotos: 24,
     totalVideos: 2,
-    mes: "Octubre 2025",
+    mes: mesDeEvento(ev1),
     coloresMini: [
       ["#a8e063", "#56ab2f"],
       ["#89f7fe", "#66a6ff"],
       ["#d4fc79", "#96e6a1"],
-      ["#ffecd2", "#fcb69f"]
-    ]
+      ["#ffecd2", "#fcb69f"],
+    ],
   },
   {
     id: "2",
     nombre: "Festival de otoño",
-    fecha: "Vie 18 oct",
+    fecha: formatFechaEvento(ev2),
     salon: null,
     totalFotos: 58,
     totalVideos: 5,
-    mes: "Octubre 2025",
+    mes: mesDeEvento(ev2),
     coloresMini: [
       ["#ffecd2", "#fcb69f"],
       ["#f093fb", "#f5576c"],
       ["#a8e063", "#56ab2f"],
-      ["#a18cd1", "#fbc2eb"]
-    ]
+      ["#a18cd1", "#fbc2eb"],
+    ],
   },
   {
     id: "3",
     nombre: "Desfile de independencia",
-    fecha: "Lun 15 sep",
+    fecha: formatFechaEvento(ev3),
     salon: null,
     totalFotos: 31,
-    mes: "Septiembre 2025",
+    mes: mesDeEvento(ev3),
     coloresMini: [
       ["#89f7fe", "#66a6ff"],
       ["#a8e063", "#56ab2f"],
       ["#f093fb", "#f5576c"],
-      ["#ffecd2", "#fcb69f"]
-    ]
-  }
+      ["#ffecd2", "#fcb69f"],
+    ],
+  },
 ];
 
 const SALONES = [
@@ -86,7 +105,7 @@ const SALONES = [
   "lobos",
   "leones",
   "pandas",
-  "pollitos"
+  "pollitos",
 ];
 
 function HeroEvento({ id }: { id: string }) {
@@ -270,7 +289,7 @@ function HeroEvento({ id }: { id: string }) {
 
 function EventoCard({
   evento,
-  onPress
+  onPress,
 }: {
   evento: Evento;
   onPress: () => void;
@@ -374,7 +393,7 @@ export default function Galeria() {
       acc[evento.mes].push(evento);
       return acc;
     },
-    {} as Record<string, Evento[]>
+    {} as Record<string, Evento[]>,
   );
 
   return (
@@ -410,7 +429,7 @@ export default function Galeria() {
           <TouchableOpacity
             style={[
               styles.filPill,
-              filtroActivo === "todos" && styles.filPillOn
+              filtroActivo === "todos" && styles.filPillOn,
             ]}
             onPress={() => setFiltroActivo("todos")}
             activeOpacity={0.8}
@@ -418,7 +437,7 @@ export default function Galeria() {
             <Text
               style={[
                 styles.filTxt,
-                filtroActivo === "todos" && styles.filTxtOn
+                filtroActivo === "todos" && styles.filTxtOn,
               ]}
             >
               Todos
@@ -479,7 +498,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.card,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F0F0F0"
+    borderBottomColor: "#F0F0F0",
   },
   headerTop: {
     flexDirection: "row",
@@ -487,7 +506,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: 65,
     paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md
+    paddingBottom: spacing.md,
   },
   backBtn: {
     width: 40,
@@ -497,12 +516,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 22,
-    color: colors.texto
+    color: colors.texto,
   },
   headerSpacer: { width: 30 },
 
@@ -511,7 +530,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md
+    paddingBottom: spacing.md,
   },
   filPill: {
     paddingVertical: 7,
@@ -519,7 +538,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     backgroundColor: "#F0F0F0",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   filPillOn: {
     backgroundColor: "#2D2D2D",
@@ -527,12 +546,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   filTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: "#AAA"
+    color: "#AAA",
   },
   filTxtOn: { color: colors.primarioAmarillo },
 
@@ -540,7 +559,7 @@ const styles = StyleSheet.create({
   feedContent: {
     padding: spacing.md,
     paddingBottom: 24,
-    gap: 0
+    gap: 0,
   },
   mesSep: {
     fontFamily: fonts.fontBlack,
@@ -549,7 +568,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     textTransform: "uppercase",
     paddingVertical: spacing.sm,
-    paddingHorizontal: 2
+    paddingHorizontal: 2,
   },
 
   card: {
@@ -558,7 +577,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
     overflow: "hidden",
-    marginBottom: spacing.md
+    marginBottom: spacing.md,
   },
   heroWrap: {
     width: "100%",
@@ -567,7 +586,7 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   countBadge: {
     position: "absolute",
@@ -579,12 +598,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.55)",
     paddingVertical: 3,
     paddingHorizontal: 9,
-    borderRadius: 20
+    borderRadius: 20,
   },
   countTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 12,
-    color: "#fff"
+    color: "#fff",
   },
   videoBadge: {
     position: "absolute",
@@ -601,37 +620,37 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   videoTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 11
+    fontSize: 11,
   },
   infoWrap: {
     paddingHorizontal: 13,
     paddingTop: 12,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   eventoNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
     color: colors.texto,
-    marginBottom: 4
+    marginBottom: 4,
   },
   metaRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   fechaRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4
+    gap: 4,
   },
   fechaTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 13,
-    color: "#AAA"
+    color: "#AAA",
   },
   tagEscuela: {
     backgroundColor: "#2D2D2D",
@@ -642,46 +661,46 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   tagEscuelaTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 11,
-    color: colors.primarioAmarillo
+    color: colors.primarioAmarillo,
   },
 
   miniGrid: {
     flexDirection: "row",
     gap: 3,
     paddingHorizontal: 13,
-    paddingBottom: 12
+    paddingBottom: 12,
   },
   miniThumb: {
     flex: 1,
     height: 46,
     borderRadius: 8,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   masOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.45)",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 8
+    borderRadius: 8,
   },
   masTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 15,
-    color: "#fff"
+    color: "#fff",
   },
 
   vacio: {
     alignItems: "center",
-    paddingTop: 48
+    paddingTop: 48,
   },
   vacioTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 17,
-    color: colors.texto3
-  }
+    color: colors.texto3,
+  },
 });
