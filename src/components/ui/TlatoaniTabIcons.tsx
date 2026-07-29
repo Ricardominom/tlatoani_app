@@ -2,267 +2,569 @@ import { usePathname, useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg, {
   Circle,
+  Defs,
   Ellipse,
-  Line,
+  LinearGradient,
   Path,
-  Polygon,
-  Rect
+  Rect,
+  Stop,
 } from "react-native-svg";
-import { fonts } from "../../styles/global";
+import { colors, fonts } from "../../styles/global";
 
-const IconoInicio = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+// ---------- Inicio ----------
+
+const IconoInicioInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFD85A" />
+        <Stop offset="1" stopColor="#F1A91F" />
+      </LinearGradient>
+      <LinearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#56B8D1" />
+        <Stop offset="1" stopColor="#1684A3" />
+      </LinearGradient>
+    </Defs>
+    <Path d="M18 49 48 23l30 26v26H18Z" fill="#FFFDF6" />
     <Path
-      d="M4 16 L16 5 L28 16"
-      stroke={color}
-      strokeWidth="3.5"
+      d="M15 49 48 20l33 29"
+      fill="none"
+      stroke="url(#yellow)"
+      strokeWidth="10"
+      strokeLinecap="round"
       strokeLinejoin="round"
+    />
+    <Rect x="38" y="54" width="20" height="26" rx="8" fill="url(#blue)" />
+    <Rect x="67" y="55" width="9" height="15" rx="4.5" fill="#E7B04C" />
+    <Path d="M68 76c7-10 15-8 16-1-1 8-11 11-19 7" fill="#7EBE5B" />
+    <Ellipse cx="43" cy="68" rx="2" ry="2.4" fill="#D6E7E9" />
+  </Svg>
+);
+
+const IconoInicioActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFE46B" />
+        <Stop offset="1" stopColor="#F5A900" />
+      </LinearGradient>
+      <LinearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#67C8DF" />
+        <Stop offset="1" stopColor="#0D86A8" />
+      </LinearGradient>
+    </Defs>
+    <Path d="M18 49 48 23l30 26v26H18Z" fill="#FFFDF3" />
+    <Path
+      d="M15 49 48 20l33 29"
+      fill="none"
+      stroke="url(#yellow)"
+      strokeWidth="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Rect x="37" y="53" width="22" height="27" rx="8" fill="url(#blue)" />
+    <Ellipse cx="43" cy="68" rx="2" ry="2.4" fill="#EAF6F7" />
+    <Path d="M68 76c7-10 15-8 16-1-1 8-11 11-19 7" fill="#82CB5A" />
+    <Path
+      d="M72 25v-8M68 21h8"
+      stroke="#FFD85A"
+      strokeWidth="4"
       strokeLinecap="round"
     />
-    <Rect
-      x="8"
-      y="15"
-      width="16"
-      height="13"
-      rx="3"
-      stroke={color}
-      strokeWidth="3.5"
-      strokeLinejoin="round"
+    <Path d="M24 73c-5-4-8-2-8 2 1 4 6 5 10 2" fill="#74BE50" />
+  </Svg>
+);
+
+// ---------- Comida ----------
+
+const IconoComidaInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFD85A" />
+        <Stop offset="1" stopColor="#F1A91F" />
+      </LinearGradient>
+    </Defs>
+    <Path d="M20 45h56v12c0 18-12 28-28 28S20 75 20 57Z" fill="url(#yellow)" />
+    <Ellipse cx="48" cy="46" rx="29" ry="11" fill="#FFF8E4" />
+    <Ellipse cx="34" cy="44" rx="6" ry="4" fill="#F2C64D" />
+    <Ellipse cx="47" cy="40" rx="7" ry="5" fill="#F9D76D" />
+    <Ellipse cx="60" cy="45" rx="5" ry="4" fill="#E8B535" />
+    <Circle cx="38" cy="63" r="3" fill="#554B43" />
+    <Circle cx="58" cy="63" r="3" fill="#554B43" />
+    <Path
+      d="M40 70c5 5 11 5 16 0"
+      fill="none"
+      stroke="#554B43"
+      strokeWidth="4"
+      strokeLinecap="round"
     />
-    <Rect
-      x="13"
-      y="21"
-      width="6"
-      height="7"
-      rx="2"
-      stroke={color}
-      strokeWidth="2.5"
+    <Circle cx="30" cy="68" r="4" fill="#F48B95" />
+    <Circle cx="66" cy="68" r="4" fill="#F48B95" />
+    <Path d="M52 38c2-14 11-20 17-16 4 4 0 13-8 18" fill="#63A949" />
+    <Path d="M57 40c8-10 16-11 19-5 1 5-6 10-14 10" fill="#89C95B" />
+  </Svg>
+);
+
+const IconoComidaActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFE46B" />
+        <Stop offset="1" stopColor="#F5A900" />
+      </LinearGradient>
+    </Defs>
+    <Path d="M20 45h56v12c0 18-12 28-28 28S20 75 20 57Z" fill="url(#yellow)" />
+    <Ellipse cx="48" cy="46" rx="29" ry="11" fill="#FFF9DF" />
+    <Ellipse cx="34" cy="44" rx="6" ry="4" fill="#F2C64D" />
+    <Ellipse cx="47" cy="40" rx="7" ry="5" fill="#F9D76D" />
+    <Ellipse cx="60" cy="45" rx="5" ry="4" fill="#E8B535" />
+    <Path
+      d="M37 63c2-2 4-2 6 0M53 63c2-2 4-2 6 0"
+      fill="none"
+      stroke="#554B43"
+      strokeWidth="3"
+      strokeLinecap="round"
     />
-    <Rect
-      x="21"
-      y="8"
-      width="3.5"
-      height="7"
-      rx="1.75"
-      stroke={color}
-      strokeWidth="2"
+    <Path
+      d="M39 69c5 7 13 7 18 0"
+      fill="none"
+      stroke="#554B43"
+      strokeWidth="4"
+      strokeLinecap="round"
+    />
+    <Circle cx="30" cy="68" r="4.5" fill="#F48B95" />
+    <Circle cx="66" cy="68" r="4.5" fill="#F48B95" />
+    <Path d="M52 38c2-14 11-20 17-16 4 4 0 13-8 18" fill="#63A949" />
+    <Path d="M57 40c8-10 16-11 19-5 1 5-6 10-14 10" fill="#89C95B" />
+    <Path
+      d="M25 25c-2-8 4-11 7-5M42 23c0-8 6-9 8-3M61 25c2-7 7-7 9-2"
+      fill="none"
+      stroke="#F4B52E"
+      strokeWidth="4"
+      strokeLinecap="round"
     />
   </Svg>
 );
 
-const IconoAvisos = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+// ---------- Calendario ----------
+
+const IconoCalendarioInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#17C6CE" />
+        <Stop offset="1" stopColor="#0E8EAC" />
+      </LinearGradient>
+    </Defs>
+    <Rect
+      x="18"
+      y="20"
+      width="60"
+      height="60"
+      rx="12"
+      fill="#F6FFFF"
+      stroke="#46AFC1"
+      strokeWidth="4"
+    />
+    <Path d="M18 37h60" stroke="#46AFC1" strokeWidth="4" />
     <Path
-      d="M16 4 C10 4 8 10 8 14 L8 21 L6 23 L26 23 L24 21 L24 14 C24 10 22 4 16 4Z"
-      stroke={color}
-      strokeWidth="3"
-      strokeLinejoin="round"
+      d="M31 14v15M65 14v15"
+      stroke="url(#cyan)"
+      strokeWidth="10"
       strokeLinecap="round"
     />
-    <Circle cx="16" cy="4" r="2" stroke={color} strokeWidth="2.5" />
+    <Circle cx="32" cy="50" r="4" fill="#9ED8E2" />
+    <Circle cx="48" cy="50" r="4" fill="#9ED8E2" />
+    <Circle cx="64" cy="50" r="4" fill="#9ED8E2" />
+    <Circle cx="32" cy="64" r="4" fill="#9ED8E2" />
+    <Circle cx="48" cy="64" r="4" fill="#9ED8E2" />
+    <Circle cx="64" cy="64" r="4" fill="#EF6B83" />
+    <Path d="M65 77c7-4 11-8 11-14v12c0 3-3 5-11 2Z" fill="#7CC5D6" />
+  </Svg>
+);
+
+const IconoCalendarioActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#20D4DC" />
+        <Stop offset="1" stopColor="#078EAD" />
+      </LinearGradient>
+    </Defs>
+    <Rect
+      x="18"
+      y="20"
+      width="60"
+      height="60"
+      rx="12"
+      fill="#F5FFFF"
+      stroke="#2DB7C9"
+      strokeWidth="4"
+    />
+    <Path d="M18 37h60" stroke="#2DB7C9" strokeWidth="4" />
     <Path
-      d="M13 23 Q13 27 16 27 Q19 27 19 23"
-      stroke={color}
+      d="M31 14v15M65 14v15"
+      stroke="url(#cyan)"
+      strokeWidth="10"
+      strokeLinecap="round"
+    />
+    <Circle cx="32" cy="50" r="4" fill="#9ED8E2" />
+    <Circle cx="48" cy="50" r="4" fill="#9ED8E2" />
+    <Circle cx="64" cy="50" r="6" fill="#F05B78" />
+    <Path
+      d="m61 50 2 2 4-5"
+      fill="none"
+      stroke="#FFFFFF"
       strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Circle cx="32" cy="64" r="4" fill="#9ED8E2" />
+    <Circle cx="48" cy="64" r="4" fill="#9ED8E2" />
+    <Circle cx="64" cy="64" r="4" fill="#9ED8E2" />
+    <Path d="M65 77c7-4 11-8 11-14v12c0 3-3 5-11 2Z" fill="#76C7D7" />
+    <Path
+      d="M79 20l6-6M82 28l8-1"
+      stroke="#19C5D0"
+      strokeWidth="4"
       strokeLinecap="round"
     />
   </Svg>
 );
 
-const IconoComida = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+// ---------- Mis hijos ----------
+
+const IconoMisHijosInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#88C85E" />
+        <Stop offset="1" stopColor="#4EA84C" />
+      </LinearGradient>
+    </Defs>
     <Path
-      d="M5 15 Q5 25 16 25 Q27 25 27 15Z"
-      stroke={color}
+      d="M17 73c3-16 14-25 29-25 14 0 25 9 28 25-8 8-18 12-29 12S25 81 17 73Z"
+      fill="url(#green)"
+    />
+    <Circle cx="37" cy="43" r="18" fill="#F4C4A4" />
+    <Path
+      d="M22 40c2-16 22-24 31-8-8 0-14-3-19-9-2 7-5 12-12 17Z"
+      fill="#9B603F"
+    />
+    <Circle cx="32" cy="45" r="2.5" fill="#4B4038" />
+    <Circle cx="42" cy="45" r="2.5" fill="#4B4038" />
+    <Path
+      d="M33 52c3 3 6 3 9 0"
+      fill="none"
+      stroke="#4B4038"
       strokeWidth="3"
-      strokeLinejoin="round"
+      strokeLinecap="round"
     />
-    <Line
-      x1="4"
-      y1="13"
-      x2="28"
-      y2="13"
-      stroke={color}
+    <Circle cx="60" cy="46" r="16" fill="#F4C4A4" />
+    <Path
+      d="M47 42c4-13 20-18 28-6l-2 8c-9-1-15-4-20-9-1 3-3 5-6 7Z"
+      fill="#4FAE91"
+    />
+    <Path d="M58 28c7-2 13 0 17 7-5 1-10 0-15-2Z" fill="#69C2A8" />
+    <Circle cx="55" cy="48" r="2.3" fill="#4B4038" />
+    <Circle cx="65" cy="48" r="2.3" fill="#4B4038" />
+    <Path
+      d="M56 55c3 3 6 3 9 0"
+      fill="none"
+      stroke="#4B4038"
       strokeWidth="3"
       strokeLinecap="round"
     />
-    <Path
-      d="M10 6 L10 13"
-      stroke={color}
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <Path
-      d="M8 6 L8 10 Q10 12 12 10 L12 6"
-      stroke={color}
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M22 6 L22 14"
-      stroke={color}
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <Ellipse cx="22" cy="8" rx="3" ry="3" stroke={color} strokeWidth="2" />
+    <Circle cx="25" cy="57" r="4" fill="#F29A82" />
+    <Circle cx="72" cy="58" r="4" fill="#F29A82" />
   </Svg>
 );
 
-const IconoCalendario = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-    <Rect
-      x="4"
-      y="7"
-      width="24"
-      height="21"
-      rx="4"
-      stroke={color}
-      strokeWidth="3"
-      strokeLinejoin="round"
+const IconoMisHijosActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#9ED86C" />
+        <Stop offset="1" stopColor="#47A947" />
+      </LinearGradient>
+    </Defs>
+    <Path
+      d="M17 73c3-16 14-25 29-25 14 0 25 9 28 25-8 8-18 12-29 12S25 81 17 73Z"
+      fill="url(#green)"
     />
-    <Line
-      x1="4"
-      y1="14"
-      x2="28"
-      y2="14"
-      stroke={color}
+    <Circle cx="37" cy="43" r="18" fill="#F4C4A4" />
+    <Path
+      d="M22 40c2-16 22-24 31-8-8 0-14-3-19-9-2 7-5 12-12 17Z"
+      fill="#9B603F"
+    />
+    <Path
+      d="M30 45c2-2 4-2 6 0M40 45c2-2 4-2 6 0"
+      fill="none"
+      stroke="#4B4038"
       strokeWidth="2.5"
       strokeLinecap="round"
     />
-    <Rect
-      x="10"
-      y="4"
-      width="3.5"
-      height="7"
-      rx="1.75"
-      stroke={color}
-      strokeWidth="2.5"
+    <Path
+      d="M33 52c3 4 7 4 10 0"
+      fill="none"
+      stroke="#4B4038"
+      strokeWidth="3"
+      strokeLinecap="round"
     />
-    <Rect
-      x="18.5"
-      y="4"
-      width="3.5"
-      height="7"
-      rx="1.75"
-      stroke={color}
-      strokeWidth="2.5"
+    <Circle cx="60" cy="46" r="16" fill="#F4C4A4" />
+    <Path
+      d="M47 42c4-13 20-18 28-6l-2 8c-9-1-15-4-20-9-1 3-3 5-6 7Z"
+      fill="#4FAE91"
     />
-    <Circle cx="11" cy="20" r="1.5" fill={color} />
-    <Circle cx="16" cy="20" r="1.5" fill={color} />
-    <Circle cx="21" cy="20" r="1.5" fill={color} />
-    <Circle cx="11" cy="25" r="1.5" fill={color} />
-    <Circle cx="16" cy="25" r="1.5" fill={color} />
+    <Path d="M58 28c7-2 13 0 17 7-5 1-10 0-15-2Z" fill="#69C2A8" />
+    <Path
+      d="M53 48c2-2 4-2 6 0M62 48c2-2 4-2 6 0"
+      fill="none"
+      stroke="#4B4038"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M56 55c3 4 7 4 10 0"
+      fill="none"
+      stroke="#4B4038"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+    <Circle cx="25" cy="57" r="4" fill="#F29A82" />
+    <Circle cx="72" cy="58" r="4" fill="#F29A82" />
+    <Path
+      d="M42 68c4-6 9-6 13 0"
+      fill="none"
+      stroke="#FFF4C9"
+      strokeWidth="5"
+      strokeLinecap="round"
+    />
+    <Path d="M76 20c4-6 8-4 7 1-1 4-5 6-8 3" fill="#F37FA0" />
   </Svg>
 );
 
-const IconoMisHijos = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+// ---------- Galería ----------
+
+const IconoGaleriaInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFD85A" />
+        <Stop offset="1" stopColor="#F1A91F" />
+      </LinearGradient>
+      <LinearGradient id="purple" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#B9A5F2" />
+        <Stop offset="1" stopColor="#7658C9" />
+      </LinearGradient>
+    </Defs>
+    <Rect
+      x="32"
+      y="18"
+      width="48"
+      height="54"
+      rx="7"
+      fill="url(#yellow)"
+      transform="rotate(7 56 45)"
+    />
+    <Rect
+      x="18"
+      y="26"
+      width="54"
+      height="48"
+      rx="8"
+      fill="#F8F5FF"
+      stroke="#B19BE7"
+      strokeWidth="4"
+    />
+    <Circle cx="58" cy="39" r="6" fill="#FFD64D" />
+    <Path d="M23 67 38 50l11 10 9-9 10 16Z" fill="url(#purple)" />
     <Path
-      d="M16 8 C16 8 14.2 5.5 12.8 6.2 C11.4 6.9 11.4 8.8 12.8 9.8 L16 12 L19.2 9.8 C20.6 8.8 20.6 6.9 19.2 6.2 C17.8 5.5 16 8 16 8Z"
-      stroke={color}
-      strokeWidth="2"
-      strokeLinejoin="round"
+      d="M27 31h38"
+      stroke="#FFFFFF"
+      strokeWidth="3"
+      strokeLinecap="round"
+      opacity={0.7}
+    />
+  </Svg>
+);
+
+const IconoGaleriaActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#FFE46B" />
+        <Stop offset="1" stopColor="#F5A900" />
+      </LinearGradient>
+      <LinearGradient id="purple" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#C5B5FA" />
+        <Stop offset="1" stopColor="#7552CE" />
+      </LinearGradient>
+    </Defs>
+    <Rect
+      x="34"
+      y="14"
+      width="48"
+      height="54"
+      rx="7"
+      fill="url(#yellow)"
+      transform="rotate(9 58 41)"
+    />
+    <Rect
+      x="18"
+      y="26"
+      width="54"
+      height="48"
+      rx="8"
+      fill="#F8F5FF"
+      stroke="#A58AE8"
+      strokeWidth="4"
+    />
+    <Circle cx="58" cy="39" r="6" fill="#FFD64D" />
+    <Path d="M23 67 38 50l11 10 9-9 10 16Z" fill="url(#purple)" />
+    <Path
+      d="M27 31h38"
+      stroke="#FFFFFF"
+      strokeWidth="3"
+      strokeLinecap="round"
+      opacity={0.75}
+    />
+    <Path
+      d="M72 17v-8M68 13h8M80 24l6-5"
+      stroke="#F2C83E"
+      strokeWidth="4"
       strokeLinecap="round"
     />
-    <Circle cx="9" cy="17" r="4.5" stroke={color} strokeWidth="2.8" />
-    <Circle cx="23" cy="17" r="4.5" stroke={color} strokeWidth="2.8" />
+    <Circle cx="28" cy="36" r="3" fill="#FFFFFF" opacity={0.9} />
+  </Svg>
+);
+
+// ---------- Mi perfil ----------
+
+const IconoMiPerfilInactivo = () => (
+  <Svg width={32} height={32} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#56B8D1" />
+        <Stop offset="1" stopColor="#1684A3" />
+      </LinearGradient>
+    </Defs>
     <Path
-      d="M4 30 C4 25 6 23 9 23 C11 23 12.5 24 13.5 25.5"
-      stroke={color}
+      d="M48 14c19 0 30 14 30 34S67 83 48 83 18 68 18 48 29 14 48 14Z"
+      fill="url(#blue)"
+    />
+    <Circle cx="48" cy="40" r="17" fill="#FFF8E8" />
+    <Circle cx="42" cy="40" r="2.5" fill="#414141" />
+    <Circle cx="54" cy="40" r="2.5" fill="#414141" />
+    <Path
+      d="M42 48c4 4 8 4 12 0"
+      fill="none"
+      stroke="#414141"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+    />
+    <Path d="M28 75c3-14 10-21 20-21s17 7 20 21" fill="#238DAA" />
+  </Svg>
+);
+
+const IconoMiPerfilActivo = () => (
+  <Svg width={40} height={40} viewBox="0 0 96 96" fill="none">
+    <Defs>
+      <LinearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+        <Stop offset="0" stopColor="#67C8DF" />
+        <Stop offset="1" stopColor="#0D86A8" />
+      </LinearGradient>
+    </Defs>
+    <Path
+      d="M48 14c19 0 30 14 30 34S67 83 48 83 18 68 18 48 29 14 48 14Z"
+      fill="url(#blue)"
+    />
+    <Circle cx="48" cy="40" r="17" fill="#FFF8E8" />
+    <Path
+      d="M38 40c2-2 4-2 6 0M52 40c2-2 4-2 6 0"
+      fill="none"
+      stroke="#414141"
+      strokeWidth="2.6"
+      strokeLinecap="round"
+    />
+    <Path
+      d="M41 48c5 6 10 6 15 0"
+      fill="none"
+      stroke="#414141"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+    />
+    <Path d="M28 75c3-14 10-21 20-21s17 7 20 21" fill="#238DAA" />
+    <Circle cx="71" cy="21" r="8" fill="#F15B83" />
+    <Path
+      d="m67 21 3 3 5-6"
+      fill="none"
+      stroke="#FFFFFF"
       strokeWidth="2.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <Path
-      d="M28 30 C28 25 26 23 23 23 C21 23 19.5 24 18.5 25.5"
-      stroke={color}
-      strokeWidth="2.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M13.5 25.5 Q16 27 18.5 25.5"
-      stroke={color}
-      strokeWidth="2.8"
-      strokeLinecap="round"
-    />
   </Svg>
 );
 
-const IconoMiPerfil = ({ color = "#2D2D2D", size = 24 }) => (
-  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-    <Circle cx="16" cy="11" r="6" stroke={color} strokeWidth="3" />
-    <Path
-      d="M5 29 C5 22 9 19 16 19 C23 19 27 22 27 29"
-      stroke={color}
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Circle cx="24" cy="6" r="5" stroke={color} strokeWidth="2.5" />
-    <Polygon
-      points="24,3.2 24.8,5.4 27.2,5.4 25.4,6.8 26.1,9 24,7.7 21.9,9 22.6,6.8 20.8,5.4 23.2,5.4"
-      fill={color}
-    />
-  </Svg>
-);
+// ---------- Tabs ----------
 
 const TABS = [
   {
     id: "inicio",
     label: "Inicio",
     ruta: "/(padre)/home",
-    color: "#2D2D2D",
-    shadow: "#000000",
-    light: "#E8E8E8",
-    Icon: IconoInicio
+    color: "#F3BE00",
+    light: "#FFF7D7",
+    IconInactivo: IconoInicioInactivo,
+    IconActivo: IconoInicioActivo,
   },
   {
-    id: "avisos",
-    label: "Avisos",
-    ruta: "/(padre)/avisos",
-    color: "#E5297E",
-    shadow: "#A0005A",
-    light: "#FCE4EF",
-    Icon: IconoAvisos
+    id: "galeria",
+    label: "Galería",
+    ruta: "/(padre)/galeria",
+    color: "#8A63D2",
+    light: "#F0EBFB",
+    IconInactivo: IconoGaleriaInactivo,
+    IconActivo: IconoGaleriaActivo,
   },
   {
     id: "comida",
     label: "Comida",
     ruta: "/(padre)/comida",
-    color: "#F5C800",
-    shadow: "#B89600",
-    light: "#FFFBE6",
-    Icon: IconoComida
+    color: colors.rojo,
+    light: colors.rojoLight,
+    IconInactivo: IconoComidaInactivo,
+    IconActivo: IconoComidaActivo,
   },
   {
     id: "calendario",
     label: "Calendario",
     ruta: "/(padre)/calendario",
-    color: "#00AECC",
-    shadow: "#007A8F",
-    light: "#E0F7FC",
-    Icon: IconoCalendario
+    color: "#08ACC7",
+    light: "#E2F7FB",
+    IconInactivo: IconoCalendarioInactivo,
+    IconActivo: IconoCalendarioActivo,
   },
   {
     id: "mishijos",
     label: "Mis hijos",
     ruta: "/(padre)/mishijos",
-    color: "#7BC441",
-    shadow: "#4E8A22",
-    light: "#EFF8E4",
-    Icon: IconoMisHijos
+    color: "#73C63D",
+    light: "#ECF8E4",
+    IconInactivo: IconoMisHijosInactivo,
+    IconActivo: IconoMisHijosActivo,
   },
   {
     id: "miperfil",
     label: "Mi perfil",
     ruta: "/(padre)/miperfil",
-    color: "#00AECC",
-    shadow: "#007A8F",
-    light: "#E0F7FC",
-    Icon: IconoMiPerfil
-  }
+    color: "#1684A3",
+    light: "#E4F5FA",
+    IconInactivo: IconoMiPerfilInactivo,
+    IconActivo: IconoMiPerfilActivo,
+  },
 ];
 
 export default function TabBar() {
@@ -276,6 +578,8 @@ export default function TabBar() {
           pathname === tab.ruta ||
           pathname === tab.ruta.replace("/(padre)", "");
 
+        const Icono = activo ? tab.IconActivo : tab.IconInactivo;
+
         return (
           <TouchableOpacity
             key={tab.id}
@@ -288,37 +592,34 @@ export default function TabBar() {
                 styles.iconoWrap,
                 activo
                   ? {
-                      width: 52,
-                      height: 52,
-                      borderRadius: 18,
-                      backgroundColor: tab.color,
-                      shadowColor: tab.shadow,
-                      shadowOffset: { width: 0, height: 5 },
+                      width: 56,
+                      height: 56,
+                      borderRadius: 20,
+                      backgroundColor: tab.light,
+                      borderWidth: 2,
+                      borderColor: tab.color,
+                      shadowColor: tab.color,
+                      shadowOffset: { width: 0, height: 4 },
                       shadowOpacity: 1,
                       shadowRadius: 0,
-                      elevation: 5,
-                      borderWidth: 2,
-                      borderColor: tab.shadow,
-                      transform: [{ translateY: -6 }]
+                      elevation: 4,
+                      transform: [{ translateY: -6 }],
                     }
                   : {
                       width: 42,
                       height: 42,
-                      borderRadius: 13,
-                      backgroundColor: tab.light
-                    }
+                      borderRadius: 14,
+                      backgroundColor: tab.light,
+                    },
               ]}
             >
-              <tab.Icon
-                color={activo ? "#fff" : tab.color}
-                size={activo ? 26 : 22}
-              />
+              <Icono />
             </View>
             <Text
               style={[
                 styles.tabLabel,
                 { color: activo ? tab.color : "#C0C0C0" },
-                activo && { marginTop: -3 }
+                activo && { marginTop: -3 },
               ]}
             >
               {tab.label}
@@ -339,19 +640,19 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 24,
     justifyContent: "space-around",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   tab: {
     alignItems: "center",
     gap: 3,
-    flex: 1
+    flex: 1,
   },
   iconoWrap: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   tabLabel: {
     fontFamily: fonts.fontBlack,
-    fontSize: 9
-  }
+    fontSize: 9,
+  },
 });
