@@ -7,6 +7,7 @@ import { diasHasta, mesAbrev } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -246,6 +247,12 @@ export default function Comida() {
                 },
               ]}
               activeOpacity={0.85}
+              onPress={() =>
+                Alert.alert(
+                  "Agendado",
+                  "Se agregó el turno de comida a tu calendario.",
+                )
+              }
             >
               <Svg
                 width={20}
@@ -289,7 +296,11 @@ export default function Comida() {
         </View>
 
         <View style={styles.accesosRow}>
-          <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.accesoCard}
+            activeOpacity={0.7}
+            onPress={() => router.push("/(padre)/calendario" as any)}
+          >
             <View
               style={[
                 styles.accesoIcono,
@@ -314,7 +325,11 @@ export default function Comida() {
             <Text style={styles.accesoSub}>Ver mes completo</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.accesoCard}
+            activeOpacity={0.7}
+            onPress={() => router.push("/(padre)/receta" as any)}
+          >
             <View
               style={[
                 styles.accesoIcono,

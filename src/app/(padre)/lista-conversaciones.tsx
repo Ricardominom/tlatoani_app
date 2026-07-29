@@ -2,6 +2,7 @@ import { AnimalIcon, getGrupo } from "@/src/components/ui/AnimalKit";
 import { formatHoraMensaje } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -226,7 +227,16 @@ export default function ListaConversaciones() {
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <Text style={styles.headerTitulo}>Mensajes</Text>
-          <TouchableOpacity style={styles.iconBtn} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.iconBtn}
+            activeOpacity={0.8}
+            onPress={() =>
+              Alert.alert(
+                "Nuevo mensaje",
+                "Aquí se abriría el inicio de una nueva conversación.",
+              )
+            }
+          >
             <Svg
               width={24}
               height={24}

@@ -7,7 +7,7 @@ import {
   Switch,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
@@ -20,7 +20,7 @@ const PADRE = {
   correo: "rdmm.291191@gmail.com",
   telefono: "222 345 6789",
   escuela: "Tlatoani Montessori",
-  ciclo: "Ciclo 2025–2026"
+  ciclo: "Ciclo 2025–2026",
 };
 
 const NOTIFICACIONES = [
@@ -29,36 +29,36 @@ const NOTIFICACIONES = [
     label: "Avisos importantes",
     sub: "Comunicados del maestro",
     bg: "#FFFBE6",
-    iconColor: "#B89600"
+    iconColor: "#B89600",
   },
   {
     id: "comida",
     label: "Comida compartida",
     sub: "Recordatorios de turno",
     bg: "#FFFBE6",
-    iconColor: "#B89600"
+    iconColor: "#B89600",
   },
   {
     id: "colegiatura",
     label: "Colegiatura",
     sub: "Alertas de pago",
     bg: "#FFF0F0",
-    iconColor: "#C62828"
+    iconColor: "#C62828",
   },
   {
     id: "calendario",
     label: "Eventos y calendario",
     sub: "Suspensiones y juntas",
     bg: "#F5F5F5",
-    iconColor: "#888"
+    iconColor: "#888",
   },
   {
     id: "galeria",
     label: "Galería",
     sub: "Fotos y videos nuevos",
     bg: "#F5F5F5",
-    iconColor: "#888"
-  }
+    iconColor: "#888",
+  },
 ];
 
 function NotifIcon({ id, color }: { id: string; color: string }) {
@@ -151,17 +151,17 @@ export default function MiPerfil() {
       [
         {
           text: "Cancelar",
-          style: "cancel"
+          style: "cancel",
         },
         {
           text: "Cerrar sesión",
           style: "destructive",
           onPress: async () => {
             await logout();
-            router.replace("/(auth)/Login" as any);
-          }
-        }
-      ]
+            router.replace("/(auth)/login" as any);
+          },
+        },
+      ],
     );
   };
 
@@ -170,7 +170,7 @@ export default function MiPerfil() {
     comida: true,
     colegiatura: true,
     calendario: true,
-    galeria: false
+    galeria: false,
   });
 
   const toggleNotif = (id: string) => {
@@ -181,7 +181,10 @@ export default function MiPerfil() {
     <View style={styles.root}>
       <View style={styles.header}>
         <Text style={styles.titulo}>Mi perfil</Text>
-        <TouchableOpacity style={styles.editBtn}>
+        <TouchableOpacity
+          style={styles.editBtn}
+          onPress={() => router.push("/(padre)/editar-perfil" as any)}
+        >
           <Text style={styles.editTxt}>Editar</Text>
         </TouchableOpacity>
       </View>
@@ -252,7 +255,7 @@ export default function MiPerfil() {
               key={notif.id}
               style={[
                 styles.notifRow,
-                index === NOTIFICACIONES.length - 1 && styles.notifRowLast
+                index === NOTIFICACIONES.length - 1 && styles.notifRowLast,
               ]}
             >
               <View style={styles.notifLeft}>
@@ -412,19 +415,19 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   titulo: { fontFamily: fonts.fontBlack, fontSize: 20, color: colors.texto },
   editBtn: {
     backgroundColor: colors.halconesLight,
     paddingVertical: 5,
     paddingHorizontal: 14,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   editTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.halcones
+    color: colors.halcones,
   },
   scroll: { flex: 1 },
   scrollContent: { padding: spacing.md, gap: 8, paddingBottom: 30 },
@@ -436,7 +439,7 @@ const styles = StyleSheet.create({
     borderColor: "#EBEBEB",
     padding: 18,
     alignItems: "center",
-    gap: 6
+    gap: 6,
   },
   avatarWrap: { position: "relative", marginBottom: 4 },
   avatarCircle: {
@@ -452,7 +455,7 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     elevation: 4,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   avatarLetra: { fontFamily: fonts.fontBlack, fontSize: 38, color: "#7A6200" },
   avatarEdit: {
@@ -466,19 +469,19 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   perfilNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 28,
     color: colors.texto,
-    textAlign: "center"
+    textAlign: "center",
   },
   perfilCorreo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 14,
     color: "#AAA",
-    textAlign: "center"
+    textAlign: "center",
   },
   perfilTelRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   perfilTel: { fontFamily: fonts.fontBold, fontSize: 14, color: "#888" },
@@ -487,7 +490,7 @@ const styles = StyleSheet.create({
     gap: 6,
     flexWrap: "wrap",
     justifyContent: "center",
-    marginTop: 4
+    marginTop: 4,
   },
   badgeEscuela: {
     flexDirection: "row",
@@ -496,23 +499,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0FAF0",
     paddingVertical: 4,
     paddingHorizontal: 11,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   badgeEscuelaTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 10,
-    color: "#3A7A18"
+    color: "#3A7A18",
   },
   badgeCiclo: {
     backgroundColor: colors.halconesLight,
     paddingVertical: 4,
     paddingHorizontal: 11,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   badgeCicloTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 10,
-    color: colors.halconesS
+    color: colors.halconesS,
   },
 
   sep: {
@@ -522,7 +525,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   card: {
@@ -530,7 +533,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    overflow: "hidden"
+    overflow: "hidden",
   },
 
   notifRow: {
@@ -539,7 +542,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   notifRowLast: { borderBottomWidth: 0 },
   notifLeft: { flexDirection: "row", alignItems: "center", gap: 10, flex: 1 },
@@ -549,14 +552,14 @@ const styles = StyleSheet.create({
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   notifLbl: { fontFamily: fonts.fontExtra, fontSize: 16, color: colors.texto },
   notifSub: {
     fontFamily: fonts.fontSemibold,
     fontSize: 12,
     color: "#AAA",
-    marginTop: 1
+    marginTop: 1,
   },
 
   cuentaCard: {
@@ -564,7 +567,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   cuentaItem: {
     flexDirection: "row",
@@ -572,7 +575,7 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 13,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   cuentaItemLast: { borderBottomWidth: 0 },
   cuentaIcono: {
@@ -581,13 +584,13 @@ const styles = StyleSheet.create({
     borderRadius: radii.sm,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   cuentaLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 16,
     color: colors.texto,
-    flex: 1
+    flex: 1,
   },
 
   version: {
@@ -595,6 +598,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "#C0C0C0",
     textAlign: "center",
-    paddingVertical: 8
-  }
+    paddingVertical: 8,
+  },
 });

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -31,7 +32,7 @@ interface FechaSimple {
   dia: number;
 }
 
-type TipoDiaEspecial = "junta" | "suspension" | "festivo";
+type TipoDiaEspecial = "junta" | "suspension" | "festivo" | "evento";
 
 interface DiaEspecial {
   fecha: FechaSimple;
@@ -205,6 +206,24 @@ const DIAS_ESPECIALES: DiaEspecial[] = [
     tipo: "suspension",
     label: "Suspensión",
   },
+  // Julio 2026 — suspensión y primeros días de vacaciones
+  {
+    fecha: { anio: 2026, mes: 6, dia: 15 },
+    tipo: "suspension",
+    label: "Suspensión",
+  },
+  { fecha: { anio: 2026, mes: 6, dia: 16 }, tipo: "suspension", label: "Vac." },
+  { fecha: { anio: 2026, mes: 6, dia: 17 }, tipo: "suspension", label: "Vac." },
+  // Agosto–Septiembre 2026 — regreso paulatino por grupo
+  {
+    fecha: { anio: 2026, mes: 7, dia: 31 },
+    tipo: "evento",
+    label: "C.Infantil",
+  },
+  { fecha: { anio: 2026, mes: 8, dia: 1 }, tipo: "evento", label: "Abejas" },
+  { fecha: { anio: 2026, mes: 8, dia: 2 }, tipo: "evento", label: "Halcones" },
+  { fecha: { anio: 2026, mes: 8, dia: 3 }, tipo: "evento", label: "Lobos" },
+  { fecha: { anio: 2026, mes: 8, dia: 4 }, tipo: "evento", label: "Leones" },
 ];
 
 // Periodos vacacionales como un rango de fechas real, no como una fila vacía fija en la tabla
@@ -213,6 +232,11 @@ const VACACIONES: RangoVacaciones[] = [
     inicio: { anio: 2025, mes: 3, dia: 14 },
     fin: { anio: 2025, mes: 3, dia: 18 },
     label: "Vacaciones de Semana Santa",
+  },
+  {
+    inicio: { anio: 2026, mes: 6, dia: 20 },
+    fin: { anio: 2026, mes: 7, dia: 28 },
+    label: "Vacaciones de verano",
   },
 ];
 
@@ -240,6 +264,44 @@ const EVENTOS: Evento[] = [
     tipo: "suspension",
     titulo: "Día del trabajo",
     descripcion: "No hay clases · Reanudan el lunes 4",
+  },
+  // Julio – Agosto 2026
+  {
+    fecha: { anio: 2026, mes: 6, dia: 15 },
+    tipo: "suspension",
+    titulo: "Vacaciones de verano",
+    descripcion:
+      "Clases reanudan el 31 de agosto · Personal disponible 9:00am–2:00pm",
+  },
+  {
+    fecha: { anio: 2026, mes: 7, dia: 31 },
+    tipo: "evento",
+    titulo: "Regreso — Casa de niños",
+    descripcion: "Primer día ciclo 2026–2027 · Horario regular 8:00am",
+  },
+  {
+    fecha: { anio: 2026, mes: 8, dia: 1 },
+    tipo: "evento",
+    titulo: "Regreso — Abejas",
+    descripcion: "Primer día de Victoria · Horario regular 8:00am",
+  },
+  {
+    fecha: { anio: 2026, mes: 8, dia: 2 },
+    tipo: "evento",
+    titulo: "Regreso — Halcones",
+    descripcion: "Primer día de Diego · Horario regular 8:00am",
+  },
+  {
+    fecha: { anio: 2026, mes: 8, dia: 3 },
+    tipo: "evento",
+    titulo: "Regreso — Lobos",
+    descripcion: "Horario regular 8:00am",
+  },
+  {
+    fecha: { anio: 2026, mes: 8, dia: 4 },
+    tipo: "evento",
+    titulo: "Regreso — Leones",
+    descripcion: "Horario regular 8:00am",
   },
 ];
 
@@ -535,6 +597,14 @@ export default function Calendario() {
           <View style={styles.calBody}>
             {cuadricula.map((fila, fi) => {
               if ("esVacaciones" in fila) {
+                const prev = fi > 0 ? cuadricula[fi - 1] : null;
+                if (
+                  prev &&
+                  "esVacaciones" in prev &&
+                  prev.label === fila.label
+                ) {
+                  return null;
+                }
                 return (
                   <View key={`vac-${fi}`} style={styles.vacRow}>
                     <Text style={styles.vacTxt}>🌿 {fila.label}</Text>
@@ -553,6 +623,14 @@ export default function Calendario() {
                       <TouchableOpacity
                         key={di}
                         activeOpacity={0.8}
+                        onPress={() =>
+                          Alert.alert(
+                            dia.label ?? `Día ${dia.num}`,
+                            dia.label
+                              ? `Este día está marcado como "${dia.label}".`
+                              : "Día regular de clases.",
+                          )
+                        }
                         style={[
                           styles.calCelda,
                           {
@@ -653,6 +731,7 @@ export default function Calendario() {
               key={index}
               style={styles.evCard}
               activeOpacity={0.85}
+              onPress={() => Alert.alert(ev.titulo, ev.descripcion)}
             >
               <View style={[styles.evBox, { backgroundColor: boxColor.bg }]}>
                 <Text style={[styles.evDia, { color: boxColor.color }]}>
@@ -666,7 +745,16 @@ export default function Calendario() {
                 <EventoBadge tipo={ev.tipo} />
                 <Text style={styles.evTitulo}>{ev.titulo}</Text>
                 <Text style={styles.evDesc}>{ev.descripcion}</Text>
-                <TouchableOpacity style={styles.evAgenda} activeOpacity={0.7}>
+                <TouchableOpacity
+                  style={styles.evAgenda}
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    Alert.alert(
+                      "Agendado",
+                      "Se agregó el evento a tu calendario.",
+                    )
+                  }
+                >
                   <Svg
                     width={12}
                     height={12}

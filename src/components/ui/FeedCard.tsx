@@ -40,7 +40,7 @@ function getTagEstilo(tipo: Tag["tipo"]) {
       return {
         bg: colors.primarioAmarillo,
         color: "#5A4800",
-        shadow: colors.secundarioAmarillo
+        shadow: colors.secundarioAmarillo,
       };
     case "halcones":
       return { bg: colors.halcones, color: "#fff", shadow: colors.halconesS };
@@ -96,7 +96,7 @@ export default function FeedCard({
   onPress,
   onConfirmar,
   onVerCuenta,
-  onAgenda
+  onAgenda,
 }: FeedCardProps) {
   const tagEstilo = getTagEstilo(tag.tipo);
   const colorAcento = getColorAcento(acento);
@@ -112,8 +112,8 @@ export default function FeedCard({
           borderRadius: 0,
           borderTopRightRadius: radii.md,
           borderBottomRightRadius: radii.md,
-          paddingLeft: 10
-        }
+          paddingLeft: 10,
+        },
       ]}
       onPress={onPress}
       activeOpacity={0.85}
@@ -122,7 +122,7 @@ export default function FeedCard({
         <View
           style={[
             styles.tag,
-            { backgroundColor: tagEstilo.bg, shadowColor: tagEstilo.shadow }
+            { backgroundColor: tagEstilo.bg, shadowColor: tagEstilo.shadow },
           ]}
         >
           <Text style={[styles.tagTxt, { color: tagEstilo.color }]}>
@@ -142,8 +142,8 @@ export default function FeedCard({
             styles.comidaBlock,
             {
               backgroundColor: coloresSalon.light,
-              borderColor: coloresSalon.base
-            }
+              borderColor: coloresSalon.base,
+            },
           ]}
         >
           <Text style={[styles.comidaBadgeTxt, { color: coloresSalon.dark }]}>
@@ -154,14 +154,14 @@ export default function FeedCard({
               styles.comidaBadge,
               {
                 backgroundColor: coloresSalon.base,
-                shadowColor: coloresSalon.dark
-              }
+                shadowColor: coloresSalon.dark,
+              },
             ]}
           >
             <Text
               style={[
                 styles.comidaBadgeTxt,
-                { color: tag.tipo === "halcones" ? "#FFF" : "#5A4800" }
+                { color: tag.tipo === "halcones" ? "#FFF" : "#5A4800" },
               ]}
             >
               {comidaInfo.fecha}
@@ -171,11 +171,11 @@ export default function FeedCard({
       )}
 
       <View style={styles.cardFooter}>
-        {/* {!leido && tipo === "aviso" && onConfirmar && (
+        {!leido && tipo === "aviso" && onConfirmar && (
           <TouchableOpacity style={styles.btnConfirmar} onPress={onConfirmar}>
             <Text style={styles.btnConfirmarTxt}>Confirmar lectura</Text>
           </TouchableOpacity>
-        )} */}
+        )}
 
         {tipo === "colegiatura" && onVerCuenta && (
           <TouchableOpacity style={styles.btnPago} onPress={onVerCuenta}>
@@ -195,8 +195,8 @@ export default function FeedCard({
               styles.btnConfirmar,
               {
                 backgroundColor: coloresSalon.base,
-                shadowColor: coloresSalon.dark
-              }
+                shadowColor: coloresSalon.dark,
+              },
             ]}
             onPress={onAgenda}
           >
@@ -228,8 +228,8 @@ export default function FeedCard({
                     tag.tipo === "lobos" ||
                     tag.tipo === "hormigas"
                       ? "#fff"
-                      : "#5A4800"
-                }
+                      : "#5A4800",
+                },
               ]}
             >
               Agregar a agenda
@@ -248,13 +248,13 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    marginBottom: 5
+    marginBottom: 5,
   },
   cardTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 6
+    marginBottom: 6,
   },
   tag: {
     paddingVertical: 4,
@@ -263,28 +263,28 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   tagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 16
+    fontSize: 16,
   },
   tiempo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 12,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   titulo: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
     color: colors.texto,
-    marginBottom: 3
+    marginBottom: 3,
   },
   cuerpo: {
     fontFamily: fonts.fontSemibold,
     fontSize: 13,
     color: colors.texto2,
-    lineHeight: 16
+    lineHeight: 16,
   },
   comidaBlock: {
     backgroundColor: colors.lightAmarillo,
@@ -296,12 +296,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1.5,
     borderColor: colors.primarioAmarillo,
-    borderStyle: "dashed"
+    borderStyle: "dashed",
   },
   comidaTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 10,
-    color: "#7A6200"
+    color: "#7A6200",
   },
   comidaBadge: {
     backgroundColor: colors.primarioAmarillo,
@@ -312,19 +312,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   comidaBadgeTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 9,
-    color: "#5A4800"
+    color: "#5A4800",
   },
   cardFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 8,
-    paddingTop: 7
+    paddingTop: 7,
     // borderTopWidth: 0.5,
     // borderTopColor: "#F5F5F5"
   },
@@ -341,12 +341,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     flexDirection: "row",
     alignItems: "center",
-    gap: 5
+    gap: 5,
   },
   btnConfirmarTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 12,
-    color: "#5A4800"
+    color: "#5A4800",
   },
   btnPago: {
     backgroundColor: colors.rojo,
@@ -358,32 +358,32 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 2,
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
   btnPagoTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 12,
-    color: "#fff"
+    color: "#fff",
   },
   btnAgenda: {
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
   btnAgendaTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 14,
-    color: colors.halcones
+    color: colors.halcones,
   },
   leidoOk: {
     fontFamily: fonts.fontExtra,
     fontSize: 9,
-    color: colors.verde
+    color: colors.verde,
   },
   sinLeer: {
     fontFamily: fonts.fontSemibold,
     fontSize: 9,
-    color: "#C0C0C0"
-  }
+    color: "#C0C0C0",
+  },
 });

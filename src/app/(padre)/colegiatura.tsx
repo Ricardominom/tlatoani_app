@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -281,7 +282,16 @@ export default function Colegiatura() {
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.btnPagar} activeOpacity={0.85}>
+            <TouchableOpacity
+              style={styles.btnPagar}
+              activeOpacity={0.85}
+              onPress={() =>
+                Alert.alert(
+                  "Pago simulado",
+                  `Se procesaría el pago de $${col.monto.toLocaleString()} para ${col.pendiente!.mes}.`,
+                )
+              }
+            >
               <Svg
                 width={24}
                 height={24}
@@ -296,7 +306,16 @@ export default function Colegiatura() {
               <Text style={styles.btnPagarTxt}>Pagar ahora</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnWhatsapp} activeOpacity={0.85}>
+            <TouchableOpacity
+              style={styles.btnWhatsapp}
+              activeOpacity={0.85}
+              onPress={() =>
+                Alert.alert(
+                  "Aviso enviado",
+                  "La administración revisará tu comprobante de pago.",
+                )
+              }
+            >
               <Svg
                 width={24}
                 height={24}

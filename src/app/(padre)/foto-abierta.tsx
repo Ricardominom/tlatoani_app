@@ -1,9 +1,12 @@
 import { AnimalPill } from "@/src/components/ui/AnimalKit";
+import { FOTOS } from "@/src/utils/fotos";
 import { mesAbrev } from "@/src/utils/tiempo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -25,40 +28,35 @@ function formatFechaConHora(fecha: Date, hora: string): string {
   return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())} · ${hora}`;
 }
 
-const FOTOS_MOCK = [
+const FOTOS_POR_EVENTO: Record<string, { source: any; descripcion: string }[]> =
   {
-    id: "1",
-    colores: ["#a8e063", "#56ab2f"],
-    descripcion: "Los niños explorando las plantas",
-  },
-  {
-    id: "2",
-    colores: ["#d4fc79", "#96e6a1"],
-    descripcion: "Caminata por el jardín",
-  },
-  {
-    id: "3",
-    colores: ["#89f7fe", "#66a6ff"],
-    descripcion: "Mariposas del invernadero",
-  },
-  {
-    id: "4",
-    colores: ["#ffecd2", "#fcb69f"],
-    descripcion: "Lunch en el jardín",
-  },
-  {
-    id: "5",
-    colores: ["#a18cd1", "#fbc2eb"],
-    descripcion: "Regreso a la escuela",
-  },
-  { id: "6", colores: ["#f093fb", "#f5576c"], descripcion: "Fotos del grupo" },
-  {
-    id: "7",
-    colores: ["#f7971e", "#ffd200"],
-    descripcion: "Actividades al aire libre",
-  },
-  { id: "8", colores: ["#4facfe", "#00f2fe"], descripcion: "Vista del jardín" },
-];
+    "1": [
+      {
+        source: FOTOS.jardin[0],
+        descripcion: "Los niños explorando las plantas",
+      },
+      { source: FOTOS.jardin[1], descripcion: "Caminata por el jardín" },
+      { source: FOTOS.jardin[2], descripcion: "Mariposas del invernadero" },
+      { source: FOTOS.jardin[3], descripcion: "Lunch en el jardín" },
+    ],
+    "2": [
+      { source: FOTOS.festival[0], descripcion: "Apertura del festival" },
+      { source: FOTOS.festival[1], descripcion: "Presentación de los grupos" },
+      { source: FOTOS.festival[2], descripcion: "Actividades artísticas" },
+      { source: FOTOS.festival[3], descripcion: "Cierre del evento" },
+    ],
+    "3": [
+      { source: FOTOS.desfile[0], descripcion: "Inicio del desfile" },
+      { source: FOTOS.desfile[1], descripcion: "Marcha de los grupos" },
+      { source: FOTOS.desfile[2], descripcion: "Bandas y estandartes" },
+      { source: FOTOS.desfile[3], descripcion: "Foto grupal" },
+    ],
+    "4": [
+      { source: FOTOS.deportes[0], descripcion: "Actividades deportivas" },
+      { source: FOTOS.deportes[1], descripcion: "Juegos en equipo" },
+      { source: FOTOS.deportes[2], descripcion: "Cierre de actividades" },
+    ],
+  };
 
 const EVENTOS_DATA: Record<string, any> = {
   "1": {
@@ -77,9 +75,9 @@ const EVENTOS_DATA: Record<string, any> = {
     salon: null,
   },
   "4": {
-    nombre: "Junta de ambiente",
-    fecha: formatFechaConHora(haceDias(78), "9:00am"),
-    salon: "abejas",
+    nombre: "Día de deportes",
+    fecha: formatFechaConHora(haceDias(8), "9:00am"),
+    salon: null,
   },
 };
 
@@ -87,17 +85,18 @@ export default function FotoAbierta() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const evento = EVENTOS_DATA[id] ?? EVENTOS_DATA["1"];
+  const fotosList = FOTOS_POR_EVENTO[id] ?? FOTOS_POR_EVENTO["1"];
   const [fotoActiva, setFotoActiva] = useState(0);
   const [liked, setLiked] = useState(false);
 
-  const fotoActual = FOTOS_MOCK[fotoActiva];
+  const fotoActual = fotosList[fotoActiva];
 
   const irAnterior = () => {
     if (fotoActiva > 0) setFotoActiva(fotoActiva - 1);
   };
 
   const irSiguiente = () => {
-    if (fotoActiva < FOTOS_MOCK.length - 1) setFotoActiva(fotoActiva + 1);
+    if (fotoActiva < fotosList.length - 1) setFotoActiva(fotoActiva + 1);
   };
 
   return (
@@ -122,11 +121,20 @@ export default function FotoAbierta() {
 
         <View style={styles.fotoCounter}>
           <Text style={styles.fotoCounterTxt}>
-            {fotoActiva + 1} / {FOTOS_MOCK.length}
+            {fotoActiva + 1} / {fotosList.length}
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.iconBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.iconBtn}
+          activeOpacity={0.8}
+          onPress={() =>
+            Alert.alert(
+              "Más opciones",
+              "Aquí verías más acciones para esta foto.",
+            )
+          }
+        >
           <Svg
             width={20}
             height={20}
@@ -144,11 +152,11 @@ export default function FotoAbierta() {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={[styles.fotoMain, { backgroundColor: fotoActual.colores[0] }]}
-      >
-        <View
-          style={[styles.fotoBg, { backgroundColor: fotoActual.colores[1] }]}
+      <View style={styles.fotoMain}>
+        <Image
+          source={fotoActual.source}
+          style={styles.fotoMainImg}
+          resizeMode="cover"
         />
 
         {fotoActiva > 0 && (
@@ -170,7 +178,7 @@ export default function FotoAbierta() {
           </TouchableOpacity>
         )}
 
-        {fotoActiva < FOTOS_MOCK.length - 1 && (
+        {fotoActiva < fotosList.length - 1 && (
           <TouchableOpacity
             style={[styles.navArrow, styles.navNext]}
             onPress={irSiguiente}
@@ -233,7 +241,13 @@ export default function FotoAbierta() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.accionBtn}
+          activeOpacity={0.8}
+          onPress={() =>
+            Alert.alert("Comentarios", "Aún no hay comentarios en esta foto.")
+          }
+        >
           <Svg
             width={25}
             height={25}
@@ -247,7 +261,13 @@ export default function FotoAbierta() {
           <Text style={styles.accionLbl}>Comentar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.accionBtn}
+          activeOpacity={0.8}
+          onPress={() =>
+            Alert.alert("Guardado", "La foto se guardó en tu galería.")
+          }
+        >
           <Svg
             width={25}
             height={25}
@@ -263,7 +283,16 @@ export default function FotoAbierta() {
           <Text style={styles.accionLbl}>Guardar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.accionBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.accionBtn}
+          activeOpacity={0.8}
+          onPress={() =>
+            Alert.alert(
+              "Compartir",
+              "Se abriría el menú para compartir esta foto.",
+            )
+          }
+        >
           <Svg
             width={25}
             height={25}
@@ -288,20 +317,21 @@ export default function FotoAbierta() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.tiraScroll}
         >
-          {FOTOS_MOCK.map((foto, index) => (
+          {fotosList.map((foto, index) => (
             <TouchableOpacity
-              key={foto.id}
+              key={index}
               onPress={() => setFotoActiva(index)}
               activeOpacity={0.8}
             >
-              <View
+              <Image
+                source={foto.source}
                 style={[
                   styles.tiraThumb,
-                  { backgroundColor: foto.colores[0] },
                   index === fotoActiva
                     ? styles.tiraThumbActivo
                     : styles.tiraThumbInactivo,
                 ]}
+                resizeMode="cover"
               />
             </TouchableOpacity>
           ))}
@@ -349,13 +379,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  fotoBg: {
+  fotoMainImg: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.5,
+    width: "100%",
+    height: "100%",
   },
 
   navArrow: {
@@ -379,8 +410,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: 16,
-    paddingTop: 40,
-    backgroundColor: "rgba(0,0,0,0)",
+    paddingTop: 50,
+    backgroundColor: "rgba(0,0,0,0.35)",
   },
   fotoEventoLbl: {
     fontFamily: fonts.fontBold,

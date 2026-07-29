@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -8,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Line, Path, Polyline } from "react-native-svg";
 import { colors, fonts } from "../../../styles/global";
@@ -23,26 +24,26 @@ const AVATAR_COLORS: Record<
     bg: "#E8F8FC",
     text: "#007A8F",
     border: "#00AECC",
-    shadow: "#007A8F"
+    shadow: "#007A8F",
   },
   verde: {
     bg: "#F0FAF0",
     text: "#3A7A18",
     border: "#7BC441",
-    shadow: "#4A7A1E"
+    shadow: "#4A7A1E",
   },
   rosa: {
     bg: "#FDF0F8",
     text: "#A01D59",
     border: "#E5297E",
-    shadow: "#A01D59"
+    shadow: "#A01D59",
   },
   amarillo: {
     bg: "#FFFBE6",
     text: "#7A6200",
     border: "#F5C800",
-    shadow: "#B89600"
-  }
+    shadow: "#B89600",
+  },
 };
 
 interface ConvInfo {
@@ -70,7 +71,7 @@ const CONV_INFO: Record<string, ConvInfo> = {
     avatarLetra: "S",
     avatarColor: "turq",
     online: true,
-    contexto: "Sobre Sofía Ramírez · Abejas"
+    contexto: "Sobre Sofía Ramírez · Abejas",
   },
   rebeca: {
     nombre: "Mtra. Rebeca Ortiz",
@@ -78,14 +79,14 @@ const CONV_INFO: Record<string, ConvInfo> = {
     avatarLetra: "R",
     avatarColor: "verde",
     online: false,
-    contexto: "Sobre Diego Ramírez · Halcones"
+    contexto: "Sobre Diego Ramírez · Halcones",
   },
   admin: {
     nombre: "Dirección Tlatoani",
     subtitulo: "Administración escolar",
     avatarLetra: "D",
     avatarColor: "rosa",
-    online: false
+    online: false,
   },
   "sandra-excursion": {
     nombre: "Mtra. Sandra García",
@@ -93,15 +94,15 @@ const CONV_INFO: Record<string, ConvInfo> = {
     avatarLetra: "S",
     avatarColor: "turq",
     online: true,
-    contexto: "Sobre Sofía Ramírez · Excursión"
+    contexto: "Sobre Sofía Ramírez · Excursión",
   },
   "admin-festival": {
     nombre: "Dirección Tlatoani",
     subtitulo: "Festival de otoño",
     avatarLetra: "T",
     avatarColor: "amarillo",
-    online: false
-  }
+    online: false,
+  },
 };
 
 const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
@@ -112,7 +113,7 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "maestra",
       texto:
         "Hola, buenos días familia Ramírez. Quería comentarles que Sofía ha estado un poco distraída esta semana durante las actividades de lenguaje. No es nada grave, pero me gustaría platicar con ustedes.",
-      hora: "9:15am"
+      hora: "9:15am",
     },
     { id: "f2", tipo: "fecha", texto: "Hoy" },
     {
@@ -120,22 +121,22 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "padre",
       texto:
         "Buenos días maestra Sandra. Gracias por avisarnos. ¿Podríamos hablar esta semana? ¿Qué horario le queda mejor?",
-      hora: "8:42am"
+      hora: "8:42am",
     },
     {
       id: "m3",
       tipo: "maestra",
       texto:
         "¡Claro! Podemos vernos el miércoles después de clase, de 1:15 a 1:45pm. O si prefieren, podemos hacer una videollamada. 😊",
-      hora: "9:03am"
+      hora: "9:03am",
     },
     {
       id: "m4",
       tipo: "padre",
       texto:
         "Perfecto, el miércoles en persona está muy bien. Ahí estaremos. ¡Gracias maestra!",
-      hora: "9:10am"
-    }
+      hora: "9:10am",
+    },
   ],
   rebeca: [
     { id: "f1", tipo: "fecha", texto: "Ayer" },
@@ -144,20 +145,20 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "maestra",
       texto:
         "Buenos días. Solo quería confirmar que Diego llegó bien y está muy contento hoy.",
-      hora: "9:00am"
+      hora: "9:00am",
     },
     {
       id: "m2",
       tipo: "padre",
       texto: "¡Qué bueno saberlo, gracias maestra Rebeca!",
-      hora: "9:05am"
+      hora: "9:05am",
     },
     {
       id: "m3",
       tipo: "maestra",
       texto: "Gracias por confirmar, hasta el lunes.",
-      hora: "9:10am"
-    }
+      hora: "9:10am",
+    },
   ],
   admin: [
     { id: "f1", tipo: "fecha", texto: "Hoy" },
@@ -166,15 +167,15 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "maestra",
       texto:
         "Estimada familia, le recordamos que su colegiatura de mayo vence en 3 días. Por favor realice su pago a tiempo para evitar recargos.",
-      hora: "8:45am"
+      hora: "8:45am",
     },
     {
       id: "m2",
       tipo: "maestra",
       texto:
         "Puede realizar su pago en ventanilla, por transferencia o a través de la app. ¿Tiene alguna duda?",
-      hora: "8:46am"
-    }
+      hora: "8:46am",
+    },
   ],
   "sandra-excursion": [
     { id: "f1", tipo: "fecha", texto: "Lun 21" },
@@ -183,20 +184,20 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "maestra",
       texto:
         "Recordatorio: mañana es la excursión al jardín botánico. Por favor no olvide la autorización firmada y el lunch.",
-      hora: "2:30pm"
+      hora: "2:30pm",
     },
     {
       id: "m2",
       tipo: "padre",
       texto: "Entendido maestra, mañana la llevamos lista. ¡Gracias!",
-      hora: "3:00pm"
+      hora: "3:00pm",
     },
     {
       id: "m3",
       tipo: "maestra",
       texto: "Recuerda la autorización firmada para mañana.",
-      hora: "3:05pm"
-    }
+      hora: "3:05pm",
+    },
   ],
   "admin-festival": [
     { id: "f1", tipo: "fecha", texto: "Vie 18" },
@@ -205,21 +206,21 @@ const MENSAJES_POR_CONV: Record<string, Mensaje[]> = {
       tipo: "maestra",
       texto:
         "Estimada familia, fue un placer tenerlos en el Festival de Otoño. Esperamos que hayan disfrutado la presentación de sus hijos.",
-      hora: "4:00pm"
+      hora: "4:00pm",
     },
     {
       id: "m2",
       tipo: "padre",
       texto: "¡Muchas gracias! Estuvo muy bonito el evento.",
-      hora: "4:30pm"
+      hora: "4:30pm",
     },
     {
       id: "m3",
       tipo: "maestra",
       texto: "¡Gracias por su participación en el festival!",
-      hora: "4:35pm"
-    }
-  ]
+      hora: "4:35pm",
+    },
+  ],
 };
 
 function FechaChip({ texto }: { texto: string }) {
@@ -265,7 +266,7 @@ function NotaFormal() {
 function BurbujaMaestra({
   msg,
   avatarLetra,
-  col
+  col,
 }: {
   msg: Mensaje;
   avatarLetra: string;
@@ -276,7 +277,7 @@ function BurbujaMaestra({
       <View
         style={[
           styles.burbujaAv,
-          { backgroundColor: col.bg, borderColor: col.border }
+          { backgroundColor: col.bg, borderColor: col.border },
         ]}
       >
         <Text style={[styles.burbujaAvTxt, { color: col.text }]}>
@@ -316,7 +317,7 @@ function BurbujaPadre({ msg }: { msg: Mensaje }) {
 
 function EscribiendoIndicator({
   avatarLetra,
-  col
+  col,
 }: {
   avatarLetra: string;
   col: (typeof AVATAR_COLORS)[AvatarColor];
@@ -326,7 +327,7 @@ function EscribiendoIndicator({
       <View
         style={[
           styles.burbujaAv,
-          { backgroundColor: col.bg, borderColor: col.border }
+          { backgroundColor: col.bg, borderColor: col.border },
         ]}
       >
         <Text style={[styles.burbujaAvTxt, { color: col.text }]}>
@@ -365,7 +366,12 @@ export default function Chat() {
     const sufijo = ahora.getHours() >= 12 ? "pm" : "am";
     setExtras((prev) => [
       ...prev,
-      { id: `e${Date.now()}`, tipo: "padre", texto: txt, hora: `${h}:${m}${sufijo}` }
+      {
+        id: `e${Date.now()}`,
+        tipo: "padre",
+        texto: txt,
+        hora: `${h}:${m}${sufijo}`,
+      },
     ]);
     setTexto("");
     setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
@@ -400,8 +406,8 @@ export default function Chat() {
             {
               backgroundColor: col.bg,
               borderColor: col.border,
-              shadowColor: col.shadow
-            }
+              shadowColor: col.shadow,
+            },
           ]}
         >
           <Text style={[styles.headerAvatarTxt, { color: col.text }]}>
@@ -453,7 +459,13 @@ export default function Chat() {
       </ScrollView>
 
       <View style={styles.inputArea}>
-        <TouchableOpacity style={styles.attachBtn} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.attachBtn}
+          activeOpacity={0.8}
+          onPress={() =>
+            Alert.alert("Adjuntar", "Aquí podrías adjuntar una foto o archivo.")
+          }
+        >
           <Svg
             width={20}
             height={20}
@@ -509,7 +521,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     flexDirection: "row",
     alignItems: "center",
-    gap: 10
+    gap: 10,
   },
   backBtn: {
     width: 40,
@@ -520,7 +532,7 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   headerAvatar: {
     width: 48,
@@ -533,26 +545,26 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 2,
-    flexShrink: 0
+    flexShrink: 0,
   },
   headerAvatarTxt: { fontFamily: fonts.fontBlack, fontSize: 20 },
   headerInfo: { flex: 1 },
   headerNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   headerSubRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    marginTop: 1
+    marginTop: 1,
   },
   onlineDot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#7BC441"
+    backgroundColor: "#7BC441",
   },
   headerSub: { fontFamily: fonts.fontBold, fontSize: 12, color: "#AAA" },
 
@@ -564,7 +576,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E8E8E8",
     paddingVertical: 3,
     paddingHorizontal: 12,
-    borderRadius: 20
+    borderRadius: 20,
   },
   fechaChipTxt: { fontFamily: fonts.fontExtra, fontSize: 11, color: "#C0C0C0" },
 
@@ -576,7 +588,7 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
     padding: 10,
     alignSelf: "center",
-    maxWidth: "90%"
+    maxWidth: "90%",
   },
   contextoLbl: {
     fontFamily: fonts.fontExtra,
@@ -584,13 +596,13 @@ const styles = StyleSheet.create({
     color: "#B89600",
     textTransform: "uppercase",
     letterSpacing: 0.5,
-    marginBottom: 3
+    marginBottom: 3,
   },
   contextoTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 13,
     color: "#7A6200",
-    lineHeight: 16
+    lineHeight: 16,
   },
 
   notaFormal: {
@@ -602,14 +614,14 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: 6
+    gap: 6,
   },
   notaFormalTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 11,
     color: "#3A7A18",
     lineHeight: 14,
-    flex: 1
+    flex: 1,
   },
 
   burbujaRowMaestra: {
@@ -617,7 +629,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     gap: 6,
     alignSelf: "flex-start",
-    maxWidth: "85%"
+    maxWidth: "85%",
   },
   burbujaAv: {
     width: 34,
@@ -626,7 +638,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   burbujaAvTxt: { fontFamily: fonts.fontBlack, fontSize: 12 },
   burbujaContenidoMaestra: {
@@ -638,20 +650,20 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 12,
     borderWidth: 0.5,
-    borderColor: "#EBEBEB"
+    borderColor: "#EBEBEB",
   },
   burbujaTxt: {
     fontFamily: fonts.fontSemibold,
     fontSize: 16,
     color: "#333",
-    lineHeight: 18
+    lineHeight: 18,
   },
   burbujaHoraMaestra: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
     color: "#C0C0C0",
     marginTop: 4,
-    textAlign: "right"
+    textAlign: "right",
   },
 
   burbujaRowPadre: { alignSelf: "flex-end", maxWidth: "90%" },
@@ -667,25 +679,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 3
+    elevation: 3,
   },
   burbujaTxtPadre: {
     fontFamily: fonts.fontBold,
     fontSize: 16,
     color: "#5A4800",
-    lineHeight: 18
+    lineHeight: 18,
   },
   burbujaHoraPadreRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
     gap: 3,
-    marginTop: 4
+    marginTop: 4,
   },
   burbujaHoraPadre: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
-    color: "#9A7800"
+    color: "#9A7800",
   },
 
   escribiendoBurbuja: {
@@ -700,13 +712,13 @@ const styles = StyleSheet.create({
     borderColor: "#EBEBEB",
     flexDirection: "row",
     gap: 4,
-    alignItems: "center"
+    alignItems: "center",
   },
   dotAnim: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#C0C0C0"
+    backgroundColor: "#C0C0C0",
   },
 
   inputArea: {
@@ -718,7 +730,7 @@ const styles = StyleSheet.create({
     paddingBottom: 28,
     flexDirection: "row",
     alignItems: "center",
-    gap: 8
+    gap: 8,
   },
   attachBtn: {
     width: 42,
@@ -729,7 +741,7 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   inputField: {
     flex: 1,
@@ -740,7 +752,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontBold,
     fontSize: 12,
     color: colors.texto,
-    maxHeight: 100
+    maxHeight: 100,
   },
   sendBtn: {
     width: 46,
@@ -754,11 +766,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 2,
-    flexShrink: 0
+    flexShrink: 0,
   },
   sendBtnDisabled: {
     backgroundColor: "#F0F0F0",
     shadowColor: "transparent",
-    elevation: 0
-  }
+    elevation: 0,
+  },
 });

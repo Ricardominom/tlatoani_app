@@ -3,20 +3,15 @@ import { mesAbrev, nombreMes } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import Svg, {
-  Circle,
-  Ellipse,
-  Line,
-  Path,
-  Polyline,
-  Rect,
-} from "react-native-svg";
+import Svg, { Circle, Ellipse, Line, Path, Polyline, Rect } from "react-native-svg";
+import { FOTOS } from "@/src/utils/fotos";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
 
@@ -30,7 +25,7 @@ interface Evento {
   totalFotos: number;
   totalVideos?: number;
   mes: string;
-  coloresMini: string[][];
+  fotos: any[];
 }
 
 function haceDias(n: number): Date {
@@ -50,6 +45,7 @@ function mesDeEvento(fecha: Date): string {
 const ev1 = haceDias(18);
 const ev2 = haceDias(22);
 const ev3 = haceDias(75);
+const ev4 = haceDias(8);
 
 const EVENTOS: Evento[] = [
   {
@@ -60,12 +56,7 @@ const EVENTOS: Evento[] = [
     totalFotos: 24,
     totalVideos: 2,
     mes: mesDeEvento(ev1),
-    coloresMini: [
-      ["#a8e063", "#56ab2f"],
-      ["#89f7fe", "#66a6ff"],
-      ["#d4fc79", "#96e6a1"],
-      ["#ffecd2", "#fcb69f"],
-    ],
+    fotos: FOTOS.jardin,
   },
   {
     id: "2",
@@ -75,12 +66,7 @@ const EVENTOS: Evento[] = [
     totalFotos: 58,
     totalVideos: 5,
     mes: mesDeEvento(ev2),
-    coloresMini: [
-      ["#ffecd2", "#fcb69f"],
-      ["#f093fb", "#f5576c"],
-      ["#a8e063", "#56ab2f"],
-      ["#a18cd1", "#fbc2eb"],
-    ],
+    fotos: FOTOS.festival,
   },
   {
     id: "3",
@@ -89,12 +75,16 @@ const EVENTOS: Evento[] = [
     salon: null,
     totalFotos: 31,
     mes: mesDeEvento(ev3),
-    coloresMini: [
-      ["#89f7fe", "#66a6ff"],
-      ["#a8e063", "#56ab2f"],
-      ["#f093fb", "#f5576c"],
-      ["#ffecd2", "#fcb69f"],
-    ],
+    fotos: FOTOS.desfile,
+  },
+  {
+    id: "4",
+    nombre: "Día de deportes",
+    fecha: formatFechaEvento(ev4),
+    salon: null,
+    totalFotos: 18,
+    mes: mesDeEvento(ev4),
+    fotos: FOTOS.deportes,
   },
 ];
 
@@ -303,7 +293,7 @@ function EventoCard({
       activeOpacity={0.85}
     >
       <View style={styles.heroWrap}>
-        <HeroEvento id={evento.id} />
+        <Image source={evento.fotos[0]} style={styles.heroImg} resizeMode="cover" />
 
         <View style={styles.countBadge}>
           <Svg
@@ -361,11 +351,9 @@ function EventoCard({
       </View>
 
       <View style={styles.miniGrid}>
-        {evento.coloresMini.map((colores, i) => (
-          <View
-            key={i}
-            style={[styles.miniThumb, { backgroundColor: colores[0] }]}
-          >
+        {evento.fotos.slice(0, 4).map((foto, i) => (
+          <View key={i} style={styles.miniThumb}>
+            <Image source={foto} style={styles.miniThumbImg} resizeMode="cover" />
             {i === 3 && mostrarExtra > 0 && (
               <View style={styles.masOverlay}>
                 <Text style={styles.masTxt}>+{mostrarExtra}</Text>
@@ -675,11 +663,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingBottom: 12,
   },
+  heroImg: {
+    width: "100%",
+    height: 110,
+  },
   miniThumb: {
     flex: 1,
     height: 46,
     borderRadius: 8,
     overflow: "hidden",
+  },
+  miniThumbImg: {
+    width: "100%",
+    height: "100%",
   },
   masOverlay: {
     ...StyleSheet.absoluteFillObject,

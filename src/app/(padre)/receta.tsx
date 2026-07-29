@@ -2,6 +2,7 @@ import { mesAbrev } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -121,7 +122,16 @@ export default function Receta() {
           </Svg>
         </TouchableOpacity>
         <Text style={styles.headerTitulo}>Receta del día</Text>
-        <TouchableOpacity style={styles.shareBtn} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.shareBtn}
+          activeOpacity={0.7}
+          onPress={() =>
+            Alert.alert(
+              "Compartir",
+              "Se abriría el menú para compartir la receta.",
+            )
+          }
+        >
           <Svg
             width={30}
             height={30}

@@ -1,12 +1,13 @@
-import { diasHasta, mesAbrev } from "@/src/utils/tiempo";
+import { diasHasta } from "@/src/utils/tiempo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../../components/ui/TlatoaniTabIcons";
@@ -20,11 +21,37 @@ function haceDias(n: number): Date {
   return new Date(Date.now() - n * 24 * 60 * 60 * 1000);
 }
 
-const DIAS_AVISO = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-const DIAS_AVISO_CAP = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const DIAS_AVISO = [
+  "domingo",
+  "lunes",
+  "martes",
+  "miércoles",
+  "jueves",
+  "viernes",
+  "sábado",
+];
+const DIAS_AVISO_CAP = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+];
 const MESES_LARGO = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
 ];
 
 function formatFechaLarga(fecha: Date): string {
@@ -39,13 +66,14 @@ const mesActualNombre = MESES_LARGO[new Date().getMonth()];
 const excursionFecha = enDias(10);
 const juntaFecha = enDias(3);
 const _hoy = new Date();
-const diaDeVencimiento = _hoy.getDate() <= 16
-  ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
-  : new Date(
-      _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
-      (_hoy.getMonth() + 1) % 12,
-      16
-    );
+const diaDeVencimiento =
+  _hoy.getDate() <= 16
+    ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
+    : new Date(
+        _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
+        (_hoy.getMonth() + 1) % 12,
+        16,
+      );
 const diasAlPago = diasHasta(diaDeVencimiento);
 
 const AVISOS_DATA: Record<string, any> = {
@@ -56,14 +84,14 @@ const AVISOS_DATA: Record<string, any> = {
     maestra: null,
     texto: [
       `Tu colegiatura del mes de ${mesActualNombre} vence en ${diasAlPago} días. Te recordamos que el pago debe realizarse antes del ${DIAS_AVISO[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()} para evitar recargos.`,
-      "Puedes realizar el pago mediante transferencia bancaria o en la caja de la escuela de 8am a 1pm."
+      "Puedes realizar el pago mediante transferencia bancaria o en la caja de la escuela de 8am a 1pm.",
     ],
     evento: null,
     materiales: null,
     leido: false,
     adjuntos: [],
     confirmados: 0,
-    total: 1
+    total: 1,
   },
   "2": {
     tag: { label: "Victoria · Abejas", tipo: "abejas" },
@@ -72,26 +100,26 @@ const AVISOS_DATA: Record<string, any> = {
     maestra: { inicial: "S", nombre: "Sandra García" },
     texto: [
       `El próximo ${DIAS_AVISO[excursionFecha.getDay()]} ${excursionFecha.getDate()} de ${MESES_LARGO[excursionFecha.getMonth()]} saldremos a las 9:00am rumbo al Jardín Botánico de Puebla. La actividad regresa a la escuela aproximadamente a las 12:30pm.`,
-      "Por favor asegúrate de que tu hijo llegue puntual ese día. Los niños deben venir con ropa cómoda y zapatos cerrados — nada de sandalias."
+      "Por favor asegúrate de que tu hijo llegue puntual ese día. Los niños deben venir con ropa cómoda y zapatos cerrados — nada de sandalias.",
     ],
     evento: {
       fecha: formatFechaLarga(excursionFecha),
-      horario: "9:00am · regreso 12:30pm"
+      horario: "9:00am · regreso 12:30pm",
     },
     materiales: [
       { id: "1", label: "Lunch completo", hecho: true },
       { id: "2", label: "Botella de agua", hecho: true },
       { id: "3", label: "Zapatos cerrados", hecho: false },
       { id: "4", label: "Bloqueador solar", hecho: false },
-      { id: "5", label: "Gorra o sombrero", hecho: false }
+      { id: "5", label: "Gorra o sombrero", hecho: false },
     ],
     leido: false,
     adjuntos: [
       { nombre: "Autorización salida.pdf", size: "148 KB", tipo: "pdf" },
-      { nombre: "Mapa del jardín botánico", size: "320 KB", tipo: "imagen" }
+      { nombre: "Mapa del jardín botánico", size: "320 KB", tipo: "imagen" },
     ],
     confirmados: 17,
-    total: 25
+    total: 25,
   },
   "3": {
     tag: { label: "Diego · Halcones", tipo: "halcones" },
@@ -99,17 +127,17 @@ const AVISOS_DATA: Record<string, any> = {
     tiempo: "Hace 3h",
     maestra: { inicial: "R", nombre: "Roberto Lima" },
     texto: [
-      `Ya está disponible el calendario de comida compartida para el mes de ${mesActualNombre}. Recuerda que el turno de Diego está programado para el ${DIAS_AVISO[diegoTurno.getDay()]} ${diegoTurno.getDate()}.`
+      `Ya está disponible el calendario de comida compartida para el mes de ${mesActualNombre}. Recuerda que el turno de Diego está programado para el ${DIAS_AVISO[diegoTurno.getDay()]} ${diegoTurno.getDate()}.`,
     ],
     evento: {
       fecha: formatFechaLarga(diegoTurno),
-      horario: "Llevar comida antes de las 12:30pm"
+      horario: "Llevar comida antes de las 12:30pm",
     },
     materiales: null,
     leido: false,
     adjuntos: [],
     confirmados: 20,
-    total: 22
+    total: 22,
   },
   "4": {
     tag: { label: "Victoria · Abejas", tipo: "abejas" },
@@ -118,14 +146,14 @@ const AVISOS_DATA: Record<string, any> = {
     maestra: { inicial: "S", nombre: "Sandra García" },
     texto: [
       "Victoria completó sola el trabajo de letras móviles por primera vez. Mostró gran concentración durante 25 minutos y logró formar su nombre completo sin ayuda.",
-      "Es un avance muy significativo en su proceso de lectoescritura. ¡Felicitaciones a Victoria!"
+      "Es un avance muy significativo en su proceso de lectoescritura. ¡Felicitaciones a Victoria!",
     ],
     evento: null,
     materiales: null,
     leido: true,
     adjuntos: [],
     confirmados: 1,
-    total: 1
+    total: 1,
   },
   "5": {
     tag: { label: "Escuela general", tipo: "general" },
@@ -134,17 +162,17 @@ const AVISOS_DATA: Record<string, any> = {
     maestra: null,
     texto: [
       `Se informa a todas las familias que el ${DIAS_AVISO[suspensionFecha.getDay()]} ${suspensionFecha.getDate()} de ${MESES_LARGO[suspensionFecha.getMonth()]} no habrá clases por motivo del Día del Maestro.`,
-      `Las clases se reanudan normalmente el lunes ${reanudanFecha.getDate()} de ${MESES_LARGO[reanudanFecha.getMonth()]}. Que tengan un excelente fin de semana largo.`
+      `Las clases se reanudan normalmente el lunes ${reanudanFecha.getDate()} de ${MESES_LARGO[reanudanFecha.getMonth()]}. Que tengan un excelente fin de semana largo.`,
     ],
     evento: {
       fecha: formatFechaLarga(suspensionFecha),
-      horario: `Sin clases · Reanudan lunes ${reanudanFecha.getDate()}`
+      horario: `Sin clases · Reanudan lunes ${reanudanFecha.getDate()}`,
     },
     materiales: null,
     leido: true,
     adjuntos: [],
     confirmados: 18,
-    total: 25
+    total: 25,
   },
   "6": {
     tag: { label: "Victoria · Abejas", tipo: "abejas" },
@@ -153,18 +181,18 @@ const AVISOS_DATA: Record<string, any> = {
     maestra: { inicial: "S", nombre: "Sandra García" },
     texto: [
       `El ${DIAS_AVISO[juntaFecha.getDay()]} ${juntaFecha.getDate()} de ${MESES_LARGO[juntaFecha.getMonth()]} a las 9am tendremos la junta de ambiente del salón Abejas en el salón de clases. Es obligatoria la asistencia de al menos un padre o tutor.`,
-      "En esta junta hablaremos sobre el avance del grupo, el proyecto de comida compartida y los eventos de fin de ciclo."
+      "En esta junta hablaremos sobre el avance del grupo, el proyecto de comida compartida y los eventos de fin de ciclo.",
     ],
     evento: {
       fecha: formatFechaLarga(juntaFecha),
-      horario: "9:00am · Salón Abejas"
+      horario: "9:00am · Salón Abejas",
     },
     materiales: null,
     leido: true,
     adjuntos: [],
     confirmados: 15,
-    total: 22
-  }
+    total: 22,
+  },
 };
 
 function getTagEstilo(tipo: string) {
@@ -173,7 +201,7 @@ function getTagEstilo(tipo: string) {
       return {
         bg: colors.primarioAmarillo,
         color: "#5A4800",
-        shadow: colors.secundarioAmarillo
+        shadow: colors.secundarioAmarillo,
       };
     case "halcones":
       return { bg: colors.halcones, color: "#fff", shadow: colors.halconesS };
@@ -206,7 +234,7 @@ export default function DetalleAviso() {
 
   const toggleMaterial = (matId: string) => {
     setMateriales((prev: any[]) =>
-      prev.map((m) => (m.id === matId ? { ...m, hecho: !m.hecho } : m))
+      prev.map((m) => (m.id === matId ? { ...m, hecho: !m.hecho } : m)),
     );
   };
 
@@ -261,8 +289,8 @@ export default function DetalleAviso() {
                   styles.tag,
                   {
                     backgroundColor: tagEstilo.bg,
-                    shadowColor: tagEstilo.shadow
-                  }
+                    shadowColor: tagEstilo.shadow,
+                  },
                 ]}
               >
                 <Text style={[styles.tagTxt, { color: tagEstilo.color }]}>
@@ -320,7 +348,15 @@ export default function DetalleAviso() {
                   <Text style={styles.eventoVal}>{aviso.evento.fecha}</Text>
                   <Text style={styles.eventoLbl}>{aviso.evento.horario}</Text>
                 </View>
-                <TouchableOpacity style={styles.btnAgendaSm}>
+                <TouchableOpacity
+                  style={styles.btnAgendaSm}
+                  onPress={() =>
+                    Alert.alert(
+                      "Agendado",
+                      "Se agregó el evento a tu calendario.",
+                    )
+                  }
+                >
                   <Text style={styles.btnAgendaSmTxt}>+ Agenda</Text>
                 </TouchableOpacity>
               </View>
@@ -384,7 +420,7 @@ export default function DetalleAviso() {
               <Text
                 style={[
                   styles.btnConfirmarTxt,
-                  leido && styles.btnConfirmadoTxt
+                  leido && styles.btnConfirmadoTxt,
                 ]}
               >
                 {leido ? "Leído y confirmado" : "Confirmar lectura"}
@@ -402,9 +438,10 @@ export default function DetalleAviso() {
                   key={adj.nombre}
                   style={[
                     styles.adjItem,
-                    index === arr.length - 1 && styles.adjItemLast
+                    index === arr.length - 1 && styles.adjItemLast,
                   ]}
                   activeOpacity={0.7}
+                  onPress={() => Alert.alert(adj.nombre, "Abriendo archivo…")}
                 >
                   <View
                     style={[
@@ -413,8 +450,8 @@ export default function DetalleAviso() {
                         backgroundColor:
                           adj.tipo === "pdf"
                             ? colors.rojoLight
-                            : colors.halconesLight
-                      }
+                            : colors.halconesLight,
+                      },
                     ]}
                   >
                     {adj.tipo === "pdf" ? (
@@ -496,7 +533,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   backBtn: {
     width: 40,
@@ -506,12 +543,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 22,
-    color: colors.texto
+    color: colors.texto,
   },
   shareBtn: {
     width: 40,
@@ -521,7 +558,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   scroll: { flex: 1 },
@@ -532,18 +569,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   avisoTop: {
     padding: 14,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F5F5F5",
-    gap: 6
+    gap: 6,
   },
   avisoMeta: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   tag: {
     paddingVertical: 5,
@@ -552,7 +589,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   tagTxt: { fontFamily: fonts.fontBlack, fontSize: 14 },
   tiempo: { fontFamily: fonts.fontSemibold, fontSize: 14, color: "#C0C0C0" },
@@ -560,13 +597,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontBlack,
     fontSize: 20,
     color: colors.texto,
-    lineHeight: 30
+    lineHeight: 30,
   },
   maestraRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    marginTop: 4
+    marginTop: 4,
   },
   maestraAvatar: {
     width: 42,
@@ -576,25 +613,25 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: colors.halcones,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   maestraAvatarTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
-    color: colors.halconesS
+    color: colors.halconesS,
   },
   maestraNombre: { fontFamily: fonts.fontBold, fontSize: 16, color: "#888" },
 
   avisoBody: {
     padding: 14,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   avisoTexto: {
     fontFamily: fonts.fontSemibold,
     fontSize: 18,
     color: "#444",
-    lineHeight: 20
+    lineHeight: 20,
   },
 
   eventoBloque: {
@@ -607,7 +644,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
-    gap: 10
+    gap: 10,
   },
   eventoIcono: {
     width: 44,
@@ -621,7 +658,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 2,
-    flexShrink: 0
+    flexShrink: 0,
   },
   eventoInfo: { flex: 1 },
   eventoLbl: { fontFamily: fonts.fontBold, fontSize: 12, color: "#AAA" },
@@ -629,7 +666,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontBlack,
     fontSize: 16,
     color: colors.texto,
-    lineHeight: 18
+    lineHeight: 18,
   },
   btnAgendaSm: {
     backgroundColor: colors.primarioAmarillo,
@@ -640,31 +677,31 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   btnAgendaSmTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 12,
-    color: "#5A4800"
+    color: "#5A4800",
   },
 
   materialesSection: {
     padding: 14,
     borderBottomWidth: 0.5,
     borderBottomColor: "#F5F5F5",
-    gap: 6
+    gap: 6,
   },
   materialesTitulo: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
     color: colors.texto,
-    marginBottom: 4
+    marginBottom: 4,
   },
   matItem: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    paddingVertical: 4
+    paddingVertical: 4,
   },
   matCheck: {
     width: 24,
@@ -673,7 +710,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#E0E0E0",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   matCheckOn: { backgroundColor: colors.verde, borderColor: colors.verde },
   matLbl: { fontFamily: fonts.fontBold, fontSize: 14, color: "#444" },
@@ -692,19 +729,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 3
+    elevation: 3,
   },
   btnConfirmado: {
     backgroundColor: "#F0FAF0",
     borderWidth: 1.5,
     borderColor: colors.verde,
     shadowOpacity: 0,
-    elevation: 0
+    elevation: 0,
   },
   btnConfirmarTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
-    color: "#5A4800"
+    color: "#5A4800",
   },
   btnConfirmadoTxt: { color: "#3A7A18" },
 
@@ -715,7 +752,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   adjuntosCard: {
@@ -723,7 +760,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   adjItem: {
     flexDirection: "row",
@@ -731,7 +768,7 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   adjItemLast: { borderBottomWidth: 0 },
   adjIcono: {
@@ -740,7 +777,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   adjInfo: { flex: 1 },
   adjNombre: { fontFamily: fonts.fontExtra, fontSize: 14, color: colors.texto },
@@ -748,7 +785,7 @@ const styles = StyleSheet.create({
   adjAbrir: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.halcones
+    color: colors.halcones,
   },
 
   confirmCard: {
@@ -757,21 +794,21 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
     padding: 14,
-    gap: 6
+    gap: 6,
   },
   confirmTitulo: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
   barraWrap: {
     height: 8,
     backgroundColor: "#F0F0F0",
     borderRadius: 4,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   barra: { height: "100%", backgroundColor: colors.verde, borderRadius: 4 },
   confirmNums: { flexDirection: "row", justifyContent: "space-between" },
   confirmOk: { fontFamily: fonts.fontBlack, fontSize: 13, color: "#3A7A18" },
-  confirmPend: { fontFamily: fonts.fontSemibold, fontSize: 12, color: "#AAA" }
+  confirmPend: { fontFamily: fonts.fontSemibold, fontSize: 12, color: "#AAA" },
 });

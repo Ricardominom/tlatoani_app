@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -8,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import CarruselAnimales from "../../components/ui/CarruselAnimales";
@@ -96,7 +97,7 @@ export default function Login() {
               <TextInput
                 style={[
                   styles.fieldInput,
-                  emailFocused && styles.fieldInputActive
+                  emailFocused && styles.fieldInputActive,
                 ]}
                 placeholder="tu@correo.com"
                 placeholderTextColor={colors.texto3}
@@ -114,7 +115,7 @@ export default function Login() {
               <TextInput
                 style={[
                   styles.fieldInput,
-                  passwordFocused && styles.fieldInputActive
+                  passwordFocused && styles.fieldInputActive,
                 ]}
                 placeholder="••••••••"
                 placeholderTextColor={colors.texto3}
@@ -126,7 +127,14 @@ export default function Login() {
               />
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Recuperar contraseña",
+                  "Aquí se enviaría un correo para restablecer tu contraseña.",
+                )
+              }
+            >
               <Text style={styles.forgot}>¿Olvidaste tu contraseña?</Text>
             </TouchableOpacity>
 
@@ -149,7 +157,16 @@ export default function Login() {
               <View style={styles.dividerLine} />
             </View>
 
-            <TouchableOpacity style={styles.btnGoogle} activeOpacity={0.85}>
+            <TouchableOpacity
+              style={styles.btnGoogle}
+              activeOpacity={0.85}
+              onPress={() =>
+                Alert.alert(
+                  "Google",
+                  "Aquí se abriría el inicio de sesión con Google.",
+                )
+              }
+            >
               <Svg width={18} height={18} viewBox="0 0 24 24">
                 <Path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -185,11 +202,11 @@ export default function Login() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.card
+    backgroundColor: colors.card,
   },
   scroll: {
     flexGrow: 1,
-    width: "100%"
+    width: "100%",
   },
   topSection: {
     backgroundColor: colors.card,
@@ -199,35 +216,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 0.5,
     borderBottomColor: "#F0F0F0",
-    gap: 14
+    gap: 14,
   },
   logoTexts: {
-    alignItems: "center"
+    alignItems: "center",
     // marginTop: 4
   },
   logoColegio: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
     color: "#C0C0C0",
-    letterSpacing: 1.5
+    letterSpacing: 1.5,
   },
   logoTlatoani: {
     fontFamily: fonts.fontBlack,
     fontSize: 56,
     color: colors.texto,
-    letterSpacing: -0.5
+    letterSpacing: -0.5,
   },
   logoMontessori: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
     color: colors.verde,
-    letterSpacing: 1.2
+    letterSpacing: 1.2,
     // marginTop: 2
   },
   animalsRow: {
     flexDirection: "row",
     gap: 6,
-    marginTop: 4
+    marginTop: 4,
   },
   animalChip: {
     flexDirection: "row",
@@ -238,12 +255,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderWidth: 0.5,
-    borderColor: "#EBEBEB"
+    borderColor: "#EBEBEB",
   },
   animalName: {
     fontFamily: fonts.fontBold,
     fontSize: 9,
-    color: "#999"
+    color: "#999",
   },
   bottomSection: {
     flexGrow: 1,
@@ -252,15 +269,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.xl,
     paddingBottom: 36,
-    gap: 14
+    gap: 14,
   },
   fieldWrap: {
-    gap: 5
+    gap: 5,
   },
   fieldLabel: {
     fontFamily: fonts.fontExtra,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
   fieldInput: {
     backgroundColor: colors.card,
@@ -271,18 +288,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     fontFamily: fonts.fontSemibold,
     fontSize: 16,
-    color: colors.texto
+    color: colors.texto,
   },
   fieldInputActive: {
     borderColor: colors.primarioAmarillo,
-    backgroundColor: colors.lightAmarillo
+    backgroundColor: colors.lightAmarillo,
   },
   forgot: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
     color: colors.halcones,
     textAlign: "right",
-    marginTop: -4
+    marginTop: -4,
   },
   btnLogin: {
     backgroundColor: colors.primarioAmarillo,
@@ -294,27 +311,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 4,
-    marginTop: 2
+    marginTop: 2,
   },
   btnLoginTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
-    color: "#5A4800"
+    color: "#5A4800",
   },
   dividerRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10
+    gap: 10,
   },
   dividerLine: {
     flex: 1,
     height: 0.5,
-    backgroundColor: "#E8E8E8"
+    backgroundColor: "#E8E8E8",
   },
   dividerTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
-    color: "#C0C0C0"
+    color: "#C0C0C0",
   },
   btnGoogle: {
     flexDirection: "row",
@@ -325,32 +342,32 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: "#EBEBEB",
     borderRadius: radii.lg,
-    paddingVertical: 13
+    paddingVertical: 13,
   },
   btnGoogleTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 13,
-    color: colors.texto
+    color: colors.texto,
   },
   footerTxt: {
     fontFamily: fonts.fontSemibold,
     fontSize: 11,
     color: "#C0C0C0",
     textAlign: "center",
-    marginTop: 4
+    marginTop: 4,
   },
   footerLink: {
     fontFamily: fonts.fontExtra,
-    color: colors.primarioAmarillo
+    color: colors.primarioAmarillo,
   },
   btnLoginOff: {
-    opacity: 0.6
+    opacity: 0.6,
   },
   errorTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 16,
     color: colors.rojo,
     textAlign: "center",
-    marginTop: -4
-  }
+    marginTop: -4,
+  },
 });

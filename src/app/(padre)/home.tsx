@@ -1,7 +1,15 @@
-import { diasHasta, formatTiempoRelativo, mesAbrev, seccionRelativa } from "@/src/utils/tiempo";
+import { FOTOS } from "@/src/utils/fotos";
+import {
+  diasHasta,
+  formatTiempoRelativo,
+  mesAbrev,
+  seccionRelativa,
+} from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -31,25 +39,44 @@ function enDias(n: number): Date {
 const DIAS_ABREV = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
 const MESES_LARGO = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
 ];
 
 function formatFechaProximo(fecha: Date): string {
   return `${DIAS_ABREV[fecha.getDay()]} ${fecha.getDate()} ${mesAbrev(fecha.getMonth())}`;
 }
 
-const DIAS_NOMBRE = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+const DIAS_NOMBRE = [
+  "domingo",
+  "lunes",
+  "martes",
+  "miércoles",
+  "jueves",
+  "viernes",
+  "sábado",
+];
 
 const excursionFecha = enDias(10);
 const _hoy = new Date();
-const diaDeVencimiento = _hoy.getDate() <= 16
-  ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
-  : new Date(
-      _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
-      (_hoy.getMonth() + 1) % 12,
-      16
-    );
+const diaDeVencimiento =
+  _hoy.getDate() <= 16
+    ? new Date(_hoy.getFullYear(), _hoy.getMonth(), 16)
+    : new Date(
+        _hoy.getMonth() === 11 ? _hoy.getFullYear() + 1 : _hoy.getFullYear(),
+        (_hoy.getMonth() + 1) % 12,
+        16,
+      );
 const diasAlPago = diasHasta(diaDeVencimiento);
 
 const suspensionFecha = enDias(24);
@@ -62,8 +89,7 @@ const CARDS = [
     tipo: "colegiatura" as const,
     tag: { label: "Colegiatura", tipo: "alerta" as const },
     titulo: "Recordatorio de pago",
-    cuerpo:
-      `Tu colegiatura vence en ${diasAlPago} días. Evita recargos pagando antes del ${DIAS_NOMBRE[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()}.`,
+    cuerpo: `Tu colegiatura vence en ${diasAlPago} días. Evita recargos pagando antes del ${DIAS_NOMBRE[diaDeVencimiento.getDay()]} ${diaDeVencimiento.getDate()}.`,
     leido: false,
     acento: "rojo" as const,
   },
@@ -73,8 +99,7 @@ const CARDS = [
     tipo: "aviso" as const,
     tag: { label: "Sofía · Abejas", tipo: "abejas" as const },
     titulo: "Visita al jardín botánico",
-    cuerpo:
-      `El ${DIAS_NOMBRE[excursionFecha.getDay()]} saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.`,
+    cuerpo: `El ${DIAS_NOMBRE[excursionFecha.getDay()]} saldremos a las 9am. Llevar lunch, agua y zapatos cómodos.`,
     leido: false,
     acento: "amarillo" as const,
     conAgenda: true,
@@ -88,7 +113,10 @@ const CARDS = [
     cuerpo: "Ya está disponible el calendario de comida de este mes.",
     leido: false,
     acento: "rosa" as const,
-    comidaInfo: { texto: "Diego: pasta boloñesa para 20", fecha: formatFechaProximo(enDias(12)) },
+    comidaInfo: {
+      texto: "Diego: pasta boloñesa para 20",
+      fecha: formatFechaProximo(enDias(12)),
+    },
     conAgenda: true,
   },
   {
@@ -175,7 +203,11 @@ export default function Home() {
                 onPress={() => router.push(`/(padre)/aviso/${card.id}` as any)}
                 onConfirmar={
                   card.tipo === "aviso"
-                    ? () => console.log("confirmar", card.id)
+                    ? () =>
+                        Alert.alert(
+                          "Confirmado",
+                          "Se registró tu confirmación de lectura.",
+                        )
                     : undefined
                 }
                 onVerCuenta={
@@ -185,7 +217,11 @@ export default function Home() {
                 }
                 onAgenda={
                   "conAgenda" in card && card.conAgenda
-                    ? () => console.log("agenda", card.id)
+                    ? () =>
+                        Alert.alert(
+                          "Agendado",
+                          "Se agregó el evento a tu calendario.",
+                        )
                     : undefined
                 }
               />
@@ -234,17 +270,23 @@ export default function Home() {
           </View>
           <View style={styles.fotosGrid}>
             {[
-              ["#a8e063", "#56ab2f"],
-              ["#89f7fe", "#66a6ff"],
-              ["#f093fb", "#f5576c"],
-              ["#ffecd2", "#fcb69f"],
-            ].map((col, i) => (
+              FOTOS.jardin[0],
+              FOTOS.festival[0],
+              FOTOS.desfile[0],
+              FOTOS.deportes[0],
+            ].map((foto, i) => (
               <TouchableOpacity
                 key={i}
-                style={[styles.fotoThumb, { backgroundColor: col[0] }]}
-                onPress={() => router.push("/(padre)/galeria/1" as any)}
+                style={styles.fotoThumb}
+                onPress={() => router.push("/(padre)/galeria" as any)}
                 activeOpacity={0.85}
-              />
+              >
+                <Image
+                  source={foto}
+                  style={styles.fotoThumbImg}
+                  resizeMode="cover"
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </View>
@@ -326,5 +368,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 60,
     borderRadius: 10,
+    overflow: "hidden",
+  },
+  fotoThumbImg: {
+    width: "100%",
+    height: "100%",
   },
 });

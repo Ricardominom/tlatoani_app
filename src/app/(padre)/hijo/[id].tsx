@@ -1,11 +1,12 @@
 import { AnimalAvatar } from "@/src/components/ui/AnimalKit";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Svg, { Circle, Line, Path, Polyline, Rect } from "react-native-svg";
 import TabBar from "../../../components/ui/TlatoaniTabIcons";
@@ -14,7 +15,7 @@ import {
   fonts,
   grupoColors,
   radii,
-  spacing
+  spacing,
 } from "../../../styles/global";
 
 const HIJOS_DATA: Record<string, any> = {
@@ -31,7 +32,7 @@ const HIJOS_DATA: Record<string, any> = {
       inicial: "S",
       nombre: "Sandra García",
       rol: "Guía Montessori",
-      grupo: "Casa de niños · Abejas"
+      grupo: "Casa de niños · Abejas",
     },
     autorizados: [
       {
@@ -43,7 +44,7 @@ const HIJOS_DATA: Record<string, any> = {
         principal: true,
         bg: colors.lightAmarillo,
         color: "#7A6200",
-        border: colors.primarioAmarillo
+        border: colors.primarioAmarillo,
       },
       {
         id: "2",
@@ -54,7 +55,7 @@ const HIJOS_DATA: Record<string, any> = {
         principal: true,
         bg: colors.lobosLight,
         color: colors.lobosS,
-        border: colors.lobos
+        border: colors.lobos,
       },
       {
         id: "3",
@@ -65,9 +66,9 @@ const HIJOS_DATA: Record<string, any> = {
         principal: false,
         bg: colors.verdeLight,
         color: "#3A7A18",
-        border: colors.verde
-      }
-    ]
+        border: colors.verde,
+      },
+    ],
   },
   diego: {
     nombre: "Diego Mino",
@@ -82,7 +83,7 @@ const HIJOS_DATA: Record<string, any> = {
       inicial: "R",
       nombre: "Roberto Lima",
       rol: "Guía Montessori",
-      grupo: "Taller 1 · Halcones"
+      grupo: "Taller 1 · Halcones",
     },
     autorizados: [
       {
@@ -94,7 +95,7 @@ const HIJOS_DATA: Record<string, any> = {
         principal: true,
         bg: colors.lightAmarillo,
         color: "#7A6200",
-        border: colors.primarioAmarillo
+        border: colors.primarioAmarillo,
       },
       {
         id: "2",
@@ -105,7 +106,7 @@ const HIJOS_DATA: Record<string, any> = {
         principal: true,
         bg: colors.lobosLight,
         color: colors.lobosS,
-        border: colors.lobos
+        border: colors.lobos,
       },
       {
         id: "3",
@@ -116,10 +117,10 @@ const HIJOS_DATA: Record<string, any> = {
         principal: false,
         bg: colors.verdeLight,
         color: "#3A7A18",
-        border: colors.verde
-      }
-    ]
-  }
+        border: colors.verde,
+      },
+    ],
+  },
 };
 
 export default function DetalleHijo() {
@@ -135,7 +136,7 @@ export default function DetalleHijo() {
 
   const CHAT_POR_HIJO: Record<string, string> = {
     victoria: "sandra",
-    diego: "rebeca"
+    diego: "rebeca",
   };
 
   return (
@@ -158,7 +159,15 @@ export default function DetalleHijo() {
           </Svg>
         </TouchableOpacity>
         <Text style={styles.headerTitulo}>{hijo.nombre.split(" ")[0]}</Text>
-        <TouchableOpacity style={styles.editBtn}>
+        <TouchableOpacity
+          style={styles.editBtn}
+          onPress={() =>
+            Alert.alert(
+              "Editar",
+              "Aquí se abriría el formulario para editar los datos de tu hijo.",
+            )
+          }
+        >
           <Text style={styles.editTxt}>Editar</Text>
         </TouchableOpacity>
       </View>
@@ -173,8 +182,8 @@ export default function DetalleHijo() {
             styles.hijoHero,
             {
               borderColor: colores.base,
-              shadowColor: colores.dark
-            }
+              shadowColor: colores.dark,
+            },
           ]}
         >
           <View
@@ -183,8 +192,8 @@ export default function DetalleHijo() {
               {
                 backgroundColor: colores.light,
                 borderColor: colores.base,
-                shadowColor: colores.dark
-              }
+                shadowColor: colores.dark,
+              },
             ]}
           >
             <AnimalAvatar salon={hijo.salon} size="lg" />
@@ -225,8 +234,8 @@ export default function DetalleHijo() {
               styles.nivelTag,
               {
                 backgroundColor: colores.base,
-                shadowColor: colores.dark
-              }
+                shadowColor: colores.dark,
+              },
             ]}
           >
             <Text style={[styles.nivelTagTxt, { color: colores.textColor }]}>
@@ -258,11 +267,15 @@ export default function DetalleHijo() {
             </View>
             <Text style={styles.accesoLbl}>Bitácora</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.accesoCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.accesoCard}
+            activeOpacity={0.7}
+            onPress={() => router.push("/(padre)/comida" as any)}
+          >
             <View
               style={[
                 styles.accesoIcono,
-                { backgroundColor: colors.lightAmarillo }
+                { backgroundColor: colors.lightAmarillo },
               ]}
             >
               <Svg
@@ -287,7 +300,7 @@ export default function DetalleHijo() {
             <View
               style={[
                 styles.accesoIcono,
-                { backgroundColor: colors.rojoLight }
+                { backgroundColor: colors.rojoLight },
               ]}
             >
               <Svg
@@ -344,21 +357,21 @@ export default function DetalleHijo() {
             { lbl: "Nivel", val: hijo.nivel },
             {
               lbl: "Salón",
-              val: hijo.salon.charAt(0).toUpperCase() + hijo.salon.slice(1)
+              val: hijo.salon.charAt(0).toUpperCase() + hijo.salon.slice(1),
             },
             { lbl: "Horario", val: hijo.horario },
             { lbl: "Ciclo escolar", val: hijo.ciclo },
             {
               lbl: "Estado de inscripción",
               val: hijo.activa ? "✓ Activa" : "Inactiva",
-              verde: hijo.activa
-            }
+              verde: hijo.activa,
+            },
           ].map((dato, index, arr) => (
             <View
               key={dato.lbl}
               style={[
                 styles.datosRow,
-                index === arr.length - 1 && styles.datosRowLast
+                index === arr.length - 1 && styles.datosRowLast,
               ]}
             >
               <Text style={styles.datosLbl}>{dato.lbl}</Text>
@@ -378,7 +391,7 @@ export default function DetalleHijo() {
               key={persona.id}
               style={[
                 styles.personaItem,
-                index === arr.length - 1 && styles.personaItemLast
+                index === arr.length - 1 && styles.personaItemLast,
               ]}
             >
               <View
@@ -386,8 +399,8 @@ export default function DetalleHijo() {
                   styles.personaAvatar,
                   {
                     backgroundColor: persona.bg,
-                    borderColor: persona.border
-                  }
+                    borderColor: persona.border,
+                  },
                 ]}
               >
                 <Text
@@ -409,7 +422,16 @@ export default function DetalleHijo() {
             </View>
           ))}
 
-          <TouchableOpacity style={styles.btnAgregar} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.btnAgregar}
+            activeOpacity={0.7}
+            onPress={() =>
+              Alert.alert(
+                "Agregar persona",
+                "Aquí se abriría el formulario para autorizar a alguien más a recoger.",
+              )
+            }
+          >
             <Svg
               width={14}
               height={14}
@@ -434,7 +456,7 @@ export default function DetalleHijo() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.fondo
+    backgroundColor: colors.fondo,
   },
 
   header: {
@@ -446,7 +468,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   backBtn: {
     width: 40,
@@ -456,30 +478,30 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#E8E8E8",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerTitulo: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   editBtn: {
     backgroundColor: colors.halconesLight,
     paddingVertical: 5,
     paddingHorizontal: 14,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   editTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: colors.halcones
+    color: colors.halcones,
   },
 
   scroll: { flex: 1 },
   scrollContent: {
     padding: spacing.md,
     gap: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
 
   hijoHero: {
@@ -492,7 +514,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4
+    elevation: 4,
   },
   hijoAvatar: {
     width: 110,
@@ -504,18 +526,18 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 4
+    elevation: 4,
   },
   hijoNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 24,
-    color: colors.texto
+    color: colors.texto,
   },
   metaRow: {
     flexDirection: "row",
     gap: 7,
     flexWrap: "wrap",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   metaChip: {
     flexDirection: "row",
@@ -524,12 +546,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     paddingVertical: 4,
     paddingHorizontal: 10,
-    borderRadius: radii.pill
+    borderRadius: radii.pill,
   },
   metaTxt: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
-    color: "#666"
+    color: "#666",
   },
   nivelTag: {
     paddingVertical: 5,
@@ -538,17 +560,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 0,
-    elevation: 2
+    elevation: 2,
   },
   nivelTagTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 14
+    fontSize: 14,
   },
 
   accesosRow: {
     flexDirection: "row",
     gap: 8,
-    marginTop: 10
+    marginTop: 10,
   },
   accesoCard: {
     flex: 1,
@@ -558,20 +580,20 @@ const styles = StyleSheet.create({
     borderColor: "#EBEBEB",
     padding: 12,
     alignItems: "center",
-    gap: 6
+    gap: 6,
   },
   accesoIcono: {
     width: 56,
     height: 56,
     borderRadius: 11,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   accesoLbl: {
     fontFamily: fonts.fontExtra,
     fontSize: 12,
     color: colors.texto,
-    textAlign: "center"
+    textAlign: "center",
   },
 
   sep: {
@@ -581,7 +603,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: "uppercase",
     paddingHorizontal: 2,
-    marginTop: 4
+    marginTop: 4,
   },
 
   maestraCard: {
@@ -592,7 +614,7 @@ const styles = StyleSheet.create({
     padding: 14,
     flexDirection: "row",
     alignItems: "center",
-    gap: 12
+    gap: 12,
   },
   maestraAvatar: {
     width: 66,
@@ -608,29 +630,29 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   maestraAvatarTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 24,
-    color: colors.halconesS
+    color: colors.halconesS,
   },
   maestraInfo: { flex: 1 },
   maestraRol: {
     fontFamily: fonts.fontBold,
     fontSize: 11,
     color: "#AAA",
-    letterSpacing: 0.8
+    letterSpacing: 0.8,
   },
   maestraNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 20,
-    color: colors.texto
+    color: colors.texto,
   },
   maestraGrupo: {
     fontFamily: fonts.fontBold,
     fontSize: 12,
-    color: "#888"
+    color: "#888",
   },
   btnMsg: {
     width: 46,
@@ -645,7 +667,7 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     elevation: 2,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   datosCard: {
@@ -653,7 +675,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
   datosRow: {
     flexDirection: "row",
@@ -661,18 +683,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   datosRowLast: { borderBottomWidth: 0 },
   datosLbl: {
     fontFamily: fonts.fontBold,
     fontSize: 14,
-    color: "#AAA"
+    color: "#AAA",
   },
   datosVal: {
     fontFamily: fonts.fontBlack,
     fontSize: 14,
-    color: colors.texto
+    color: colors.texto,
   },
   datosValVerde: { color: "#3A7A18" },
 
@@ -681,7 +703,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     borderWidth: 0.5,
     borderColor: "#EBEBEB",
-    padding: 14
+    padding: 14,
   },
   personaItem: {
     flexDirection: "row",
@@ -689,7 +711,7 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#F5F5F5"
+    borderBottomColor: "#F5F5F5",
   },
   personaItemLast: { borderBottomWidth: 0 },
   personaAvatar: {
@@ -699,39 +721,39 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0
+    flexShrink: 0,
   },
   personaAvatarTxt: {
     fontFamily: fonts.fontBlack,
-    fontSize: 20
+    fontSize: 20,
   },
   personaDatos: { flex: 1 },
   personaNombre: {
     fontFamily: fonts.fontBlack,
     fontSize: 18,
-    color: colors.texto
+    color: colors.texto,
   },
   personaRel: {
     fontFamily: fonts.fontBold,
     fontSize: 14,
-    color: "#AAA"
+    color: "#AAA",
   },
   personaTel: {
     fontFamily: fonts.fontBold,
     fontSize: 14,
     color: "#888",
-    marginTop: 1
+    marginTop: 1,
   },
   principalBadge: {
     backgroundColor: colors.lightAmarillo,
     paddingVertical: 2,
     paddingHorizontal: 8,
-    borderRadius: radii.sm
+    borderRadius: radii.sm,
   },
   principalTxt: {
     fontFamily: fonts.fontBlack,
     fontSize: 11,
-    color: colors.secundarioAmarillo
+    color: colors.secundarioAmarillo,
   },
   btnAgregar: {
     flexDirection: "row",
@@ -743,11 +765,11 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     borderWidth: 2,
     borderColor: "#D0D0D0",
-    borderStyle: "dashed"
+    borderStyle: "dashed",
   },
   btnAgregarTxt: {
     fontFamily: fonts.fontExtra,
     fontSize: 14,
-    color: "#AAA"
-  }
+    color: "#AAA",
+  },
 });
