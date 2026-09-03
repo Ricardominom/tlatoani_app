@@ -3,13 +3,16 @@ import { Animated, StyleSheet, View } from "react-native";
 import { AnimalPillLight } from "../../components/ui/AnimalKit";
 
 const ANIMALES = [
+  { salon: "koalas" },
+  { salon: "pollitos" },
   { salon: "abejas" },
   { salon: "hormigas" },
   { salon: "halcones" },
+  { salon: "nutrias" },
   { salon: "lobos" },
-  { salon: "pollitos" },
   { salon: "leones" },
-  { salon: "pandas" }
+  { salon: "pandas" },
+  { salon: "panteras" },
 ];
 
 const ITEMS = [...ANIMALES, ...ANIMALES, ...ANIMALES];
@@ -27,7 +30,7 @@ export default function CarruselAnimales() {
       Animated.timing(translateX, {
         toValue: -TOTAL_WIDTH,
         duration: DURACION,
-        useNativeDriver: true
+        useNativeDriver: true,
       }).start(() => {
         animar();
       });
@@ -55,11 +58,11 @@ const styles = StyleSheet.create({
   contenedor: {
     width: "100%",
     overflow: "hidden",
-    marginTop: 12
+    marginTop: 12,
   },
   fila: {
     flexDirection: "row",
     gap: 6,
-    paddingVertical: 4
-  }
+    paddingVertical: 4,
+  },
 });

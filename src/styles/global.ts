@@ -109,6 +109,24 @@ export const grupoColors = {
     light: "#FFF8E1",
     dark: "#CC7A00",
     textColor: "#5A3A00"
+  },
+  koalas: {
+    base: "#5B8FD4",
+    light: "#E9F1FB",
+    dark: "#3A63A0",
+    textColor: "#1E3D6B"
+  },
+  nutrias: {
+    base: "#B5764A",
+    light: "#F8EFE6",
+    dark: "#7F4C29",
+    textColor: "#4E2C14"
+  },
+  panteras: {
+    base: "#565A6E",
+    light: "#EEEFF4",
+    dark: "#363A4C",
+    textColor: "#1E2130"
   }
 };
 

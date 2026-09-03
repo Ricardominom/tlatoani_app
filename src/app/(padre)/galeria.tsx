@@ -1,4 +1,9 @@
-import { AnimalPill, AnimalPillLight } from "@/src/components/ui/AnimalKit";
+import {
+  AnimalPill,
+  AnimalPillLight,
+  GRUPOS,
+} from "@/src/components/ui/AnimalKit";
+import { FOTOS } from "@/src/utils/fotos";
 import { mesAbrev, nombreMes } from "@/src/utils/tiempo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -10,12 +15,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Svg, { Circle, Ellipse, Line, Path, Polyline, Rect } from "react-native-svg";
-import { FOTOS } from "@/src/utils/fotos";
+import Svg, {
+  Circle,
+  Ellipse,
+  Line,
+  Path,
+  Polyline,
+  Rect,
+} from "react-native-svg";
 import TabBar from "../../components/ui/TlatoaniTabIcons";
 import { colors, fonts, radii, spacing } from "../../styles/global";
 
-type Salon = "abejas" | "halcones" | "hormigas" | "lobos" | "pollitos" | null;
+type Salon =
+  | "koalas"
+  | "abejas"
+  | "halcones"
+  | "hormigas"
+  | "lobos"
+  | "pollitos"
+  | "nutrias"
+  | "leones"
+  | "pandas"
+  | "panteras"
+  | null;
 
 interface Evento {
   id: string;
@@ -88,15 +110,7 @@ const EVENTOS: Evento[] = [
   },
 ];
 
-const SALONES = [
-  "abejas",
-  "hormigas",
-  "halcones",
-  "lobos",
-  "leones",
-  "pandas",
-  "pollitos",
-];
+const SALONES = GRUPOS.map((g) => g.name.toLowerCase());
 
 function HeroEvento({ id }: { id: string }) {
   if (id === "1") {
@@ -293,7 +307,11 @@ function EventoCard({
       activeOpacity={0.85}
     >
       <View style={styles.heroWrap}>
-        <Image source={evento.fotos[0]} style={styles.heroImg} resizeMode="cover" />
+        <Image
+          source={evento.fotos[0]}
+          style={styles.heroImg}
+          resizeMode="cover"
+        />
 
         <View style={styles.countBadge}>
           <Svg
@@ -353,7 +371,11 @@ function EventoCard({
       <View style={styles.miniGrid}>
         {evento.fotos.slice(0, 4).map((foto, i) => (
           <View key={i} style={styles.miniThumb}>
-            <Image source={foto} style={styles.miniThumbImg} resizeMode="cover" />
+            <Image
+              source={foto}
+              style={styles.miniThumbImg}
+              resizeMode="cover"
+            />
             {i === 3 && mostrarExtra > 0 && (
               <View style={styles.masOverlay}>
                 <Text style={styles.masTxt}>+{mostrarExtra}</Text>
